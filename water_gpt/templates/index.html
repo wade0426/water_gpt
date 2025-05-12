@@ -11,73 +11,6 @@
     <!-- 添加圖標庫 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="/static/style.css" />
-    <style>
-      /* 改善垂直空間利用 */
-      body, html {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      
-      .container {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow: hidden;
-      }
-      
-      header {
-        flex-shrink: 0;
-      }
-      
-      #chat-box {
-        flex: 1;
-        overflow-y: auto;
-        padding: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .input-container {
-        flex-shrink: 0;
-        padding: 0.5rem;
-        background-color: #fff;
-        border-top: 1px solid #e0e0e0;
-      }
-      
-      /* 美化滾動條 */
-      #chat-box::-webkit-scrollbar {
-        width: 8px;
-      }
-      
-      #chat-box::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.05);
-        border-radius: 10px;
-      }
-      
-      #chat-box::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-      }
-      
-      #chat-box::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.3);
-      }
-      
-      /* 調整機器人圖片大小 */
-      .avatar img {
-        width: 60px;
-        height: 60px;
-        object-fit: contain;
-      }
-      
-      .welcome-icon {
-        width: 90px;
-        height: 90px;
-        object-fit: contain;
-        margin-bottom: 0px;
-      }
-    </style>
   </head>
   <body>
     <div id="app" class="container">
@@ -133,6 +66,27 @@
       </div>
 
       <!-- 輸入區域 -->
+      {% raw %}
+      <div class="quick-messages-container" v-if="quickMessages.length > 0 && !hideQuickMessages">
+        <div class="quick-messages-scroll">
+          <button
+            v-for="(message, index) in quickMessages"
+            :key="index"
+            @click="sendQuickMessage(message)"
+            class="quick-message-btn">
+            {{ message }}
+          </button>
+        </div>
+        <button @click="hideQuickMessages = !hideQuickMessages" class="toggle-quick-btn" title="收起快捷訊息">
+          <i class="fas fa-chevron-up"></i>
+        </button>
+      </div>
+      <div v-if="quickMessages.length > 0 && hideQuickMessages" class="show-quick-btn-container">
+        <button @click="hideQuickMessages = !hideQuickMessages" class="show-quick-btn" title="展開快捷訊息">
+          <i class="fas fa-chevron-down"></i> 快捷訊息
+        </button>
+      </div>
+      {% endraw %}
       <div class="input-container">
         <textarea
           class="message-input"
@@ -170,6 +124,8 @@
           const isLoading = ref(false);
           const showClearModal = ref(false);
           const messageInput = ref(null);
+          const quickMessages = ref([]);
+          const hideQuickMessages = ref(false);
           
           const fetchMessages = async () => {
             try {
@@ -178,6 +134,15 @@
               scrollToBottom();
             } catch (error) {
               console.error("獲取聊天記錄失敗:", error);
+            }
+          };
+          
+          const fetchQuickMessages = async () => {
+            try {
+              const res = await axios.get("/quick_messages");
+              quickMessages.value = res.data;
+            } catch (error) {
+              console.error("獲取快捷訊息失敗:", error);
             }
           };
           
@@ -203,6 +168,7 @@
               let botReply = res.data.reply;
               if (botReply.startsWith("生成回答: ")) {
                 botReply = botReply.substring("生成回答: ".length);
+                fetchQuickMessages()
               }
               
               messages.value.push({ role: "bot", message: botReply });
@@ -213,6 +179,11 @@
               messages.value.push({ role: "bot", message: "抱歉，發生錯誤，請稍後再試。" });
               scrollToBottom();
             }
+          };
+          
+          const sendQuickMessage = (message) => {
+            userInput.value = message;
+            sendMessage();
           };
           
           const handleEnterKey = (e) => {
@@ -285,6 +256,7 @@
           
           onMounted(() => {
             fetchMessages();
+            fetchQuickMessages();
             
             // 監聽文本區域輸入以調整高度
             if (messageInput.value) {
@@ -298,6 +270,8 @@
             isLoading,
             showClearModal,
             messageInput,
+            quickMessages,
+            hideQuickMessages,
             sendMessage,
             handleEnterKey,
             showClearConfirm,
@@ -305,7 +279,8 @@
             renderMarkdown,
             getCurrentTime,
             copyMessage,
-            scrollToBottom
+            scrollToBottom,
+            sendQuickMessage
           };
         },
       }).mount("#app");

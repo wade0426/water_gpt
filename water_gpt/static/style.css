@@ -28,6 +28,72 @@ body {
   margin: 0;
 }
 
+/* 改善垂直空間利用 */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  flex-shrink: 0;
+}
+
+#chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-container {
+  flex-shrink: 0;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* 美化滾動條 */
+#chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+#chat-box::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 調整機器人圖片大小 */
+.avatar img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.welcome-icon {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 0px;
+}
+
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -430,4 +496,117 @@ h1 {
 .welcome-message p {
   color: var(--text-color);
   opacity: 0.8;
+}
+
+/* 快捷訊息樣式 */
+.quick-messages-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.quick-messages-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 8px;
+  padding-bottom: 5px;
+  width: calc(100% - 30px);
+}
+
+.quick-messages-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.quick-messages-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.quick-messages-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.quick-messages-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.quick-message-btn {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 18px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.quick-message-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.toggle-quick-btn {
+  background: transparent;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  transition: all 0.2s;
+}
+
+.toggle-quick-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-color);
+}
+
+/* 展開快捷訊息按鈕 */
+.show-quick-btn-container {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.show-quick-btn {
+  background-color: #f8f9fa;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 5px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.show-quick-btn:hover {
+  background-color: #f1f3f5;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.show-quick-btn i {
+  font-size: 12px;
+}
+
+@media (max-width: 480px) {
+  .quick-message-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }

@@ -6,7 +6,7 @@ async def connect_websocket():
     """建立WebSocket連接"""
     while True:
         try:
-            return await websockets.connect("wss://3090p8001.huannago.com/ws/embedding")
+            return await websockets.connect("wss://4090p8001.huannago.com/ws/embedding")
         except ConnectionRefusedError:
             print("無法連接到服務器 - 重試中...")
             await asyncio.sleep(5)

@@ -62,5 +62,12 @@ def clear():
     return (f" 刪除 {count} 筆資料")
 
 
+@app.route("/quick_messages", methods=["GET"])
+def quick_messages():
+    """ 取得快捷訊息 """
+    quick_replies = ["測試", "這是快捷訊息1", "這是快捷訊息2", "這是快捷訊息3"]
+    return jsonify(quick_replies)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
