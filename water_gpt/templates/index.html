@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WaterGPT</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 添加 Markdown 渲染庫 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 添加圖標庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <style>
+      /* 改善垂直空間利用 */
+      body, html {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+      }
+      
+      header {
+        flex-shrink: 0;
+      }
+      
+      #chat-box {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .input-container {
+        flex-shrink: 0;
+        padding: 0.5rem;
+        background-color: #fff;
+        border-top: 1px solid #e0e0e0;
+      }
+      
+      /* 美化滾動條 */
+      #chat-box::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      #chat-box::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+      }
+      
+      #chat-box::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+      }
+      
+      #chat-box::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+      
+      /* 調整機器人圖片大小 */
+      .avatar img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+      }
+      
+      .welcome-icon {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        margin-bottom: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <header>
+        <h1>WaterGPT</h1>
+        <button @click="showClearConfirm" class="clear-btn" v-if="messages.length > 0">
+          <i class="fas fa-trash"></i> 清除聊天
+        </button>
+      </header>
+
+      <!-- 聊天視窗 -->
+      <div id="chat-box">
+        {% raw %}
+        <!-- 歡迎訊息 -->
+        <div v-if="messages.length === 0" class="welcome-container">
+          <div class="welcome-message">
+            <img src="/static/robot.png" class="welcome-icon" alt="機器人">
+            <h2>歡迎使用 WaterGPT</h2>
+            <p>請輸入您的問題，我將盡力為您解答。</p>
+          </div>
+        </div>
+        <div v-for="(msg, index) in messages" :key="index" class="message-container" :class="msg.role">
+          <div class="avatar" v-if="msg.role === 'bot'">
+            <img src="/static/robot.png" alt="機器人">
+          </div>
+          <div class="avatar" v-else>
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="message-bubble">
+            <div v-if="msg.role === 'bot'" v-html="renderMarkdown(msg.message)"></div>
+            <div v-else>{{ msg.message }}</div>
+            <div class="message-time">{{ getCurrentTime() }}</div>
+          </div>
+          <div class="message-actions">
+            <button @click="copyMessage(msg.message)" class="copy-btn" title="複製訊息">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <div v-if="isLoading" class="loading-indicator">
+          <div class="message-container bot">
+            <div class="avatar">
+              <img src="/static/robot.png" alt="機器人">
+            </div>
+            <div class="message-bubble typing">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+        {% endraw %}
+      </div>
+
+      <!-- 輸入區域 -->
+      <div class="input-container">
+        <textarea
+          class="message-input"
+          v-model="userInput"
+          @keyup.enter="handleEnterKey"
+          placeholder="輸入訊息..."
+          rows="1"
+          ref="messageInput"
+        ></textarea>
+        <button @click="sendMessage" :disabled="!userInput.trim() || isLoading" class="send-btn">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <!-- 清除確認對話框 -->
+      <div class="modal" v-if="showClearModal">
+        <div class="modal-content">
+          <h3>確定要清除所有聊天記錄嗎？</h3>
+          <p>此操作不可撤銷。</p>
+          <div class="modal-actions">
+            <button @click="showClearModal = false" class="cancel-btn">取消</button>
+            <button @click="confirmClear" class="confirm-btn">確定清除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp, ref, onMounted, nextTick } = Vue;
+      
+      createApp({
+        setup() {
+          const userInput = ref("");
+          const messages = ref([]);
+          const isLoading = ref(false);
+          const showClearModal = ref(false);
+          const messageInput = ref(null);
+          
+          const fetchMessages = async () => {
+            try {
+              const res = await axios.get("/messages");
+              messages.value = res.data;
+              scrollToBottom();
+            } catch (error) {
+              console.error("獲取聊天記錄失敗:", error);
+            }
+          };
+          
+          const sendMessage = async () => {
+            if (!userInput.value.trim()) return;
+            
+            const userMsg = userInput.value;
+            userInput.value = "";
+            
+            messages.value.push({ role: "user", message: userMsg });
+            scrollToBottom();
+            
+            isLoading.value = true;
+            
+            try {
+              const res = await axios.post("/send", {
+                message: userMsg,
+              });
+              
+              isLoading.value = false;
+              
+              // 從回覆中提取實際的回答文本（去除前綴）
+              let botReply = res.data.reply;
+              if (botReply.startsWith("生成回答: ")) {
+                botReply = botReply.substring("生成回答: ".length);
+              }
+              
+              messages.value.push({ role: "bot", message: botReply });
+              scrollToBottom();
+            } catch (error) {
+              isLoading.value = false;
+              console.error("發送訊息失敗:", error);
+              messages.value.push({ role: "bot", message: "抱歉，發生錯誤，請稍後再試。" });
+              scrollToBottom();
+            }
+          };
+          
+          const handleEnterKey = (e) => {
+            if (e.shiftKey) return; // 允許 Shift+Enter 換行
+            e.preventDefault();
+            sendMessage();
+          };
+          
+          const showClearConfirm = () => {
+            console.log("顯示清除確認對話框");
+            showClearModal.value = true;
+          };
+          
+          const confirmClear = async () => {
+            console.log("執行清除操作");
+            try {
+              const res = await axios.post("/clear", {});
+              console.log("清除結果:", res.data);
+              messages.value = [];
+              showClearModal.value = false;
+            } catch (error) {
+              console.error("清除聊天記錄失敗:", error);
+              alert("清除失敗，請稍後重試");
+            }
+          };
+          
+          const scrollToBottom = () => {
+            nextTick(() => {
+              const chatBox = document.getElementById("chat-box");
+              chatBox.scrollTop = chatBox.scrollHeight;
+            });
+          };
+          
+          const renderMarkdown = (text) => {
+            try {
+              // 移除可能的前綴
+              let cleanText = text;
+              if (cleanText.startsWith("生成回答: ")) {
+                cleanText = cleanText.substring("生成回答: ".length);
+              }
+              return marked.parse(cleanText);
+            } catch (e) {
+              console.error("Markdown 渲染錯誤:", e);
+              return text; // 如果解析失敗，返回原始文本
+            }
+          };
+          
+          const getCurrentTime = () => {
+            const now = new Date();
+            return `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+          };
+          
+          const copyMessage = (text) => {
+            navigator.clipboard.writeText(text)
+              .then(() => {
+                alert("已複製到剪貼簿");
+              })
+              .catch(err => {
+                console.error("複製失敗:", err);
+              });
+          };
+          
+          // 自動調整文本區域高度
+          const adjustTextareaHeight = () => {
+            if (messageInput.value) {
+              messageInput.value.style.height = "auto";
+              messageInput.value.style.height = `${messageInput.value.scrollHeight}px`;
+            }
+          };
+          
+          onMounted(() => {
+            fetchMessages();
+            
+            // 監聽文本區域輸入以調整高度
+            if (messageInput.value) {
+              messageInput.value.addEventListener("input", adjustTextareaHeight);
+            }
+          });
+          
+          return {
+            userInput,
+            messages,
+            isLoading,
+            showClearModal,
+            messageInput,
+            sendMessage,
+            handleEnterKey,
+            showClearConfirm,
+            confirmClear,
+            renderMarkdown,
+            getCurrentTime,
+            copyMessage,
+            scrollToBottom
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
