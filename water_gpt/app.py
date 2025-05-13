@@ -10,6 +10,9 @@ app = Flask(__name__, static_folder='static',  # 靜態檔案資料夾
 # 初始化聊天機器人
 chatbot = ChatBot()
 
+# 初始化快速訊息機器人
+quick_messages_bot = ChatBot()
+
 # 儲存訊息的列表
 messages = []
 
@@ -39,6 +42,8 @@ def send():
     
     # 儲存 AI 回覆
     messages.append({"role": "bot", "message": bot_reply})
+    
+    # print(messages)
 
     return jsonify({"reply": f"生成回答: {bot_reply}"})
 
@@ -65,8 +70,12 @@ def clear():
 @app.route("/quick_messages", methods=["GET"])
 def quick_messages():
     """ 取得快捷訊息 """
-    quick_replies = ["測試", "這是快捷訊息1", "這是快捷訊息2", "這是快捷訊息3"]
-    return jsonify(quick_replies)
+    if len(messages) < 2:
+        return jsonify(["熱門訊息1", "熱門訊息2", "熱門訊息3"])
+    else:
+        quick_replies = quick_messages_bot.generate_quick_messages(messages)
+        return jsonify(quick_replies)
+
 
 
 if __name__ == "__main__":
