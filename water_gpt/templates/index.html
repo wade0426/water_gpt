@@ -73,7 +73,8 @@
             v-for="(message, index) in quickMessages"
             :key="index"
             @click="sendQuickMessage(message)"
-            class="quick-message-btn">
+            class="quick-message-btn"
+            :disabled="isLoading">
             {{ message }}
           </button>
         </div>
@@ -95,6 +96,7 @@
           placeholder="輸入訊息..."
           rows="1"
           ref="messageInput"
+          :disabled="isLoading"
         ></textarea>
         <button @click="sendMessage" :disabled="!userInput.trim() || isLoading" class="send-btn">
           <i class="fas fa-paper-plane"></i>
@@ -162,14 +164,15 @@
                 message: userMsg,
               });
               
-              isLoading.value = false;
-              
               // 從回覆中提取實際的回答文本（去除前綴）
               let botReply = res.data.reply;
               if (botReply.startsWith("生成回答: ")) {
                 botReply = botReply.substring("生成回答: ".length);
-                fetchQuickMessages()
+                // 如果不使用 await，quickMessages 會在 isLoading.value = false 後才更新
+                await fetchQuickMessages()
               }
+
+              isLoading.value = false;
               
               messages.value.push({ role: "bot", message: botReply });
               scrollToBottom();
