@@ -123,6 +123,120 @@ CATEGORY_MAP = {
     8: "App／網站使用與隱私政策",
 }
 
+
+class WaterGPTClient:
+    def __init__(self):
+        self.ws = None
+        self.ws_url = "wss://3090p8001.huannago.com/ws/embedding"
+        self.connected = False
+        self.shared = {"last_docs": []}
+        self.ws_task = None
+
+    async def connect(self):
+        if self.connected:
+            return
+        
+        self.ws = await websockets.connect(
+            self.ws_url,
+            ping_interval=None  # 我們自己做 ping/pong
+        )
+        self.connected = True
+        self.ws_task = asyncio.create_task(self._handle_ws())
+        print("WebSocket已連接")
+
+    async def disconnect(self):
+        if not self.connected:
+            return
+            
+        if self.ws_task:
+            self.ws_task.cancel()
+            self.ws_task = None
+            
+        await self.ws.close()
+        self.connected = False
+        print("WebSocket已斷開")
+
+    async def _handle_ws(self):
+        while True:
+            try:
+                # 核心的接收訊息操作
+                response = await self.ws.recv()
+
+                # 如果收到 ping，回傳 pong (心跳機制)
+                if response == "__ping__":
+                    await self.ws.send("__pong__")
+                    continue
+
+                data = json.loads(response)
+                docs = data["response"]
+                # 共享數據操作
+                self.shared["last_docs"] = docs
+
+            except websockets.ConnectionClosed:
+                print("❌ WebSocket 已斷線")
+                self.connected = False
+                break
+
+    async def ask(self, text):
+        # 如果沒有連線，會自動連線
+        if not self.connected:
+            await self.connect()
+            
+        text = text.strip()
+        
+        # 判斷是否為問題
+        verdict = question_classifier.predict(text=text).strip()
+        
+        if verdict != "是":
+            return "✘ 這看起來不是一個問題，請輸入水務相關提問。"
+
+        # 發送問題到WebSocket
+        await self.ws.send(json.dumps({"request": text, "top_k": 5}))
+        
+        # 等待回應
+        for _ in range(10):  # 最多等待10次
+            await asyncio.sleep(0.3)
+            docs = self.shared["last_docs"]
+            if docs:
+                break
+        
+        if not docs:
+            return "❌ 沒有找到相關文件。"
+
+        docs_text = "\n\n".join(
+            f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
+            for i, d in enumerate(docs)
+        )
+
+        # 判斷是否能回答
+        answerable = can_answer_chain.predict(
+            question=text,
+            docs=docs_text
+        ).strip()
+
+        if answerable == "是":
+            result = llm_retrieve_chain.predict(
+                question=text,
+                docs=docs_text
+            ).strip()
+            return result
+
+        # 判斷是否為水務相關問題
+        wrong_question = wrong_question_classifier.predict(text=text).strip()
+        if wrong_question == "是":
+            return "✔ 我可以幫你接洽專人"
+        else:
+            return "✘ 很抱歉，請詢問與水利署相關之問題喔!"
+    
+    # 生成快捷訊息
+    async def generate_quick_messages(self, history):
+        # 如果沒有連線，會自動連線
+        if not self.connected:
+            await self.connect()
+        quick_messages = quick_messages_llm.predict(history=history).strip()
+        return quick_messages
+
+
 async def handle_ws(ws, shared):
     while True:
         try:
