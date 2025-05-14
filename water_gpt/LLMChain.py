@@ -9,6 +9,26 @@ API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 HEADERS = {"Content-Type": "application/json"}
 MODEL   = "gpt-3.5-turbo"
 
+QUICK_MESSAGES_PROMPT = """我將提供一段「對話歷史紀錄」。請你根據這段歷史紀錄，特別是**機器人最後的回應**，設想**使用者**接下來可能會提出的 **4 個相關問題**。
+
+你的任務是：
+1.  仔細分析機器人提供的資訊。
+2.  思考使用者可能會對哪些細節感到好奇、需要進一步澄清，或是可能引申出的其他相關疑問。
+3.  生成的問題應該是自然且合乎邏輯的延伸。
+
+請將這 4 個預測的問題以 JSON 格式輸出，結構如下：
+{
+  "questions": [
+    "問題一",
+    "問題二",
+    "問題三",
+    "問題四"
+  ]
+}
+
+請嚴格遵守此 JSON 格式。
+"""
+
 class ClassifierLLM(LLM):
     @property
     def _llm_type(self) -> str:
@@ -18,7 +38,7 @@ class ClassifierLLM(LLM):
         payload = {
             "model":    MODEL,
             "messages": [
-                {"role": "system", "content": "你是一個訊息分類器，只回覆單字 “是” 或 “否”"},
+                {"role": "system", "content": "你是一個訊息分類器，只回覆單字 \"是\" 或 \"否\""},
                 {"role": "user",   "content": prompt}
             ],
             "stream": False
@@ -31,6 +51,7 @@ class ClassifierLLM(LLM):
     @property
     def identifying_params(self) -> dict:
         return {"model": MODEL}
+
 
 class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
@@ -47,6 +68,23 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+
+class QuickMessagesLLM(ClassifierLLM):  # 可繼承同樣底層
+    def _call(self, prompt: str, stop=None) -> str:
+        payload = {
+            "model":    MODEL,
+            "messages": [
+                {"role": "system", "content": QUICK_MESSAGES_PROMPT},
+                {"role": "user",   "content": prompt}
+            ],
+            "stream": False
+        }
+        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
+
+
 question_classifier = LLMChain(
     llm=ClassifierLLM(),
     prompt=PromptTemplate(
@@ -61,6 +99,7 @@ question_classifier = LLMChain(
 """
     )
 )
+
 
 can_answer_chain = LLMChain(
     llm=ClassifierLLM(),
@@ -80,6 +119,7 @@ can_answer_chain = LLMChain(
     output_key="verdict"
 )
 
+
 wrong_question_classifier = LLMChain(
     llm=ClassifierLLM(),
     prompt=PromptTemplate(
@@ -94,6 +134,7 @@ wrong_question_classifier = LLMChain(
 """
     )
 )
+
 
 llm_retrieve_chain = LLMChain(
     llm=RetrieveLLM(),
@@ -111,6 +152,16 @@ llm_retrieve_chain = LLMChain(
     ),
     output_key="verdict"
 )
+
+
+quick_messages_llm = LLMChain(
+    llm=QuickMessagesLLM(),
+    prompt=PromptTemplate(
+        input_variables=["history"],
+        template="""{history}"""
+    )
+)
+
 
 CATEGORY_MAP = {
     1: "電子帳單、簡訊帳單及通知服務",
@@ -261,6 +312,7 @@ async def handle_ws(ws, shared):
             print("❌ WebSocket 已斷線")
             break
 
+
 async def main():
     print("Connecting to WebSocket…")
     async with websockets.connect(
@@ -321,8 +373,9 @@ async def main():
 
         ws_task.cancel()
 
+
 if __name__ == "__main__":
-    asyncio.run(main())
+    # asyncio.run(main())
 
     # payload = {
     #     "model":    MODEL,
@@ -338,3 +391,31 @@ if __name__ == "__main__":
     # print(data["choices"][0]["message"]["content"])
     
     pass
+
+
+
+# WaterGPTClient 測試
+'''
+async def example():
+    # 建立客戶端
+    client = WaterGPTClient()
+    
+    # 連接WebSocket (ask方法會自動連接，但也可以預先連接)
+    await client.connect()
+    
+    try:
+        # 提問
+        response = await client.ask("請問如何繳水費？")
+        print(f"回答: {response}")
+        
+        # 可以多次提問而不需要重新連接
+        response = await client.ask("水質檢測標準是什麼？")
+        print(f"回答: {response}")
+        
+    finally:
+        # 結束時斷開連接
+        await client.disconnect()
+
+# 運行範例
+# asyncio.run(example())
+'''
