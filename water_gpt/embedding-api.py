@@ -9,6 +9,7 @@ import json
 import os
 import logging
 import time
+import asyncio
 
 app = FastAPI()
 
@@ -47,6 +48,16 @@ class ConnectionManager:
     async def send_personal_message(self, message: str, websocket: WebSocket):
         await websocket.send_text(message)
 
+    async def _ping(self, websocket: WebSocket):
+        try:
+            while True:
+                await asyncio.sleep(20)  # 每 20 秒 ping 一次
+                await websocket.send_text("__ping__")
+        except Exception as e:
+            logging.warning(f"Ping 發送失敗，視為斷線：{e}")
+            await websocket.close()
+            self.disconnect(websocket)
+
 class Embedding:
     class Document:
         def __init__(self, page_content, metadata):
@@ -57,9 +68,9 @@ class Embedding:
             return f"Document({self.page_content[:20]!r}, meta={self.metadata})"
 
     def __init__(self):
-        self.DATA_PATH = "./data/water_data_content_v3-class.json"
+        self.DATA_PATH = "../water_data_content_v3-class.json"
         self.DB_DIR    = "./db"
-        self.EMB_MODEL_NAME   = "../jina-embeddings-v3"
+        self.EMB_MODEL_NAME   = "C:/Users/ramune/Documents/Project/Python/rag/jina-embeddings-v3"
         self.EMB_MODEL_KWARGS = {"device": "cuda", "trust_remote_code": True}
         
         embedding = HuggingFaceEmbeddings(
@@ -87,19 +98,30 @@ class Embedding:
 
     def retrieve(self, query: str, top_k=5):
         q_simp = self.tw2s.convert(query)
-        docs = self.vectordb.similarity_search(
+        docs = self.vectordb.similarity_search_with_score(
             query=q_simp,
             k=top_k#self.top_k
         )
-        results = [
-            {
-                "title":    d.metadata["title"],
-                "content":  self.s2tw.convert(d.page_content),
-                "category": d.metadata["category"],
-                "score":    None
-            }
-            for d in docs
-        ]
+
+        results = []
+        for doc, score in docs:
+            results.append({
+                "title":      doc.metadata.get("title"),
+                "content":    self.s2tw.convert(doc.page_content),
+                "category":   doc.metadata.get("category"),
+                # confidence 取原始 cosine score，或可以做归一化
+                "confidence": float(score)
+            })
+
+        #results = [
+        #    {
+        #        "title":    d.metadata["title"],
+        #        "content":  self.s2tw.convert(d.page_content),
+        #        "category": d.metadata["category"],
+        #        "score":    None
+        #    }
+        #    for d in docs
+        #]
 
         return results
 
@@ -145,20 +167,21 @@ if __name__ == "__main__":
     async def websocket_endpoint(websocket: WebSocket):
         await connection_manager.connect(websocket)
         try:
-            data = await websocket.receive_json()
-            request = data.get("request")
-            
-            if data.get("top_k"):
-                top_k = data.get("top_k")
-            else:
-                top_k = 5
+            while True:
+                data = await websocket.receive_json()
+                request = data.get("request")
+                
+                if data.get("top_k"):
+                    top_k = data.get("top_k")
+                else:
+                    top_k = 5
 
-            result = main.retrieve(request, top_k)#"True"
+                result = main.retrieve(request, top_k)#"True"
 
-            await connection_manager.send_personal_message(
-                json.dumps({"response": result}),
-                websocket
-            )
+                await connection_manager.send_personal_message(
+                    json.dumps({"response": result}),
+                    websocket
+                )
         except WebSocketDisconnect:
             connection_manager.disconnect(websocket)
         except Exception as e:
