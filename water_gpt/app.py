@@ -1,7 +1,8 @@
+# pip install "Flask[async]"
 from flask import *
 # from flask_cors import CORS
 from tools import ChatBot
-from rag_api import send_to_websocket_sync
+
 
 app = Flask(__name__, static_folder='static',  # 靜態檔案資料夾
             static_url_path='/static',)  # 靜態檔案對應網址
@@ -9,9 +10,6 @@ app = Flask(__name__, static_folder='static',  # 靜態檔案資料夾
 
 # 初始化聊天機器人
 chatbot = ChatBot()
-
-# 初始化快速訊息機器人
-quick_messages_bot = ChatBot()
 
 # 儲存訊息的列表
 messages = []
@@ -22,7 +20,7 @@ def home():
 
 
 @app.route("/send", methods=["POST"])
-def send():
+async def send():
     data = request.json  # 解析message: userInput.value,並轉換成dit
     user_message = data.get("message")
 
@@ -31,19 +29,12 @@ def send():
 
     # 儲存用戶訊息
     messages.append({"role": "user", "message": user_message})
-
-    # 根據使用者的問題查詢向量資料庫，返回第0個 data
-    rag_result = send_to_websocket_sync(user_message)
-    rag_result = rag_result[0]
-    rag_content = "title:'''{}'''\n\n\ncontent:'''{}'''".format(rag_result["title"], rag_result["content"])
     
     # 使用 ChatBot 生成回答
-    bot_reply = chatbot.chat_with_llm(f"user_message:'''{user_message}'''\n\n\nrag_content:'''{rag_content}'''")
+    bot_reply = await chatbot.chat_with_llm(user_message)
     
     # 儲存 AI 回覆
     messages.append({"role": "bot", "message": bot_reply})
-    
-    # print(messages)
 
     return jsonify({"reply": f"生成回答: {bot_reply}"})
 
@@ -68,15 +59,15 @@ def clear():
 
 
 @app.route("/quick_messages", methods=["GET"])
-def quick_messages():
+async def quick_messages():
     """ 取得快捷訊息 """
     if len(messages) < 2:
-        return jsonify(["熱門訊息1", "熱門訊息2", "熱門訊息3"])
+        return jsonify(["如何繳水費?", "什麼是簡訊帳單?", "如何查詢水質?"])
     else:
-        quick_replies = quick_messages_bot.generate_quick_messages(messages)
+        quick_replies = await chatbot.generate_quick_messages(messages)
         return jsonify(quick_replies)
-
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+    pass
