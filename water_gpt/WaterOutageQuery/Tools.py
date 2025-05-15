@@ -20,18 +20,20 @@ headers = {
 FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery/County_data"
 
 
-def get_date_range(days=30):
+def get_date_range(start_date=date.today(), days=30):
     """
     獲取當前日期和30天後的日期。
 
     Args:
+        start_date (str): 開始日期，格式為 "YYYY-MM-DD"，預設為當前日期。
         days (int): 要增加的天數，預設為30天。
 
     Returns:
         tuple: 包含當前日期和30天後的日期。
     """
     # 1. 獲取當前日期
-    today = date.today()
+    # today = date.today()
+    today = start_date
 
     # 2. 將當前日期格式化為 "YYYY-MM-DD"
     formatted_today = today.strftime("%Y-%m-%d")
@@ -144,10 +146,12 @@ def get_water_outage_notices():
     # 移除 'waterOffArea' 字典內的 'coordinates' 鍵
     response = remove_coordinates_from_water_off_area(response.json())
 
-    # 要退一層
+    # 要退一層 注意檔案位置
     with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "w", encoding="utf-8") as f:
         # 將 list 轉換為 json 字串 並保留換行和縮排
         f.write(json.dumps(response, ensure_ascii=False, indent=4))
+
+    print(f"停水公告已保存至 {os.path.join(FolderPath, f'../water_outage_notices.json')}")
 
 
 if __name__ == "__main__":
@@ -155,6 +159,6 @@ if __name__ == "__main__":
     # get_town_data()
 
     # 取得停水公告
-    # get_water_outage_notices()
+    get_water_outage_notices()
 
     pass
