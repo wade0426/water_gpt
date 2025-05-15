@@ -4,3 +4,4 @@ water_gpt/db/52386556-dbae-4e55-8ee3-bd6fef5aa455/header.bin
 water_gpt/db/52386556-dbae-4e55-8ee3-bd6fef5aa455/length.bin
 water_gpt/db/52386556-dbae-4e55-8ee3-bd6fef5aa455/link_lists.bin
 *.pyc
+*.env
