@@ -154,11 +154,108 @@ def get_water_outage_notices():
     print(f"停水公告已保存至 {os.path.join(FolderPath, f'../water_outage_notices.json')}")
 
 
+def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
+    """
+    根據受影響的縣市和可選的鄉鎮市區篩選停水/降壓資料。
+
+    Args:
+        data_list (list): 包含停水/降壓事件的字典列表。
+        affectedCounties (str or list/tuple/set of str): 
+            要篩選的縣市代碼。必須是非空字串或非空字串的非空集合。
+        affectedTowns (str or list/tuple/set of str, optional): 
+            要篩選的鄉鎮市區代碼。預設為 None (不按鄉鎮市區篩選)。
+            如果提供空字串 "" 或空集合 []/{}/()，則會匹配 'affectedTowns' 欄位也為空的項目。
+            如果提供非空字串或非空集合，則所有元素必須是非空字串。
+
+    Returns:
+        list: 一個新的列表，其中只包含符合條件的字典。
+    
+    Raises:
+        TypeError: 如果篩選條件的輸入類型不正確。
+        ValueError: 如果 `affectedCounties` 為空或包含無效元素，
+                    或者 `affectedTowns` (如果提供) 包含無效元素。
+    """
+    filtered_results = []
+
+    # --- 驗證和標準化 affectedCounties 篩選條件 ---
+    target_counties_set = set()
+    if isinstance(affectedCounties, str):
+        if not affectedCounties:  # 空字串
+            raise ValueError("`affectedCounties` 字串篩選條件不可為空。")
+        target_counties_set = {affectedCounties}
+    elif isinstance(affectedCounties, (list, tuple, set)):
+        if not affectedCounties:  # 空集合
+            raise ValueError("`affectedCounties` 集合篩選條件不可為空。")
+        # 檢查集合內是否有非字串或空字串元素
+        for c in affectedCounties:
+            if not isinstance(c, str) or not c:
+                raise ValueError("`affectedCounties` 集合中的所有元素都必須是非空字串。")
+        target_counties_set = set(affectedCounties)
+    else:
+        raise TypeError(
+            "`affectedCounties` 必須是非空字串或非空字串的非空集合 (list, tuple, set)。"
+        )
+
+    # --- 驗證和標準化 affectedTowns 篩選條件 (如果提供) ---
+    target_towns_set = None  # 預設：不按鄉鎮市區篩選
+    if affectedTowns is not None:
+        if isinstance(affectedTowns, str):
+            # 如果鄉鎮市區為空字串，表示 "匹配沒有鄉鎮市區的項目"
+            # 因此，target_towns_set 變成一個空集合
+            target_towns_set = {affectedTowns} if affectedTowns else set()
+        elif isinstance(affectedTowns, (list, tuple, set)):
+            # 如果 affectedTowns 是空列表/元組/集合，target_towns_set 變成空集合。
+            # 這表示 "僅匹配 'affectedTowns' 欄位也為空的項目"。
+            # 僅當集合非空時才驗證其元素
+            if affectedTowns: 
+                for t in affectedTowns: 
+                    if not isinstance(t, str) or not t:
+                        raise ValueError("非空的 `affectedTowns` 集合中的所有元素都必須是非空字串。")
+            target_towns_set = set(affectedTowns)
+        else:
+            raise TypeError(
+                "`affectedTowns` 必須是字串、字串集合 (list, tuple, set) 或 None。"
+            )
+
+    # --- 迭代並篩選資料 ---
+    for item in data_list:
+        item_actual_counties = set(item.get('affectedCounties', []))
+        
+        # 1. 縣市匹配:
+        # target_counties_set 和 item_actual_counties 之間必須有交集。
+        if not (target_counties_set & item_actual_counties):
+            continue  # 沒有匹配的縣市
+
+        # 2. 鄉鎮市區匹配 (如果鄉鎮市區篩選條件啟用):
+        if target_towns_set is not None:
+            item_actual_towns = set(item.get('affectedTowns', []))
+            
+            # 不匹配的情況發生於:
+            # A) target_towns_set 為空 (篩選條件是 "沒有鄉鎮市區") 且 item_actual_towns 非空。
+            # 或
+            # B) target_towns_set 非空 (篩選條件是特定的鄉鎮市區) 且兩者之間沒有交集。
+            if (not target_towns_set and item_actual_towns) or \
+               (target_towns_set and not (target_towns_set & item_actual_towns)):
+                continue # 沒有匹配的鄉鎮市區
+
+        # 如果所有條件都通過
+        filtered_results.append(item)
+            
+    return filtered_results
+
+
 if __name__ == "__main__":
     # 取得各縣市行政區資料
     # get_town_data()
 
     # 取得停水公告
-    get_water_outage_notices()
+    # get_water_outage_notices()
+
+    with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    affectedCounties = ["66000","10020"]
+    results = find_matching_outages(data, affectedCounties=affectedCounties)
+    print(len(results))
 
     pass
