@@ -151,12 +151,10 @@ def get_water_outage_notices():
 
 
 if __name__ == "__main__":
-    # get_date_range()
-    # remove_items_with_values(data)
-    # remove_coordinates_from_water_off_area(data)
-
+    # 取得各縣市行政區資料
     # get_town_data()
 
-    get_water_outage_notices()
+    # 取得停水公告
+    # get_water_outage_notices()
 
     pass
