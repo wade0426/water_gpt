@@ -251,11 +251,11 @@ if __name__ == "__main__":
     # 取得停水公告
     # get_water_outage_notices()
 
-    with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "r", encoding="utf-8") as f:
-        data = json.load(f)
+    # with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "r", encoding="utf-8") as f:
+    #     data = json.load(f)
 
-    affectedCounties = ["66000","10020"]
-    results = find_matching_outages(data, affectedCounties=affectedCounties)
-    print(len(results))
+    # affectedCounties = ["66000","10020"]
+    # results = find_matching_outages(data, affectedCounties=affectedCounties)
+    # print(len(results))
 
     pass

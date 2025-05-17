@@ -31,7 +31,18 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None):
 
     result = find_matching_outages(data, affectedCounties, affectedTowns)
 
-    return {"message": "success", "result": result}
+    # 定義要取得的欄位
+    # waterOffNumber: 停水影響戶數
+    # pressureDownNumber: 水壓降低影響戶數
+    fields = ["no", "isSchedule", "startDate", "endDate", "startTime", "endTime", "waterOffRegion", "waterOffReason", "waterOffNumber", "pressureDownRegion", "pressureDownReason", "pressureDownNumber", "lastUpdatedTime", "contact", "note", "affectedCounties", "affectedTowns", "actualEndTime", "keywords", "removeReason"]
+    # 篩選資料
+    filtered_results = []
+    for item in result:
+        filtered_item = {field: item[field] for field in fields}
+        filtered_results.append(filtered_item)
+    
+
+    return {"message": "success", "result": filtered_results}
 
 
 if __name__ == "__main__":
