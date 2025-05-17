@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import json
 import requests
 import os
@@ -17,8 +17,8 @@ headers = {
 }
 
 # 注意替換
-FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery/County_data"
-
+FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery"
+County_data_path = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery/County_data"
 
 def get_date_range(start_date=date.today(), days=30):
     """
@@ -108,12 +108,12 @@ def get_town_data():
     """
     
     # 檢查 json 檔案 是否存在
-    if not os.path.exists(os.path.join(FolderPath, "GetCounty.json")):
+    if not os.path.exists(os.path.join(County_data_path, "GetCounty.json")):
         print(f"GetCounty.json 不存在")
         return False
 
     # 讀檔，讀取縣市資料
-    with open(os.path.join(FolderPath, "GetCounty.json"), "r", encoding="utf-8") as f:
+    with open(os.path.join(County_data_path, "GetCounty.json"), "r", encoding="utf-8") as f:
         input_data = json.load(f)
     # 提取縣市資料(value)
     county_value_list = extract_values_simple(input_data)
@@ -126,7 +126,7 @@ def get_town_data():
         data = remove_items_with_values(data)
 
         # 存檔，指定 UTF-8 編碼
-        with open(os.path.join(FolderPath, f"{GetTown_number}.json"), "w", encoding="utf-8") as f:
+        with open(os.path.join(County_data_path, f"{GetTown_number}.json"), "w", encoding="utf-8") as f:
             # 將 list 轉換為 json 字串 並保留換行和縮排
             f.write(json.dumps(data, ensure_ascii=False, indent=4))
 
@@ -147,11 +147,11 @@ def get_water_outage_notices():
     response = remove_coordinates_from_water_off_area(response.json())
 
     # 要退一層 注意檔案位置
-    with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(FolderPath, f"water_outage_notices.json"), "w", encoding="utf-8") as f:
         # 將 list 轉換為 json 字串 並保留換行和縮排
         f.write(json.dumps(response, ensure_ascii=False, indent=4))
 
-    print(f"停水公告已保存至 {os.path.join(FolderPath, f'../water_outage_notices.json')}")
+    print(f"停水公告已保存至 {os.path.join(FolderPath, f'water_outage_notices.json')}")
 
 
 def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
@@ -175,6 +175,7 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
         ValueError: 如果 `affectedCounties` 為空或包含無效元素，
                     或者 `affectedTowns` (如果提供) 包含無效元素。
     """
+
     filtered_results = []
 
     # --- 驗證和標準化 affectedCounties 篩選條件 ---
@@ -249,7 +250,7 @@ if __name__ == "__main__":
     # get_town_data()
 
     # 取得停水公告
-    # get_water_outage_notices()
+    get_water_outage_notices()
 
     # with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "r", encoding="utf-8") as f:
     #     data = json.load(f)

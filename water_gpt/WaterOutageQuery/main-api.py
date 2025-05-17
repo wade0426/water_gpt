@@ -3,8 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from Tools import *
 import json
+from datetime import datetime, timedelta
+import os
 
-OUTAGE_DATA = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery/water_outage_notices.json"
+# 資料夾路徑
+FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery"
 
 app = FastAPI()
 
@@ -26,7 +29,27 @@ async def root():
 async def water_outage_query(affectedCounties: str, affectedTowns: str = None):
     # 不需要從 request 物件獲取參數，FastAPI 會自動處理
 
-    with open(OUTAGE_DATA, "r", encoding="utf-8") as f:
+    # 檢查最後更新時間
+    if os.path.exists(os.path.join(FolderPath, "last_update.txt")):
+        with open(os.path.join(FolderPath, "last_update.txt"), "r", encoding="utf-8") as f:
+            last_update_time = f.read()
+    else:
+        # 沒有最後更新時間，自動建立。
+        print(f"沒有最後更新時間，自動建立。")
+        last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
+            f.write(last_update_time)
+        get_water_outage_notices()
+
+    # 檢查最後更新時間是否超過 5 分鐘
+    if datetime.now() - datetime.strptime(last_update_time, "%Y-%m-%d %H:%M") > timedelta(minutes=5):
+        print(f"最後更新時間已超過 5 分鐘，自動更新資料。")
+        last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+        with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
+            f.write(last_update_time)
+        get_water_outage_notices()
+
+    with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
         data = json.load(f)
 
     result = find_matching_outages(data, affectedCounties, affectedTowns)
