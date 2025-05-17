@@ -45,9 +45,9 @@ class ChatBot:
             "content": system_prompt
         }]
 
-    async def chat_with_llm(self, user_message):
+    async def chat_with_llm(self, user_message, quick_replies=[]):
         """與LLM進行對話"""
-        result = await water_gpt_client.ask(user_message)
+        result = await water_gpt_client.ask(user_message, quick_replies)
         return result
 
 

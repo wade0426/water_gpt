@@ -14,6 +14,10 @@ chatbot = ChatBot()
 # 儲存訊息的列表
 messages = []
 
+# 儲存快捷訊息的列表
+quick_replies = []
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -31,7 +35,7 @@ async def send():
     messages.append({"role": "user", "message": user_message})
     
     # 使用 ChatBot 生成回答
-    bot_reply = await chatbot.chat_with_llm(user_message)
+    bot_reply = await chatbot.chat_with_llm(user_message, quick_replies)
     
     # 儲存 AI 回覆
     messages.append({"role": "bot", "message": bot_reply})
@@ -64,7 +68,7 @@ async def quick_messages():
     if len(messages) < 2:
         return jsonify(["如何繳水費?", "什麼是簡訊帳單?", "如何查詢水質?"])
     else:
-        quick_replies = await chatbot.generate_quick_messages(messages)
+        # quick_replies = await chatbot.generate_quick_messages(messages)
         return jsonify(quick_replies)
 
 

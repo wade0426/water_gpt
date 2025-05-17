@@ -228,7 +228,7 @@ class WaterGPTClient:
                 self.connected = False
                 break
 
-    async def ask(self, text):
+    async def ask(self, text, quick_replies=[]):
         # 如果沒有連線，會自動連線
         if not self.connected:
             await self.connect()
@@ -258,6 +258,10 @@ class WaterGPTClient:
             f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
             for i, d in enumerate(docs)
         )
+
+        # 將每一個文件標題加入快捷訊息
+        for d in docs:
+            quick_replies.append(d['title'])
 
         # 判斷是否能回答
         answerable = can_answer_chain.predict(
