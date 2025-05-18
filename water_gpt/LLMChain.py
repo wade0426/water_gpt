@@ -48,6 +48,20 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
+    def _call(self, prompt: str, stop=None) -> str:
+        payload = {
+            "model":    MODEL,
+            "messages": [
+                {"role": "system", "content": "你是一個情緒辨識器，只回覆情緒標籤"},
+                {"role": "user",   "content": prompt}
+            ],
+            "stream": False
+        }
+        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
 
 question_classifier = LLMChain(
     llm=ClassifierLLM(),
@@ -117,6 +131,69 @@ llm_retrieve_chain = LLMChain(
     output_key="verdict"
 )
 
+emotion_classifier = LLMChain(
+    llm=EmotionLLM(),
+    prompt=PromptTemplate(
+        input_variables=["text"],
+        template="""您是一個高度專業的情緒辨識雷達。情境是一位專業保險業務員的對話文本，您的任務是分析輸入的文本，請嚴格遵守以下指南:
+
+1. 情緒類別定義:
+  - 分析輸入的文本並歸類為以下5種情緒之一:anger, irritation, uncertainty, happiness, neutral
+  **anger**文本帶有直覺且強烈的負面措辭:
+    - 髒話或極度負面的措辭。
+    - 針對性含意或惡言相向的措辭。
+    - 侮辱性的人身攻擊措辭。
+
+  **irritation**文本帶有輕度的負面含意:
+    - 不耐煩、厭煩。
+    - 挖苦、嘲諷、諷刺。
+    - 委婉或間接的負面話語。
+    - 絕對不會出現直覺的、明確指名的攻擊措辭。
+    - 未達到"anger"的程度。
+
+  **uncertainty**文本帶有不確定的態度:
+    - 模糊不定、猶豫、疑惑。
+    - 事件掌握程度不足。
+    - 待確認。
+    - 絕對不會出現詢問他人資訊或意見。
+
+  **happiness**文本帶有快樂的態度:
+    - 稱讚或讚美對方。
+    - 感謝對方。
+    - 認同對方觀點或行為。
+    - 表達對事件的滿意與喜悅。
+
+  **neutral**文本沒有明確的情緒傾向:
+    - 陳述事實。
+    - 敘事句。
+    - 使用禮貌語言。
+    - 語氣冷靜且平衡。
+    - 詢問他人資訊或意見。
+
+2. 關鍵詞匹配與語境規則：
+  - uncertainty：關鍵詞包括「應該」、「不確定」、「不知道」、「查一下」、「好像」、「晚點再確認」。  
+  - neutral：關鍵詞包括「最低投保金額」、「最高保額」、「我們的保費」。  
+  - irritation：關鍵詞包括「之前」、「不能」、「好好記下來」、「剛剛有說了」，或諷刺性表達。  
+  - anger：關鍵詞包括「笨」、「你很笨」、「給我滾」、「你很自私」。  
+  - happiness：關鍵詞包括「很高興」、「很樂意」、「謝謝」、「很開心」、「您真專業」、「您真內行」、「您真聰明」。  
+
+3. 注意事項:
+   - 保持客觀，不要被文本的內容影響您的判斷。
+   - 考慮文化和語境因素，但始終保持一致的分類標準。
+   - 如遇到模棱兩可的情況，選擇最適合的單一標籤。
+   - 若匹配到關鍵字，則歸納至對應情緒。
+   - 肯定對方通常是happiness。
+
+4. 輸出格式:
+   - 僅輸出一個情緒標籤，不需要解釋或其他額外信息。
+   - 確保輸出的標籤為小寫。
+
+請根據以上指南,準確地將輸入文本歸類為5種情緒之一。
+
+使用者：{text}
+"""
+    )
+)
 
 CATEGORY_MAP = {
     1: "電子帳單、簡訊帳單及通知服務",
@@ -139,12 +216,11 @@ class WaterGPTClient:
     # 移除WebSocket連接方法，改為直接使用requests
     async def ask(self, text, quick_replies=[]):
         text = text.strip()
-        
-        # 判斷是否為問題
-        verdict = question_classifier.predict(text=text).strip()
-        
-        if verdict != "是":
-            return "✘ 這看起來不是一個問題，請輸入水務相關提問。"
+
+        emotion = emotion_classifier.predict(text=text).strip()
+
+        if emotion == "anger":
+            return "非常抱歉讓您感到不滿意，我會盡快為您服務。"
 
         # 直接使用requests發送POST請求
         payload = {
@@ -183,6 +259,12 @@ class WaterGPTClient:
                 docs=docs_text
             ).strip()
             return result
+
+        # 判斷是否為問題
+        verdict = question_classifier.predict(text=text).strip()
+        
+        if verdict != "是":
+            return "✘ 這看起來不是一個問題，請輸入水務相關提問。"
 
         # 判斷是否為水務相關問題
         wrong_question = wrong_question_classifier.predict(text=text).strip()
