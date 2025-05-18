@@ -1,11 +1,11 @@
 import requests
 from langchain import PromptTemplate, LLMChain
 import asyncio
-import websockets
-from langchain.llms.base import LLM
 import json
+from langchain.llms.base import LLM
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
+EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json"}
 MODEL   = "gpt-3.5-turbo"
 
@@ -177,62 +177,12 @@ CATEGORY_MAP = {
 
 class WaterGPTClient:
     def __init__(self):
-        self.ws = None
-        self.ws_url = "wss://3090p8001.huannago.com/ws/embedding"
-        self.connected = False
         self.shared = {"last_docs": []}
-        self.ws_task = None
+        self.headers = HEADERS
+        self.embedding_url = EMBEDDING_URL
 
-    async def connect(self):
-        if self.connected:
-            return
-        
-        self.ws = await websockets.connect(
-            self.ws_url,
-            ping_interval=None  # 我們自己做 ping/pong
-        )
-        self.connected = True
-        self.ws_task = asyncio.create_task(self._handle_ws())
-        print("WebSocket已連接")
-
-    async def disconnect(self):
-        if not self.connected:
-            return
-            
-        if self.ws_task:
-            self.ws_task.cancel()
-            self.ws_task = None
-            
-        await self.ws.close()
-        self.connected = False
-        print("WebSocket已斷開")
-
-    async def _handle_ws(self):
-        while True:
-            try:
-                # 核心的接收訊息操作
-                response = await self.ws.recv()
-
-                # 如果收到 ping，回傳 pong (心跳機制)
-                if response == "__ping__":
-                    await self.ws.send("__pong__")
-                    continue
-
-                data = json.loads(response)
-                docs = data["response"]
-                # 共享數據操作
-                self.shared["last_docs"] = docs
-
-            except websockets.ConnectionClosed:
-                print("❌ WebSocket 已斷線")
-                self.connected = False
-                break
-
+    # 移除WebSocket連接方法，改為直接使用requests
     async def ask(self, text, quick_replies=[]):
-        # 如果沒有連線，會自動連線
-        if not self.connected:
-            await self.connect()
-            
         text = text.strip()
         
         # 判斷是否為問題
@@ -241,18 +191,21 @@ class WaterGPTClient:
         if verdict != "是":
             return "✘ 這看起來不是一個問題，請輸入水務相關提問。"
 
-        # 發送問題到WebSocket
-        await self.ws.send(json.dumps({"request": text, "top_k": 5}))
-        
-        # 等待回應
-        for _ in range(10):  # 最多等待10次
-            await asyncio.sleep(0.3)
-            docs = self.shared["last_docs"]
-            if docs:
-                break
+        # 直接使用requests發送POST請求
+        payload = {
+            "request": text,
+            "top_k": 5
+        }
+        response = requests.post(self.embedding_url, headers=self.headers, json=payload)
+        response.raise_for_status()
+        data = response.json()
+        docs = data["response"]
         
         if not docs:
             return "❌ 沒有找到相關文件。"
+
+        # 更新shared字典，保持與原代碼相容
+        self.shared["last_docs"] = docs
 
         docs_text = "\n\n".join(
             f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
@@ -285,97 +238,79 @@ class WaterGPTClient:
     
     # 生成快捷訊息
     async def generate_quick_messages(self, history):
-        # 如果沒有連線，會自動連線
-        if not self.connected:
-            await self.connect()
         quick_messages = quick_messages_llm.predict(history=history).strip()
         return quick_messages
 
 
-async def handle_ws(ws, shared):
+# 移除原來的handle_ws函數，改為直接請求的函數
+async def get_embedding_data(text, top_k=5):
+    payload = {
+        "request": text,
+        "top_k": top_k
+    }
+    response = requests.post(EMBEDDING_URL, headers=HEADERS, json=payload)
+    response.raise_for_status()
+    data = response.json()
+    return data["response"]
+
+
+async def main():
+    print("Bot ready，輸入 exit 離開。")
+
+    shared = {"last_docs": []}
+
     while True:
+        text = await asyncio.to_thread(input, "> ")
+        text = text.strip()
+        if text.lower() in ("exit", "quit"):
+            break
+
+        verdict = question_classifier.predict(text=text).strip()
+        print(f"[分類結果] {verdict}")
+
+        if verdict != "是":
+            print("✘ 這看起來不是一個問題，請隨時輸入水務相關提問。")
+            continue
+
+        # 使用requests直接獲取資料
         try:
-            # 核心的接收訊息操作
-            response = await ws.recv()
-
-            # 如果收到 ping，回傳 pong (心跳機制)
-            if response == "__ping__":
-                await ws.send("__pong__")
-                continue
-
-            data = json.loads(response)
-            docs = data["response"]
-            # 共享數據操作 讓 main 可以拿到
+            docs = await get_embedding_data(text)
             shared["last_docs"] = docs
 
             print(f"⟳ 找到 {len(docs)} 篇最相關文件：")
             for i in docs:
                 print(f"[score{i['confidence']}｜類別{i['category']}｜{CATEGORY_MAP[int(i['category'])]}] {i['title']}")
+        except Exception as e:
+            print(f"❌ 獲取嵌入數據時出錯: {e}")
+            continue
 
-        except websockets.ConnectionClosed:
-            print("❌ WebSocket 已斷線")
-            break
+        if not docs:
+            print("❌ 沒有找到相關文件。")
+            continue
 
+        docs_text = "\n\n".join(
+            f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
+            for i, d in enumerate(docs)
+        )
 
-async def main():
-    print("Connecting to WebSocket…")
-    async with websockets.connect(
-        "wss://3090p8001.huannago.com/ws/embedding",
-        ping_interval=None  # 我們自己做 ping/pong
-    ) as ws:
-        print("WS connected, ready.")
-        print("Bot ready，輸入 exit 離開。")
+        answerable = can_answer_chain.predict(
+            question=text,
+            docs=docs_text
+        ).strip()
 
-        shared = {"last_docs": []}
-        # ws = WebSocket 連線物件
-        ws_task = asyncio.create_task(handle_ws(ws, shared))
-
-        while True:
-            text = await asyncio.to_thread(input, "> ")
-            text = text.strip()
-            if text.lower() in ("exit", "quit"):
-                break
-
-            verdict = question_classifier.predict(text=text).strip()
-            print(f"[分類結果] {verdict}")
-
-            if verdict != "是":
-                print("✘ 這看起來不是一個問題，請隨時輸入水務相關提問。")
-                continue
-
-            await ws.send(json.dumps({"request": text, "top_k": 5}))
-            await asyncio.sleep(1)  # 等 ws handler 收到結果
-            docs = shared["last_docs"]
-
-            if not docs:
-                print("❌ 沒有找到相關文件。")
-                continue
-
-            docs_text = "\n\n".join(
-                f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
-                for i, d in enumerate(docs)
-            )
-
-            answerable = can_answer_chain.predict(
+        if answerable == "是":
+            result = llm_retrieve_chain.predict(
                 question=text,
                 docs=docs_text
             ).strip()
+            print(result)
+            continue
 
-            if answerable == "是":
-                result = llm_retrieve_chain.predict(
-                    question=text,
-                    docs=docs_text
-                ).strip()
-                print(result)
-                continue
-
-            wrong_question = wrong_question_classifier.predict(text=text).strip()
-            if wrong_question == "是":
-                print("✔ 我可以幫你接洽專人")
-            else:
-                print("✘ 很抱歉，請詢問與水利署相關之問題喔!")
-
-        ws_task.cancel()
+        wrong_question = wrong_question_classifier.predict(text=text).strip()
+        if wrong_question == "是":
+            print("✔ 我可以幫你接洽專人")
+        else:
+            print("✘ 很抱歉，請詢問與水利署相關之問題喔!")
 
 
 if __name__ == "__main__":
@@ -393,9 +328,15 @@ if __name__ == "__main__":
     # resp.raise_for_status()
     # data = resp.json()
     # print(data["choices"][0]["message"]["content"])
+
+    payload = {
+        "request":"要怎麼繳水費",
+        "top_k": 5
+    }
+    response = requests.post(EMBEDDING_URL, json=payload)
+    print(response.json())
     
     pass
-
 
 
 # WaterGPTClient 測試
@@ -404,21 +345,13 @@ async def example():
     # 建立客戶端
     client = WaterGPTClient()
     
-    # 連接WebSocket (ask方法會自動連接，但也可以預先連接)
-    await client.connect()
+    # 提問
+    response = await client.ask("請問如何繳水費？")
+    print(f"回答: {response}")
     
-    try:
-        # 提問
-        response = await client.ask("請問如何繳水費？")
-        print(f"回答: {response}")
-        
-        # 可以多次提問而不需要重新連接
-        response = await client.ask("水質檢測標準是什麼？")
-        print(f"回答: {response}")
-        
-    finally:
-        # 結束時斷開連接
-        await client.disconnect()
+    # 可以多次提問
+    response = await client.ask("水質檢測標準是什麼？")
+    print(f"回答: {response}")
 
 # 運行範例
 # asyncio.run(example())
