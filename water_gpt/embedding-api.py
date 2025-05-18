@@ -1,4 +1,4 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from opencc import OpenCC
 from sklearn.metrics.pairwise import cosine_similarity
@@ -30,6 +30,10 @@ class Top_kRequest(BaseModel):
 
 class AppResponse(BaseModel):
     response: list
+
+class EmbeddingRequest(BaseModel):
+    request: str
+    top_k: int = 5
 
 class ConnectionManager:
     def __init__(self):
@@ -191,5 +195,14 @@ if __name__ == "__main__":
                 websocket
             )
             connection_manager.disconnect(websocket)
+
+    @app.post("/embedding")
+    async def get_embedding(request: EmbeddingRequest):
+        try:
+            result = main.retrieve(request.request, request.top_k)
+            return {"response": result}
+        except Exception as e:
+            logging.error(f"Error processing embedding request: {e}")
+            raise HTTPException(status_code=500, detail=str(e))
 
     uvicorn.run(app, host="0.0.0.0", port=8001)
