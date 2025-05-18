@@ -9,26 +9,6 @@ EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json"}
 MODEL   = "gpt-3.5-turbo"
 
-QUICK_MESSAGES_PROMPT = """我將提供一段「對話歷史紀錄」。請你根據這段歷史紀錄，特別是**機器人最後的回應**，設想**使用者**接下來可能會提出的 **4 個相關問題**。
-
-你的任務是：
-1.  仔細分析機器人提供的資訊。
-2.  思考使用者可能會對哪些細節感到好奇、需要進一步澄清，或是可能引申出的其他相關疑問。
-3.  生成的問題應該是自然且合乎邏輯的延伸。
-
-請將這 4 個預測的問題以 JSON 格式輸出，結構如下：
-{
-  "questions": [
-    "問題一",
-    "問題二",
-    "問題三",
-    "問題四"
-  ]
-}
-
-請嚴格遵守此 JSON 格式。
-"""
-
 class ClassifierLLM(LLM):
     @property
     def _llm_type(self) -> str:
@@ -59,22 +39,6 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
             "model":    MODEL,
             "messages": [
                 {"role": "system", "content": "你是一個文件片段選擇器，只回覆文件片段內存在的內容"},
-                {"role": "user",   "content": prompt}
-            ],
-            "stream": False
-        }
-        resp = requests.post(API_URL, headers=HEADERS, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
-
-
-class QuickMessagesLLM(ClassifierLLM):  # 可繼承同樣底層
-    def _call(self, prompt: str, stop=None) -> str:
-        payload = {
-            "model":    MODEL,
-            "messages": [
-                {"role": "system", "content": QUICK_MESSAGES_PROMPT},
                 {"role": "user",   "content": prompt}
             ],
             "stream": False
@@ -154,15 +118,6 @@ llm_retrieve_chain = LLMChain(
 )
 
 
-quick_messages_llm = LLMChain(
-    llm=QuickMessagesLLM(),
-    prompt=PromptTemplate(
-        input_variables=["history"],
-        template="""{history}"""
-    )
-)
-
-
 CATEGORY_MAP = {
     1: "電子帳單、簡訊帳單及通知服務",
     2: "帳單與繳費管理",
@@ -235,11 +190,6 @@ class WaterGPTClient:
             return "✔ 我可以幫你接洽專人"
         else:
             return "✘ 很抱歉，請詢問與水利署相關之問題喔!"
-    
-    # 生成快捷訊息
-    async def generate_quick_messages(self, history):
-        quick_messages = quick_messages_llm.predict(history=history).strip()
-        return quick_messages
 
 
 # 移除原來的handle_ws函數，改為直接請求的函數
@@ -328,13 +278,6 @@ if __name__ == "__main__":
     # resp.raise_for_status()
     # data = resp.json()
     # print(data["choices"][0]["message"]["content"])
-
-    payload = {
-        "request":"要怎麼繳水費",
-        "top_k": 5
-    }
-    response = requests.post(EMBEDDING_URL, json=payload)
-    print(response.json())
     
     pass
 
