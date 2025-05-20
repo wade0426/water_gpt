@@ -1,12 +1,12 @@
 # pip install "Flask[async]"
 from flask import *
-# from flask_cors import CORS
+from flask_cors import CORS
 from tools import ChatBot
 
 
 app = Flask(__name__, static_folder='static',  # 靜態檔案資料夾
             static_url_path='/static',)  # 靜態檔案對應網址
-# CORS(app)  # 允許跨域請求
+CORS(app)  # 允許跨域請求
 
 # 初始化聊天機器人
 chatbot = ChatBot()
