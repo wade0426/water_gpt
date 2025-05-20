@@ -6,7 +6,7 @@ from langchain.llms.base import LLM
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
-HEADERS = {"Content-Type": "application/json"}
+HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
 
 class ClassifierLLM(LLM):
