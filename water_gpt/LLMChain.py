@@ -271,7 +271,7 @@ class WaterGPTClient:
         if wrong_question == "是":
             return "✔ 我可以幫你接洽專人"
         else:
-            return "✘ 很抱歉，請詢問與水利署相關之問題喔!"
+            return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!"
 
 
 # 移除原來的handle_ws函數，改為直接請求的函數
@@ -342,7 +342,7 @@ async def main():
         if wrong_question == "是":
             print("✔ 我可以幫你接洽專人")
         else:
-            print("✘ 很抱歉，請詢問與水利署相關之問題喔!")
+            print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
 
 
 if __name__ == "__main__":
