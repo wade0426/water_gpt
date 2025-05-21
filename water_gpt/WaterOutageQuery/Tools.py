@@ -17,8 +17,8 @@ headers = {
 }
 
 # 注意替換
-FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery"
-County_data_path = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery/County_data"
+FolderPath = "./"
+County_data_path = "./County_data"
 
 def get_date_range(start_date=date.today(), days=30):
     """

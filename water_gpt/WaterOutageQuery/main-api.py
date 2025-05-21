@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import os
 
 # 資料夾路徑
-FolderPath = "D:/Python/NLP_LAB/water/water_gpt/water_gpt/WaterOutageQuery"
+FolderPath = "./"
 
 app = FastAPI()
 
@@ -20,13 +20,45 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def build_county_district_dict():
+    # 讀取 GetCounty.json 取得所有縣市的 key
+    with open(os.path.join(FolderPath, "County_data/GetCounty.json"), "r", encoding="utf-8") as f:
+        counties = json.load(f)
+
+    # 準備結果 dict
+    counties_dict = {}
+
+    towns_dict = {}
+
+    # counties 格式假設為 [{"label": "新北市", "value": "65000"}, ...]
+    for county in counties:
+        county_key = county['value']
+        county_file = os.path.join("County_data", f"{county_key}.json")
+        # 檢查檔案是否存在
+        if not os.path.exists(county_file):
+            print(f"檔案不存在: {county_file}，跳過")
+            continue
+
+        # 讀取每個縣市的 json
+        with open(county_file, "r", encoding="utf-8") as f:
+            districts = json.load(f)
+
+        # districts 假設為 [{"label": "五股區", "value": "65000150"}, ...]
+        district_dict = {d["label"]: d["value"] for d in districts}
+        towns_dict[county_key] = district_dict
+
+    counties_dict = {county["label"]: county["value"] for county in counties}
+    return counties_dict, towns_dict
+
+all_counties_dict, all_towns_dict = build_county_district_dict()
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
 
 
 @app.get("/water-outage-query")
-async def water_outage_query(affectedCounties: str, affectedTowns: str = None):
+async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code'):
     # 不需要從 request 物件獲取參數，FastAPI 會自動處理
 
     # 檢查最後更新時間
@@ -52,7 +84,12 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None):
     with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    result = find_matching_outages(data, affectedCounties, affectedTowns)
+    if query == 'code':
+        result = find_matching_outages(data, affectedCounties, affectedTowns)
+    elif query == 'name':
+        county_value = all_counties_dict[affectedCounties]
+        town_value = all_towns_dict[county_value][affectedTowns]
+        result = find_matching_outages(data, county_value, town_value)
 
     # 定義要取得的欄位
     # waterOffNumber: 停水影響戶數
