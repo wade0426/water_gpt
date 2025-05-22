@@ -3,11 +3,14 @@ from langchain import PromptTemplate, LLMChain
 import asyncio
 import json
 from langchain.llms.base import LLM
+from datetime import datetime
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
+WATER_OUTAGE_URL = "http://localhost:8002/water-outage-query"
 EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
+
 
 class ClassifierLLM(LLM):
     @property
@@ -48,6 +51,7 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+
 class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
         payload = {
@@ -62,6 +66,41 @@ class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
+
+
+# 停水查詢
+class WaterOutageLLM(ClassifierLLM):  # 可繼承同樣底層
+    def _call(self, prompt: str, stop=None) -> str:
+        payload = {
+            "model":    MODEL,
+            "messages": [
+                {"role": "system", "content": '你只是一個停水查詢器，判斷使用者是否在詢問停水資訊，請回覆JSON格式 輸出範例 {"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}，不要輸出與JSON格式無關的文字'},
+                {"role": "user",   "content": prompt}
+            ],
+            "stream": False
+        }
+        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
+
+
+# 普通對話機器人
+class NormalLLM(ClassifierLLM):  # 可繼承同樣底層
+    def _call(self, prompt: str, stop=None) -> str:
+        payload = {
+            "model":    MODEL,
+            "messages": [
+                {"role": "system", "content": '根據現有資訊，使用中文回答使用者提出的問題。'},
+                {"role": "user",   "content": prompt}
+            ],
+            "stream": False
+        }
+        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
+
 
 question_classifier = LLMChain(
     llm=ClassifierLLM(),
@@ -131,6 +170,7 @@ llm_retrieve_chain = LLMChain(
     output_key="verdict"
 )
 
+
 emotion_classifier = LLMChain(
     llm=EmotionLLM(),
     prompt=PromptTemplate(
@@ -195,6 +235,37 @@ emotion_classifier = LLMChain(
     )
 )
 
+
+water_outage_classifier = LLMChain(
+    llm=WaterOutageLLM(),
+    prompt=PromptTemplate(
+        input_variables=["text"],
+        template="""
+使用者：{text}。
+
+請根據上述訊息，輸出JSON格式
+範例輸出：
+{{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}} 
+{{"result": "false", "affectedCounties": "null", "affectedTowns": "null", "query": "null"}}。
+"""
+    )
+)
+
+
+normal_classifier = LLMChain(
+    llm=NormalLLM(),
+    prompt=PromptTemplate(
+        input_variables=["text", "info"],
+        template="""
+使用者：{text}。
+資訊：{info}。
+現在時間：{time}。
+"""
+    )
+)
+
+
+
 CATEGORY_MAP = {
     1: "電子帳單、簡訊帳單及通知服務",
     2: "帳單與繳費管理",
@@ -212,6 +283,8 @@ class WaterGPTClient:
         self.shared = {"last_docs": []}
         self.headers = HEADERS
         self.embedding_url = EMBEDDING_URL
+        # 使用者是否詢問停水相關旗標
+        self.water_outage_flag = False
 
     # 移除WebSocket連接方法，改為直接使用requests
     async def ask(self, text, quick_replies=[]):
@@ -221,6 +294,39 @@ class WaterGPTClient:
 
         if emotion == "anger":
             return "非常抱歉讓您感到不滿意，我會盡快為您服務。"
+
+        water_outage_str = water_outage_classifier.predict(text=text).strip()
+        water_outage_str = water_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
+        try:
+            data = json.loads(water_outage_str)
+            print("JSON decoded successfully:", data)
+
+            water_result = data.get("result")
+            water_affected_counties = data.get("affectedCounties")
+            water_affected_towns = data.get("affectedTowns")
+
+            if water_affected_towns == "null":
+                water_affected_towns = None
+            
+            # print(water_result)
+            # print(water_affected_counties)
+            # print(water_affected_towns)
+
+            if water_result == "true":
+                self.water_outage_flag = True
+                response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name"})
+                result = normal_classifier.predict(
+                    text=text,
+                    info=response.json(),
+                    time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                )
+                return result
+
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON: {e}")
+            print(f"Problematic string that caused error: ---{e.doc}---") # e.doc 是導致錯誤的原始字串
+            return "您輸入的資訊有誤，請稍後再試。"
+
 
         # 直接使用requests發送POST請求
         payload = {
