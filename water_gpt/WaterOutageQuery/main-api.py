@@ -121,7 +121,10 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
         result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns)
     elif query == 'name':
         county_value = all_counties_dict[affectedCounties]
-        town_value = all_towns_dict[county_value][affectedTowns]
+        if affectedTowns is None:
+            town_value = None
+        else:
+            town_value = all_towns_dict[county_value][affectedTowns]
         result = find_matching_outages(water_outage_data, county_value, town_value)
 
     # 定義要取得的欄位
