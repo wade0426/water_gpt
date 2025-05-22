@@ -5,9 +5,65 @@ from Tools import *
 import json
 from datetime import datetime, timedelta
 import os
+import threading
+import time
 
 # 資料夾路徑
 FolderPath = "./"
+
+# 全局變量用於存儲停水資料
+water_outage_data = []
+
+# 讀取停水資料的函數
+def load_water_outage_data():
+    global water_outage_data
+    try:
+        with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
+            water_outage_data = json.load(f)
+    except FileNotFoundError:
+        print("停水資料檔案不存在，將進行首次下載")
+        get_water_outage_notices()
+        with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
+            water_outage_data = json.load(f)
+
+# 檢查並更新停水資料的函數
+def update_water_outage_data():
+    while True:
+        try:
+            # 檢查最後更新時間
+            if os.path.exists(os.path.join(FolderPath, "last_update.txt")):
+                with open(os.path.join(FolderPath, "last_update.txt"), "r", encoding="utf-8") as f:
+                    last_update_time = f.read()
+            else:
+                # 沒有最後更新時間，自動建立。
+                print(f"沒有最後更新時間，自動建立。")
+                last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+                with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
+                    f.write(last_update_time)
+                get_water_outage_notices()
+                load_water_outage_data()
+
+            # 檢查最後更新時間是否超過 5 分鐘
+            if datetime.now() - datetime.strptime(last_update_time, "%Y-%m-%d %H:%M") > timedelta(minutes=5):
+                print(f"最後更新時間已超過 5 分鐘，自動更新資料。")
+                last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
+                with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
+                    f.write(last_update_time)
+                get_water_outage_notices()
+                load_water_outage_data()
+            
+            # 每分鐘檢查一次
+            time.sleep(60)
+        except Exception as e:
+            print(f"更新停水資料時發生錯誤: {e}")
+            time.sleep(60)  # 發生錯誤時，等待一分鐘後重試
+
+# 初始化，載入停水資料
+load_water_outage_data()
+
+# 啟動更新線程
+update_thread = threading.Thread(target=update_water_outage_data, daemon=True)
+update_thread.start()
 
 app = FastAPI()
 
@@ -59,37 +115,14 @@ async def root():
 
 @app.get("/water-outage-query")
 async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code'):
-    # 不需要從 request 物件獲取參數，FastAPI 會自動處理
-
-    # 檢查最後更新時間
-    if os.path.exists(os.path.join(FolderPath, "last_update.txt")):
-        with open(os.path.join(FolderPath, "last_update.txt"), "r", encoding="utf-8") as f:
-            last_update_time = f.read()
-    else:
-        # 沒有最後更新時間，自動建立。
-        print(f"沒有最後更新時間，自動建立。")
-        last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
-        with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
-            f.write(last_update_time)
-        get_water_outage_notices()
-
-    # 檢查最後更新時間是否超過 5 分鐘
-    if datetime.now() - datetime.strptime(last_update_time, "%Y-%m-%d %H:%M") > timedelta(minutes=5):
-        print(f"最後更新時間已超過 5 分鐘，自動更新資料。")
-        last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
-        with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
-            f.write(last_update_time)
-        get_water_outage_notices()
-
-    with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
-        data = json.load(f)
-
+    
+    # 使用全局變量就不需要每次重新讀取
     if query == 'code':
-        result = find_matching_outages(data, affectedCounties, affectedTowns)
+        result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns)
     elif query == 'name':
         county_value = all_counties_dict[affectedCounties]
         town_value = all_towns_dict[county_value][affectedTowns]
-        result = find_matching_outages(data, county_value, town_value)
+        result = find_matching_outages(water_outage_data, county_value, town_value)
 
     # 定義要取得的欄位
     # waterOffNumber: 停水影響戶數
