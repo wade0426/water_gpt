@@ -357,7 +357,6 @@ normal_classifier = LLMChain(
 )
 
 
-
 CATEGORY_MAP = {
     1: "電子帳單、簡訊帳單及通知服務",
     2: "帳單與繳費管理",
@@ -368,6 +367,155 @@ CATEGORY_MAP = {
     7: "水價政策與事業經營",
     8: "App／網站使用與隱私政策",
 }
+
+
+def generate_water_off_notification(no=None, start_date=None, end_date=None, start_time=None, end_time=None, 
+                                  water_off_region=None, water_off_reason=None, water_off_number=None, 
+                                  contact=None, pressure_down_region=None, pressure_down_reason=None, 
+                                  pressure_down_number=None):
+    """
+    生成停水資訊通知的markdown模板
+    
+    參數:
+    - no: 編號 (可選)
+    - start_date: 開始日期 (格式: YYYY-MM-DD 或中文) (可選)
+    - end_date: 結束日期 (格式: YYYY-MM-DD 或中文) (可選)
+    - start_time: 開始時間 (格式: HH:MM 或中文) (可選)
+    - end_time: 結束時間 (格式: HH:MM 或中文) (可選)
+    - water_off_region: 停水區域 (可選)
+    - water_off_reason: 停水原因 (可選)
+    - water_off_number: 停水戶數 (可選)
+    - contact: 聯絡電話 (可選)
+    - pressure_down_region: 減壓區域 (可選)
+    - pressure_down_reason: 減壓原因 (可選)
+    - pressure_down_number: 減壓戶數 (可選)
+    """
+    
+    # 格式化日期時間
+    formatted_start_date = ''
+    formatted_end_date = ''
+    formatted_start_time = ''
+    formatted_end_time = ''
+    
+    if start_date:
+        if len(start_date) == 10 and start_date.count('-') == 2:
+            formatted_start_date = start_date.replace('-', '年', 1).replace('-', '月') + '日'
+        else:
+            formatted_start_date = start_date
+            
+    if end_date:
+        if len(end_date) == 10 and end_date.count('-') == 2:
+            formatted_end_date = end_date.replace('-', '年', 1).replace('-', '月') + '日'
+        else:
+            formatted_end_date = end_date
+    
+    if start_time and ':' in start_time:
+        hour, minute = start_time.split(':')
+        formatted_start_time = f"上午{hour}:{minute}" if int(hour) < 12 else f"下午{int(hour)-12 if int(hour) > 12 else hour}:{minute}"
+    elif start_time:
+        formatted_start_time = start_time
+    
+    if end_time and ':' in end_time:
+        hour, minute = end_time.split(':')
+        formatted_end_time = f"上午{hour}:{minute}" if int(hour) < 12 else f"下午{int(hour)-12 if int(hour) > 12 else hour}:{minute}"
+    elif end_time:
+        formatted_end_time = end_time
+    
+    template = f"""## 停水通知"""
+
+    # 添加編號（如果有）
+    if no:
+        template += f"（編號：[{no}](https://web.water.gov.tw/wateroffmap/map/view/{no})）"
+        
+    # 添加時間資訊（如果有）
+    if formatted_start_date or formatted_end_date or formatted_start_time or formatted_end_time:
+        template += f"""
+
+### 📅 停水時間"""
+        
+        if formatted_start_date or formatted_end_date:
+            template += f"\n- **日期**："
+            if formatted_start_date and formatted_end_date:
+                template += f"{formatted_start_date} 至 {formatted_end_date}"
+            elif formatted_start_date:
+                template += f"{formatted_start_date} 起"
+            else:
+                template += f"至 {formatted_end_date}"
+                
+        if formatted_start_time or formatted_end_time:
+            template += f"\n- **時間**："
+            if formatted_start_time and formatted_end_time:
+                template += f"{formatted_start_time} 至 {formatted_end_time}"
+            elif formatted_start_time:
+                template += f"{formatted_start_time} 起"
+            else:
+                template += f"至 {formatted_end_time}"
+
+    # 添加影響區域（如果有）
+    if water_off_region:
+        template += f"""
+
+### 📍 影響區域
+{water_off_region}"""
+
+    # 添加停水原因（如果有）
+    if water_off_reason:
+        template += f"""
+
+### 🔧 停水原因
+{water_off_reason}"""
+
+    # 添加影響戶數（如果有）
+    if water_off_number is not None:
+        template += f"""
+
+### 📊 影響戶數
+**{water_off_number:,}戶**"""
+
+    # 如果有減壓資訊，加入減壓部分
+    if pressure_down_region or pressure_down_reason or (pressure_down_number is not None and pressure_down_number > 0):
+        template += f"""
+
+### ⚡ 減壓影響"""
+        
+        if pressure_down_region:
+            template += f"\n- **減壓區域**：{pressure_down_region}"
+            
+        if pressure_down_reason:
+            template += f"\n- **減壓原因**：{pressure_down_reason}"
+            
+        if pressure_down_number is not None:
+            template += f"\n- **減壓戶數**：**{pressure_down_number:,}戶**"
+
+    # 添加聯絡電話（如果有）
+    if contact:
+        template += f"""
+
+### ☎️ 聯絡電話
+**{contact}**"""
+
+    # 添加注意事項
+    template += f"""
+
+---
+
+"""
+
+    return template
+
+# 定義模板頭部
+template_title = """# 🚰 供水查詢
+
+"""
+
+# 定義模板尾部
+template_note = """## ⚠️ 重要注意事項
+
+1. **儲水準備**：停水範圍內用戶請自行儲水備用
+2. **安全提醒**：停水期間請慎防火源，關閉抽水機電源
+3. **防污染措施**：建築物自來水進水口低於地面的用戶，請關閉總表前制水閥
+4. **復水時間**：管線末端及高地區域可能延遲復水
+5. **進度查詢**：可至[停水查詢系統](https://web.water.gov.tw/wateroffmap/map)查詢停復水進度"""
 
 
 class WaterGPTClient:
@@ -415,12 +563,31 @@ class WaterGPTClient:
             if water_result == "true":
                 self.water_outage_flag = True
                 response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name"})
-                result = normal_classifier.predict(
-                    text=text,
-                    info=response.json(),
-                    time=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                )
-                return result
+                
+                response = response.json()
+
+                if response.get("message") == "success":
+                    response = response.get("result")
+                else:
+                    return "伺服器忙碌中，請稍後再試。"
+
+                output = ""
+                for i in response:
+                    output += generate_water_off_notification(
+                        no=i["no"],
+                        start_date=i["startDate"],
+                        end_date=i["endDate"],
+                        start_time=i["startTime"],
+                        end_time=i["endTime"],
+                        water_off_region=i["waterOffRegion"],
+                        water_off_reason=i["waterOffReason"],
+                        water_off_number=i["waterOffNumber"],
+                        contact=i["contact"],
+                        pressure_down_region=i["pressureDownRegion"],
+                        pressure_down_reason=i["pressureDownReason"],
+                        pressure_down_number=i["pressureDownNumber"],
+                    )
+                return template_title + output + template_note
 
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")
