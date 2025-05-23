@@ -166,7 +166,7 @@ def get_water_outage_notices():
     print(f"停水公告已保存至 {os.path.join(FolderPath, f'water_outage_notices.json')}")
 
 
-def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
+def find_matching_outages(data_list, affectedCounties, affectedTowns=None, startDate=None, endDate=None):
     """
     根據受影響的縣市和可選的鄉鎮市區篩選停水/降壓資料。
 
@@ -178,6 +178,10 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
             要篩選的鄉鎮市區代碼。預設為 None (不按鄉鎮市區篩選)。
             如果提供空字串 "" 或空集合 []/{}/()，則會匹配 'affectedTowns' 欄位也為空的項目。
             如果提供非空字串或非空集合，則所有元素必須是非空字串。
+        startDate (str, optional): (YYYY-MM-DD)
+            開始日期。如果提供，則只返回事件結束日期在此日期之後的停水事件。
+        endDate (str, optional): (YYYY-MM-DD)
+            結束日期。如果提供，則只返回事件開始日期在此日期之前的停水事件。
 
     Returns:
         list: 一個新的列表，其中只包含符合條件的字典。
@@ -230,8 +234,26 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
                 "`affectedTowns` 必須是字串、字串集合 (list, tuple, set) 或 None。"
             )
 
+    # --- 處理日期篩選條件 ---
+    # 將開始日期和結束日期轉換為 datetime 對象，方便比較
+    filter_start_date = None
+    filter_end_date = None
+    
+    if startDate:
+        try:
+            filter_start_date = datetime.strptime(startDate, "%Y-%m-%d").date()
+        except ValueError:
+            raise ValueError("`startDate` 必須是有效的日期字符串 (YYYY-MM-DD)。")
+    
+    if endDate:
+        try:
+            filter_end_date = datetime.strptime(endDate, "%Y-%m-%d").date()
+        except ValueError:
+            raise ValueError("`endDate` 必須是有效的日期字符串 (YYYY-MM-DD)。")
+
     # --- 迭代並篩選資料 ---
     for item in data_list:
+        # 縣市篩選
         item_actual_counties = set(item.get('affectedCounties', []))
         
         # 1. 縣市匹配:
@@ -250,6 +272,51 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
             if (not target_towns_set and item_actual_towns) or \
                (target_towns_set and not (target_towns_set & item_actual_towns)):
                 continue # 沒有匹配的鄉鎮市區
+
+        # 日期篩選
+        if filter_start_date or filter_end_date:
+            # 獲取事件的開始和結束日期
+            item_start_date_str = item.get('startDate', '')
+            item_end_date_str = item.get('endDate', '')
+            
+            # 將字符串轉換為日期對象
+            item_start_date = None
+            item_end_date = None
+            
+            try:
+                if item_start_date_str:
+                    # 支持兩種可能的格式: YYYY-MM-DD 或 YYYY-MM-DDTHH:MM:SS.000Z
+                    if 'T' in item_start_date_str:
+                        item_start_date_str = item_start_date_str.split('T')[0]
+                    item_start_date = datetime.strptime(item_start_date_str, "%Y-%m-%d").date()
+                
+                if item_end_date_str:
+                    if 'T' in item_end_date_str:
+                        item_end_date_str = item_end_date_str.split('T')[0]
+                    item_end_date = datetime.strptime(item_end_date_str, "%Y-%m-%d").date()
+            except (ValueError, TypeError):
+                # 如果日期格式錯誤，跳過這個項目
+                continue
+            
+            # 日期篩選邏輯:
+            # 1. 如果設置了 filter_start_date，則事件結束日期必須在 filter_start_date 之後或等於
+            # 2. 如果設置了 filter_end_date，則事件開始日期必須在 filter_end_date 之前或等於
+            
+            # 若事件沒有結束日期且需要篩選開始日期，則跳過
+            if filter_start_date and not item_end_date:
+                continue
+            
+            # 若事件沒有開始日期且需要篩選結束日期，則跳過
+            if filter_end_date and not item_start_date:
+                continue
+                
+            # 篩選開始日期 (事件結束日期必須在篩選開始日期之後或等於)
+            if filter_start_date and item_end_date < filter_start_date:
+                continue
+                
+            # 篩選結束日期 (事件開始日期必須在篩選結束日期之前或等於)
+            if filter_end_date and item_start_date > filter_end_date:
+                continue
 
         # 如果所有條件都通過
         filtered_results.append(item)

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from Tools import *
+from Tools import find_matching_outages, get_water_outage_notices
 import json
 from datetime import datetime, timedelta
 import os
@@ -25,6 +25,7 @@ def load_water_outage_data():
         get_water_outage_notices()
         with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
             water_outage_data = json.load(f)
+
 
 # 檢查並更新停水資料的函數
 def update_water_outage_data():
@@ -105,11 +106,13 @@ def build_county_district_dict():
     counties_dict = {county["label"]: county["value"] for county in counties}
     return counties_dict, towns_dict
 
+
 def find_full_name_and_code(keyword: str, data: dict) -> tuple[str, str] | None:
     for name in data:
         if name.startswith(keyword):
             return name, data[name]
     return None
+
 
 def find_city_and_town_code(keyword: str, all_towns_dict: dict) -> tuple[str, str] | None:
     for city_code, towns in all_towns_dict.items():
@@ -117,6 +120,7 @@ def find_city_and_town_code(keyword: str, all_towns_dict: dict) -> tuple[str, st
             if keyword in town_name:
                 return city_code, town_name
     return None
+
 
 all_counties_dict, all_towns_dict = build_county_district_dict()
 
@@ -129,11 +133,11 @@ async def root():
 
 
 @app.get("/water-outage-query")
-async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code'):
+async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code', startDate: str = None, endDate: str = None):
     try:
         # 使用全局變量就不需要每次重新讀取
         if query == 'code':
-            result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns)
+            result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns, startDate, endDate)
         elif query == 'name':
             #affectedCounties = affectedCounties.replace("台", "臺")
             #affectedTowns = affectedTowns.replace("台", "臺") if affectedTowns else None
@@ -166,7 +170,7 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
 
             #print(f"county_value: {county_value}, town_value: {town_value}")
             
-            result = find_matching_outages(water_outage_data, county_value, town_value)
+            result = find_matching_outages(water_outage_data, county_value, town_value, startDate, endDate)
 
         # 定義要取得的欄位
         # waterOffNumber: 停水影響戶數
@@ -183,6 +187,8 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
     except Exception as e:
         print(f"發生錯誤: {e}")
         return {"message": "error", "error": str(e)}
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8002)
