@@ -265,7 +265,8 @@ water_outage_classifier = LLMChain(
         台東縣|台東市
         澎湖縣|馬公市
 - 若affectedTowns無行政區名稱，則自動補充"市"、"區"、"鄉"、"鎮"
-- 若affectedCounties地名包含"台"，請將該字替換為"臺"
+- 若affectedCounties與affectedTowns包含"台"，請將該字替換為"臺"
+
 - 在最後加上"query": "name"
 
 請回覆JSON格式
