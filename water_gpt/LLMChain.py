@@ -334,6 +334,7 @@ emotion_classifier = LLMChain(
     )
 )
 
+
 water_outage_classifier = LLMChain(
     llm=WaterOutageLLM(),
     prompt=PromptTemplate(
