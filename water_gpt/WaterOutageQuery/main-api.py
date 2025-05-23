@@ -130,7 +130,7 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
     # 定義要取得的欄位
     # waterOffNumber: 停水影響戶數
     # pressureDownNumber: 水壓降低影響戶數
-    fields = ["no", "isSchedule", "startDate", "endDate", "startTime", "endTime", "waterOffRegion", "waterOffReason", "waterOffNumber", "pressureDownRegion", "pressureDownReason", "pressureDownNumber", "lastUpdatedTime", "contact", "note", "affectedCounties", "affectedTowns", "actualEndTime", "keywords", "removeReason"]
+    fields = ["no", "isSchedule", "startDate", "endDate", "startTime", "endTime", "waterOffRegion", "waterOffReason", "waterOffNumber", "pressureDownRegion", "pressureDownReason", "pressureDownNumber", "contact", "note", "affectedCounties", "affectedTowns", "actualEndTime", "keywords", "removeReason"]
     # 篩選資料
     filtered_results = []
     for item in result:
