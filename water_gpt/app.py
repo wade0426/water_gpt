@@ -66,7 +66,7 @@ def clear():
 async def quick_messages():
     """ 取得快捷訊息 """
     if len(messages) < 2:
-        return jsonify(["如何繳水費?", "什麼是簡訊帳單?", "如何查詢水質?"])
+        return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
     else:
         # quick_replies = await chatbot.generate_quick_messages(messages)
         return jsonify(quick_replies)
