@@ -146,7 +146,11 @@ def get_water_outage_notices():
     # 移除 'waterOffArea' 字典內的 'coordinates' 鍵
     response = remove_coordinates_from_water_off_area(response.json())
 
-    # 要退一層 注意檔案位置
+    # 檢查是否有 FolderPath 資料夾
+    if not os.path.exists(FolderPath):
+        input("檢測到資料夾不存在，按下 Enter 鍵建立資料夾：")
+        os.makedirs(FolderPath)
+
     with open(os.path.join(FolderPath, f"water_outage_notices.json"), "w", encoding="utf-8") as f:
         # 將 list 轉換為 json 字串 並保留換行和縮排
         f.write(json.dumps(response, ensure_ascii=False, indent=4))
