@@ -1,3 +1,5 @@
 water_gpt/db/*
 *.pyc
 *.env
+water_gpt/WaterOutageQuery/last_update.txt
+water_gpt/WaterOutageQuery/water_outage_notices.json
