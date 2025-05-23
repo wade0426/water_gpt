@@ -74,7 +74,7 @@ class WaterOutageLLM(ClassifierLLM):  # 可繼承同樣底層
         payload = {
             "model":    MODEL,
             "messages": [
-                {"role": "system", "content": '你只是一個停水查詢器，判斷使用者是否在詢問停水資訊，請回覆JSON格式 輸出範例 {"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}，不要輸出與JSON格式無關的文字'},
+                {"role": "system", "content": '你只是一個停水查詢器，判斷使用者是否在詢問停水資訊，請回覆JSON格式。'},#，請回覆JSON格式 輸出範例 {"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}，不要輸出與JSON格式無關的文字
                 {"role": "user",   "content": prompt}
             ],
             "stream": False
@@ -241,13 +241,39 @@ water_outage_classifier = LLMChain(
     prompt=PromptTemplate(
         input_variables=["text"],
         template="""
-使用者：{text}。
+使用者：{text}
 
-請根據上述訊息，輸出JSON格式
-範例輸出：
-{{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}} 
-{{"result": "false", "affectedCounties": "null", "affectedTowns": "null", "query": "null"}}。
-"""
+請判斷上面這段使用者輸入的訊息，是否有包含地名的明確停水資訊查詢需求。
+- 如果有明確需求，輸出"result": "true"，反之"result": "false"
+- 捕捉地名，地名分為affectedCounties(一、二級行政區)與affectedTowns(三級行政區)
+    e.g:"affectedCounties": "臺中市", "affectedTowns": "北區"
+
+- 若地名僅包含affectedTowns，則自動為其補充affectedCounties
+    以下是縣轄市對應關係:
+        新竹縣|竹北市
+        苗栗縣|苗栗市
+        苗栗縣|頭份市
+        彰化縣|彰化市
+        彰化縣|員林市
+        南投縣|南投市
+        雲林縣|斗六市
+        嘉義縣|太保市
+        嘉義縣|朴子市
+        屏東縣|屏東市
+        宜蘭縣|宜蘭市
+        花蓮縣|花蓮市
+        台東縣|台東市
+        澎湖縣|馬公市
+- 若affectedTowns無行政區名稱，則自動補充"市"、"區"、"鄉"、"鎮"
+- 若affectedCounties地名包含"台"，請將該字替換為"臺"
+- 在最後加上"query": "name"
+
+請回覆JSON格式
+e.g:
+{{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}}
+{{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "null", "query": "name"}}
+{{"result": "false", "affectedCounties": "null", "affectedTowns": "null", "query": "name"}}
+"""#, "query": "null"
     )
 )
 
@@ -296,10 +322,11 @@ class WaterGPTClient:
             return "非常抱歉讓您感到不滿意，我會盡快為您服務。"
 
         water_outage_str = water_outage_classifier.predict(text=text).strip()
+        print(water_outage_str)
         water_outage_str = water_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
         try:
             data = json.loads(water_outage_str)
-            print("JSON decoded successfully:", data)
+            #print("JSON decoded successfully:", data)
 
             water_result = data.get("result")
             water_affected_counties = data.get("affectedCounties")
