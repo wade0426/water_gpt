@@ -35,8 +35,7 @@ def update_water_outage_data():
                 with open(os.path.join(FolderPath, "last_update.txt"), "r", encoding="utf-8") as f:
                     last_update_time = f.read()
             else:
-                # 沒有最後更新時間，自動建立。
-                print(f"沒有最後更新時間，自動建立。")
+                print(f"沒有最後更新時間，自動建立.txt文件...")
                 last_update_time = datetime.now().strftime("%Y-%m-%d %H:%M")
                 with open(os.path.join(FolderPath, "last_update.txt"), "w", encoding="utf-8") as f:
                     f.write(last_update_time)
