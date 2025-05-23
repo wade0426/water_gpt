@@ -41,7 +41,7 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
         payload = {
             "model":    MODEL,
             "messages": [
-                {"role": "system", "content": "你是一個文件片段選擇器，只回覆文件片段內存在的內容"},
+                {"role": "system", "content": "你是一個文件片段選擇器，只回覆文件片段所屬的編號"},
                 {"role": "user",   "content": prompt}
             ],
             "stream": False
@@ -310,6 +310,20 @@ wrong_question_classifier = LLMChain(
 )
 #==========================
 
+#llm_retrieve_chain = LLMChain(
+#    llm=RetrieveLLM(),
+#    prompt=PromptTemplate(
+#        input_variables=["question", "docs"],
+#        template="""下面是從本地知識庫檢索到的文件片段：
+#{docs}
+#
+#請根據上述片段，請選擇一個最能解答使用者的疑問之文件片段：
+#「{question}」
+#
+#且回覆中僅包含其中一個文件片段的內容，不要將編號與標題一同輸出，以及其它多餘文字。"""
+#    ),
+#    output_key="verdict"
+#)
 llm_retrieve_chain = LLMChain(
     llm=RetrieveLLM(),
     prompt=PromptTemplate(
@@ -320,11 +334,10 @@ llm_retrieve_chain = LLMChain(
 請根據上述片段，請選擇一個最能解答使用者的疑問之文件片段：
 「{question}」
 
-且回覆中僅包含其中一個文件片段的內容，不要將編號與標題一同輸出，以及其它多餘文字。"""
+僅回覆解答文件片段所屬的整數編號，不要將標題、內容或符號一同輸出，以及其它多餘文字。"""
     ),
     output_key="verdict"
 )
-
 
 emotion_classifier = LLMChain(
     llm=EmotionLLM(),
@@ -612,7 +625,7 @@ class WaterGPTClient:
         self.shared["last_docs"] = docs
 
         docs_text = "\n\n".join(
-            f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
+            f"{i+1} 標題：{d['title']}\n內容：{d['content']}"
             for i, d in enumerate(docs)
         )
 
@@ -620,6 +633,7 @@ class WaterGPTClient:
         for d in docs:
             quick_replies.append(d['title'])
 
+        #print(docs)
         # 判斷是否能回答
         answerable = can_answer_chain.predict(
             question=text,
@@ -631,9 +645,13 @@ class WaterGPTClient:
                 question=text,
                 docs=docs_text
             ).strip()
+
+            try:
+                result = docs[int(result)-1]['content'] 
+            except:
+                return "❌ 無法獲取正確的文件編號，請稍後再試。"
+
             return result
-
-
 
         # 判斷是否為水務相關問題
         wrong_question = wrong_question_classifier.predict(text=text).strip()
