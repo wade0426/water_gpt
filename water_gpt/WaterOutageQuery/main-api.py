@@ -106,7 +106,23 @@ def build_county_district_dict():
     counties_dict = {county["label"]: county["value"] for county in counties}
     return counties_dict, towns_dict
 
+def find_full_name_and_code(keyword: str, data: dict) -> tuple[str, str] | None:
+    for name in data:
+        if name.startswith(keyword):
+            return name, data[name]
+    return None
+
+def find_city_and_town_code(keyword: str, all_towns_dict: dict) -> tuple[str, str] | None:
+    for city_code, towns in all_towns_dict.items():
+        for town_name, town_code in towns.items():
+            if keyword in town_name:
+                return city_code, town_name
+    return None
+
 all_counties_dict, all_towns_dict = build_county_district_dict()
+
+print(f"all_counties_dict: {all_counties_dict}")
+print(f"all_towns_dict: {all_towns_dict}")
 
 @app.get("/")
 async def root():
@@ -115,31 +131,59 @@ async def root():
 
 @app.get("/water-outage-query")
 async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code'):
-    
-    # 使用全局變量就不需要每次重新讀取
-    if query == 'code':
-        result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns)
-    elif query == 'name':
-        county_value = all_counties_dict[affectedCounties]
-        if affectedTowns is None:
-            town_value = None
-        else:
-            town_value = all_towns_dict[county_value][affectedTowns]
-        result = find_matching_outages(water_outage_data, county_value, town_value)
+    try:
+        # 使用全局變量就不需要每次重新讀取
+        if query == 'code':
+            result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns)
+        elif query == 'name':
+            #affectedCounties = affectedCounties.replace("台", "臺")
+            #affectedTowns = affectedTowns.replace("台", "臺") if affectedTowns else None
 
-    # 定義要取得的欄位
-    # waterOffNumber: 停水影響戶數
-    # pressureDownNumber: 水壓降低影響戶數
-    fields = ["no", "isSchedule", "startDate", "endDate", "startTime", "endTime", "waterOffRegion", "waterOffReason", "waterOffNumber", "pressureDownRegion", "pressureDownReason", "pressureDownNumber", "lastUpdatedTime", "contact", "note", "affectedCounties", "affectedTowns", "actualEndTime", "keywords", "removeReason"]
-    # 篩選資料
-    filtered_results = []
-    for item in result:
-        filtered_item = {field: item[field] for field in fields}
-        filtered_results.append(filtered_item)
-    
+            #result_counties = find_full_name_and_code(affectedCounties, all_counties_dict) #模糊查詢
 
-    return {"message": "success", "result": filtered_results}
+            #if not result_counties:
+                #county_value = all_counties_dict[affectedCounties]
+            #if result_counties: # 直接找到對應的縣市
+            #    print(result_counties)
+            #    affectedCounties = result_counties[0]
+#
+            #if affectedTowns != None:
+            #    result_towns = find_city_and_town_code(affectedTowns, all_towns_dict)
+            #
+            #if result_towns:
+                
+            #if result_towns: # 直接找到對應的鄉鎮市區
+                #print(f'town:{result_towns}')
 
+            #print(result_counties[0])  # 輸出 ('臺南市', '67000')
+
+            county_value = all_counties_dict[affectedCounties]
+
+            if affectedTowns is None:
+                town_value = None
+            else:
+                town_value = all_towns_dict[county_value][affectedTowns]
+
+
+            #print(f"county_value: {county_value}, town_value: {town_value}")
+            
+            result = find_matching_outages(water_outage_data, county_value, town_value)
+
+        # 定義要取得的欄位
+        # waterOffNumber: 停水影響戶數
+        # pressureDownNumber: 水壓降低影響戶數
+        fields = ["no", "isSchedule", "startDate", "endDate", "startTime", "endTime", "waterOffRegion", "waterOffReason", "waterOffNumber", "pressureDownRegion", "pressureDownReason", "pressureDownNumber", "contact", "note", "affectedCounties", "affectedTowns", "actualEndTime", "keywords", "removeReason"]
+        # 篩選資料
+        filtered_results = []
+        for item in result:
+            filtered_item = {field: item[field] for field in fields}
+            filtered_results.append(filtered_item)
+        
+
+        return {"message": "success", "result": filtered_results}
+    except Exception as e:
+        print(f"發生錯誤: {e}")
+        return {"message": "error", "error": str(e)}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8002)
