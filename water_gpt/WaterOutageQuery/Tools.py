@@ -20,6 +20,7 @@ headers = {
 FolderPath = "./data"
 County_data_path = "./County_data"
 
+
 def get_date_range(start_date=date.today(), days=30):
     """
     獲取當前日期和30天後的日期。
@@ -146,6 +147,13 @@ def get_water_outage_notices():
     # 移除 'waterOffArea' 字典內的 'coordinates' 鍵
     response = remove_coordinates_from_water_off_area(response.json())
 
+    # 將 response 中的 startDate 和 endDate 轉換為台灣時間
+    for item in response:
+        item['startDate'] = convert_to_taiwan_time(item['startDate'])
+        item['endDate'] = convert_to_taiwan_time(item['endDate'])
+        item['createdTime'] = convert_to_taiwan_time(item['createdTime'])
+        item['lastUpdatedTime'] = convert_to_taiwan_time(item['lastUpdatedTime'])
+
     # 檢查是否有 FolderPath 資料夾
     if not os.path.exists(FolderPath):
         input("檢測到資料夾不存在，按下 Enter 鍵建立資料夾：")
@@ -249,12 +257,23 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None):
     return filtered_results
 
 
+def convert_to_taiwan_time(utc_str):
+    # 解析輸入的UTC時間字串
+    utc_time = datetime.strptime(utc_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+    # 直接加8小時轉換為台灣時間
+    taiwan_time = utc_time + timedelta(hours=8)
+    # 格式化輸出為"YYYY-MM-DD HH:MM:SS"
+    # return taiwan_time.strftime("%Y-%m-%d %H:%M:%S")
+    return taiwan_time.strftime("%Y-%m-%d")
+
+
+
 if __name__ == "__main__":
     # 取得各縣市行政區資料
     # get_town_data()
 
     # 取得停水公告
-    get_water_outage_notices()
+    # get_water_outage_notices()
 
     # with open(os.path.join(FolderPath, f"../water_outage_notices.json"), "r", encoding="utf-8") as f:
     #     data = json.load(f)
