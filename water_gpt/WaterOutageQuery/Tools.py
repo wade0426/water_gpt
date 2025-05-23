@@ -17,7 +17,7 @@ headers = {
 }
 
 # 注意替換
-FolderPath = "./"
+FolderPath = "./data"
 County_data_path = "./County_data"
 
 def get_date_range(start_date=date.today(), days=30):

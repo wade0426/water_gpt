@@ -9,7 +9,7 @@ import threading
 import time
 
 # 資料夾路徑
-FolderPath = "./"
+FolderPath = "./data"
 
 # 全局變量用於存儲停水資料
 water_outage_data = []
@@ -78,7 +78,7 @@ app.add_middleware(
 
 def build_county_district_dict():
     # 讀取 GetCounty.json 取得所有縣市的 key
-    with open(os.path.join(FolderPath, "County_data/GetCounty.json"), "r", encoding="utf-8") as f:
+    with open(os.path.join("./", "County_data/GetCounty.json"), "r", encoding="utf-8") as f:
         counties = json.load(f)
 
     # 準備結果 dict
@@ -179,7 +179,7 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
             filtered_item = {field: item[field] for field in fields}
             filtered_results.append(filtered_item)
         
-
+        print(filtered_results) #debug
         return {"message": "success", "result": filtered_results}
     except Exception as e:
         print(f"發生錯誤: {e}")
