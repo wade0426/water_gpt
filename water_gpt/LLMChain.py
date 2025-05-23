@@ -456,7 +456,7 @@ def generate_water_off_notification(no=None, start_date=None, end_date=None, sta
         template += f"""
 
 ### 📍 影響區域
-{water_off_region}"""
+{water_off_region.replace("~", "至")}"""
 
     # 添加停水原因（如果有）
     if water_off_reason:
@@ -504,7 +504,7 @@ def generate_water_off_notification(no=None, start_date=None, end_date=None, sta
     return template
 
 # 定義模板頭部
-template_title = """# 🚰 供水查詢
+template_title = """# 🚰 [供水查詢](https://web.water.gov.tw/wateroffmap/map)
 
 """
 
