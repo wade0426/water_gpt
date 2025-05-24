@@ -34,6 +34,11 @@ async def send():
     # 儲存用戶訊息
     messages.append({"role": "user", "message": user_message})
     
+    # 請輸入'XX地區是否有停水'"
+    if user_message == "停水查詢":
+        messages.append({"role": "bot", "message": "請輸入詳細地區，例如：板橋區有停水嗎？"})
+        return jsonify({"reply": "生成回答: 請輸入詳細地區，例如：板橋區有停水嗎？"})
+
     # 使用 ChatBot 生成回答
     bot_reply = await chatbot.chat_with_llm(user_message, quick_replies)
     
@@ -69,7 +74,10 @@ async def quick_messages():
         return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
     else:
         # quick_replies = await chatbot.generate_quick_messages(messages)
-        return jsonify(quick_replies)
+        if quick_replies:
+            return jsonify(quick_replies)
+        else:
+            return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
 
 
 if __name__ == "__main__":
