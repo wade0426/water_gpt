@@ -600,6 +600,12 @@ class WaterGPTClient:
                         pressure_down_reason=i["pressureDownReason"],
                         pressure_down_number=i["pressureDownNumber"],
                     )
+                if output == "":
+                    if water_affected_towns != None:
+                        return f"✅ 目前{water_affected_counties}{water_affected_towns}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。"
+                    else:
+                        return f"✅ 目前{water_affected_counties}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。"
+                
                 return template_title + output + template_note
 
         except json.JSONDecodeError as e:
