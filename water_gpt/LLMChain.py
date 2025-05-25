@@ -118,13 +118,13 @@ class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
         system_prompt = """你是一個狀態選擇器，負責根據輸入的對話紀錄判斷當前的意圖狀態。你的任務是分析對話內容，並從以下三種狀態中選擇一個作為當前意圖：
 READY：正常對話，無特定意圖或未進入特定功能流程。
-OUTAGE：查詢即時停水資訊，當用戶提及停水相關問題或查詢時進入此狀態。
+OUTAGE：查詢即時停水資訊，當用戶明確須查詢即時停水相關資訊時進入此狀態。
 RAG：一般 FAQ，當用戶提出常見問題或尋求一般資訊時進入此狀態。
 
 規則：
 狀態總是根據用戶最新一則訊息的意圖來判斷（不考慮助理當前流程），只要用戶問了新問題，就以新問題為準。
-若用戶最後訊息是停水查詢（含「停水資訊」、「有沒有停水」、「查停水」等），則為 OUTAGE。
-若用戶最後訊息是一般問題（如「如何繳水費」等非停水相關），則為 RAG。
+若用戶最後訊息是即時停水查詢（含「我要查詢停水資訊」、「台中有沒有停水」、「查停水」等），則為 OUTAGE。
+若用戶最後訊息是一般問題（如「如何繳水費」「停水了該怎麼辦」），則為 RAG。
 若最後訊息無明確意圖（如寒暄），則為 READY。
 若最後訊息意圖不明，則延續上一個明確狀態。
 
@@ -668,7 +668,7 @@ class WaterGPTClient:
     async def ask(self, text, history, quick_replies=[]):
         text = text.strip()
         jailbrea = jailbrea_classifier.predict(text=text).strip()  # 執行Jailbreak檢測
-
+        print("Jailbreak檢測結果:", jailbrea)
         if jailbrea == "是":
             return "❌ 請勿嘗試繞過系統限制。", history
 
@@ -686,19 +686,19 @@ class WaterGPTClient:
 
         # 用換行符連接結果
         formatted_string = '\n'.join(history_str)
-        print(formatted_string)
+        #print(formatted_string)
 
         #print(history)
         status = status_classifier.predict(text=formatted_string, user_message=text).strip()
         status = status.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
-
+        print("機器人狀態:", status)
         # 情緒判斷
         emotion = emotion_classifier.predict(text=text).strip()
-
+        print("情緒判斷結果:", emotion)
         if emotion == "anger":
             return "非常抱歉讓您感到不滿意，我會盡快為您服務。", history # 返回情緒回應, 不新增歷史對話
 
-        print(status)
+        #print(status)
         status = json.loads(status)
 
         if status['status'] == "RAG":
@@ -733,13 +733,13 @@ class WaterGPTClient:
                 question=text,
                 docs=docs_text
             ).strip()
-
+            print("能否回答:", answerable)
             if answerable == "是":
                 result = llm_retrieve_chain.predict(
                     question=text,
                     docs=docs_text
                 ).strip()
-
+                print("檢索結果:", result)
                 #try:
                 result = docs[int(result)-1]['content'] 
                 #except:
@@ -751,6 +751,7 @@ class WaterGPTClient:
             else:
                 # 判斷是否為水務相關問題
                 wrong_question = wrong_question_classifier.predict(text=text).strip()
+                print("是否為水務相關問題:", wrong_question)
                 if wrong_question == "是":
                     return "✔ 我可以幫你接洽專人", history # 不新增歷史對話
                 else:
@@ -759,9 +760,9 @@ class WaterGPTClient:
         if status['status'] == "OUTAGE":
             location_outage_str = location_outage_classifier.predict(text=text).strip()
             location_outage_str = location_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
-
+            print("停水查詢結果:", location_outage_str)
             try:
-                print(location_outage_str)
+                #print(location_outage_str)
                 location = json.loads(location_outage_str)
                 water_affected_counties = location['Counties']
                 water_affected_towns = location['Towns']
