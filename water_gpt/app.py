@@ -35,9 +35,9 @@ async def send():
     messages.append({"role": "user", "message": user_message})
     
     # 請輸入'XX地區是否有停水'"
-    if user_message == "停水查詢":
-        messages.append({"role": "bot", "message": "請輸入詳細地區，例如：板橋區有停水嗎？"})
-        return jsonify({"reply": "生成回答: 請輸入詳細地區，例如：板橋區有停水嗎？"})
+    #if user_message == "停水查詢":
+    #    messages.append({"role": "bot", "message": "請輸入詳細地區，例如：板橋區有停水嗎？"})
+    #    return jsonify({"reply": "生成回答: 請輸入詳細地區，例如：板橋區有停水嗎？"})
 
     # 使用 ChatBot 生成回答
     bot_reply = await chatbot.chat_with_llm(user_message, quick_replies)

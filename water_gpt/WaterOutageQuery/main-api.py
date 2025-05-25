@@ -149,12 +149,14 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
             #if result_counties: # 直接找到對應的縣市
             #    print(result_counties)
             #    affectedCounties = result_counties[0]
-#
-            #if affectedTowns != None:
-            #    result_towns = find_city_and_town_code(affectedTowns, all_towns_dict)
-            #
-            #if result_towns:
-                
+
+            result_towns = None
+            # 暫時防有人輸入虛假Towns地名
+            if affectedTowns != None:
+                result_towns = find_city_and_town_code(affectedTowns, all_towns_dict)
+
+            if result_towns:
+                print(f'town:{result_towns[1]}')
             #if result_towns: # 直接找到對應的鄉鎮市區
                 #print(f'town:{result_towns}')
 
@@ -162,10 +164,10 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
 
             county_value = all_counties_dict[affectedCounties]
 
-            if affectedTowns is None:
+            if result_towns is None:
                 town_value = None
             else:
-                town_value = all_towns_dict[county_value][affectedTowns]
+                town_value = all_towns_dict[county_value][result_towns[1]]
 
 
             #print(f"county_value: {county_value}, town_value: {town_value}")

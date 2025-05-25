@@ -47,7 +47,9 @@ class ChatBot:
 
     async def chat_with_llm(self, user_message, quick_replies=[]):
         """與LLM進行對話"""
-        result = await water_gpt_client.ask(user_message, quick_replies)
+        result, history = await water_gpt_client.ask(user_message, self.history, quick_replies)
+        self.history = history
+        #print(self.history)
         return result
 
 

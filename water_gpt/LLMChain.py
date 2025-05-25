@@ -35,6 +35,39 @@ class ClassifierLLM(LLM):
     def identifying_params(self) -> dict:
         return {"model": MODEL}
 
+class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
+    def _call(self, prompt: str, stop=None) -> str:
+        system_prompt = """你是一個狀態選擇器，負責根據輸入的對話紀錄判斷當前的意圖狀態。你的任務是分析對話內容，並從以下三種狀態中選擇一個作為當前意圖：
+READY：正常對話，無特定意圖或未進入特定功能流程。
+OUTAGE：查詢即時停水資訊，當用戶提及停水相關問題或查詢時進入此狀態。
+RAG：一般 FAQ，當用戶提出常見問題或尋求一般資訊時進入此狀態。
+
+規則：
+狀態總是根據用戶最新一則訊息的意圖來判斷（不考慮助理當前流程），只要用戶問了新問題，就以新問題為準。
+若用戶最後訊息是停水查詢（含「停水資訊」、「有沒有停水」、「查停水」等），則為 OUTAGE。
+若用戶最後訊息是一般問題（如「如何繳水費」等非停水相關），則為 RAG。
+若最後訊息無明確意圖（如寒暄），則為 READY。
+若最後訊息意圖不明，則延續上一個明確狀態。
+
+範例：
+用戶最後詢問「如何繳水費？」→ {"status": "RAG"}
+用戶最後詢問「這裡有停水嗎？」→ {"status": "OUTAGE"}
+用戶最後說「你好」→ {"status": "READY"}
+
+請根據以上規則分析以下對話紀錄並輸出結果。"""
+
+        payload = {
+            "model":    MODEL,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": prompt}
+            ],
+            "stream": False
+        }
+        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
 
 class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
@@ -122,20 +155,20 @@ class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
-
-# 停水查詢
-class WaterOutageLLM(ClassifierLLM):  # 可繼承同樣底層
+class LocationOutageLLM(ClassifierLLM):
     def _call(self, prompt: str, stop=None) -> str:
-        system_prompt = """
-請判斷使用者輸入的訊息是否具有「明確的停水資訊查詢需求」，並遵守以下規則：
-
+        system_prompt = """你是一個地點捕捉器，判斷使用者輸入的內容所包含的地點。
 【判斷條件】需同時符合：
 1. 訊息中必須明確提及台灣地名（由使用者輸入直接提到），地名可分為：
-   - affectedCounties：一、二級行政區（如「臺中市」、「南投縣」）
-   - affectedTowns：三級行政區（如「北區」、「埔里鎮」）
-   如果提及到多個一、二級行政區，則擷取首個
-   如果提及到多個三級行政區，則擷取首個
-   - 參考地名資料庫：
+   - Counties：一、二級行政區（如「臺中市」、「南投縣」）
+   - Towns：三級行政區（如「北區」、「埔里鎮」）
+   如果提及到多個一、二級行政區，則擷取首個。
+   如果提及到多個三級行政區，則擷取首個。
+   如果只提及三級行政區，則自動補全其所屬的一、二級行政區。
+   如果提及三級行政區不在其所屬的一、二級行政區，則視為無效。
+   地名必須在地名資料庫中存在，否則禁止輸出。
+
+   - 地名資料庫：
 [基隆市]
 中正區, 中山區, 信義區, 仁愛區, 暖暖區, 安樂區, 七堵區
 
@@ -193,43 +226,28 @@ class WaterOutageLLM(ClassifierLLM):  # 可繼承同樣底層
 [澎湖縣]
 湖西鄉, 馬公市, 白沙鄉, 西嶼鄉, 望安鄉, 七美鄉
 
-2. 訊息中必須包含停水查詢意圖，例如詞句包含：
-   - 「停水」、「供水」、「幾點會來水」、「什麼時候會有水」、「水來了沒」、「停水公告」、「水什麼時候來」、「供水狀況」等
-
 【輸出格式】：
 - 若同時符合上述兩項，輸出：
-  - "result": "true"
-  - "affectedTowns": 使用者輸入中有明確出現則擷取，否則為 "null"
+  - "Towns": 使用者輸入中有明確出現則擷取，否則為 "null"
 - 若任一條件不符，輸出：
-  - "result": "false"
-  - affectedCounties 與 affectedTowns 均設為 "null"
-- 所有結果都需加上：
-  - "query": "name"
+  - Counties 與 Towns 均設為 "null"
 - 僅包含一個 JSON 物件，不能多餘文字。
 
 【範例】：
-使用者輸入：「萬巒有沒有停水」  
-✅ 有停水查詢意圖  
-✅ 只有提到「萬巒」  
-➡ 輸出：
-{"result": "true", "affectedCounties": "屏東縣", "affectedTowns": "萬巒鄉", "query": "name"}
+使用者輸入：「萬巒」(意圖明顯提及「萬巒鄉」，屬於「屏東縣」的三級行政區。自動補全其所屬的一、二級行政區與單位。)
+output:{"Counties": "屏東縣", "Towns": "萬巒鄉"}
 
-使用者輸入：「北區今天會停水嗎」  
-➡ 輸出：
-{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "北區", "query": "name"}
+使用者輸入：「台中」(意圖明顯提及「台中市」，屬於一、二級行政區。參考資料庫臺中市正楷名稱。)
+output:{"Counties": "臺中市", "Towns": "null"}
 
-使用者輸入：「屏東縣供水狀況？」  
-➡ 輸出：
-{"result": "true", "affectedCounties": "屏東縣", "affectedTowns": "null", "query": "name"}
+使用者輸入：「屏東縣高雄」(意圖明顯提及「屏東縣」，但「高雄」並非其所屬的三級行政區，因此無效。)
+output:{"Counties": "屏東縣", "Towns": "null"}
 
-使用者輸入：「台中供水狀況？」  
-➡ 輸出：
-{"result": "true", "affectedCounties": "臺中市", "affectedTowns": "null", "query": "name"}
+使用者輸入：「里萬區有停水嗎」(意圖明顯提及「里萬區」，但「里萬」並非有效的地名，無法對應到任何一、二級或三級行政區。)
+output:{"Counties": "null", "Towns": "null"}
 
-使用者輸入：「萬巒」  
-❌ 沒有停水查詢意圖  
-➡ 輸出：
-{"result": "false", "affectedCounties": "null", "affectedTowns": "null", "query": "name"}"""
+使用者輸入：「我想查停水」(意圖明顯提及停水，但沒有明確的地名。)
+output:{"Counties": "null", "Towns": "null"}"""
 
         payload = {
             "model":    MODEL,
@@ -243,7 +261,6 @@ class WaterOutageLLM(ClassifierLLM):  # 可繼承同樣底層
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
-
 
 # 普通對話機器人
 class NormalLLM(ClassifierLLM):  # 可繼承同樣底層
@@ -348,14 +365,24 @@ emotion_classifier = LLMChain(
 )
 
 
-water_outage_classifier = LLMChain(
-    llm=WaterOutageLLM(),
+location_outage_classifier = LLMChain(
+    llm=LocationOutageLLM(),
     prompt=PromptTemplate(
         input_variables=["text"],
         template="""使用者：{text}"""
     )
 )
 
+
+status_classifier = LLMChain(
+    llm=StatusLLM(),
+    prompt=PromptTemplate(
+        input_variables=["text"],
+        template="""對話紀錄：{text}
+        
+使用者最新訊息：{user_message}"""
+    )
+)
 
 normal_classifier = LLMChain(
     llm=NormalLLM(),
@@ -539,42 +566,119 @@ class WaterGPTClient:
         # 使用者是否詢問停水相關旗標
         self.water_outage_flag = False
 
-    # 移除WebSocket連接方法，改為直接使用requests
-    async def ask(self, text, quick_replies=[]):
-        text = text.strip()
+        # 機器人狀態
+        #  READY：準備就緒
+        #  OUTAGE：停水查詢
+        #  RAG：RAG查詢
+        self.STATUS = "READY"  # 機器人狀態
+        #self.OUTAGE_COUNTY = ""  # 停水查詢縣市
+        #self.OUTAGE_TOWNS = ""  # 停水查詢鄉鎮市區
 
+    # 移除WebSocket連接方法，改為直接使用requests
+    async def ask(self, text, history, quick_replies=[]):
+        text = text.strip()
+        user_history = history.copy()  # 複製歷史對話，避免修改原始資料
+
+        user_history.append({"role": "user", "content": text})
+
+        history_str = []
+        for entry in history:
+            role = entry['role']
+            content = entry['content']
+            if role == 'system':
+                continue  # 跳過 system 的內容
+            history_str.append(f"{role}:{content}")
+
+        # 用換行符連接結果
+        formatted_string = '\n'.join(history_str)
+        print(formatted_string)
+
+        #print(history)
+        status = status_classifier.predict(text=formatted_string, user_message=text).strip()
+        status = status.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
+
+        # 情緒判斷
         emotion = emotion_classifier.predict(text=text).strip()
 
         if emotion == "anger":
-            return "非常抱歉讓您感到不滿意，我會盡快為您服務。"
-
-        # 判斷是否為問題
-        verdict = question_classifier.predict(text=text).strip()
+            result = "非常抱歉讓您感到不滿意，我會盡快為您服務。"
+            return result, history # 返回情緒回應, 不新增歷史對話
         
-        if verdict != "是":
-            return "✘ 這看起來不是一個問題，請輸入水務相關提問。"
+        print(status)
+        status = json.loads(status)
 
-        # 判斷是否為水務相關問題
-        water_outage_str = water_outage_classifier.predict(text=text).strip()
-        print(water_outage_str)
-        water_outage_str = water_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
-        try:
-            data = json.loads(water_outage_str)
-            #print("JSON decoded successfully:", data)
+        if status['status'] == "RAG":
+            # 直接使用requests發送POST請求
+            payload = {
+                "request": text,
+                "top_k": 5
+            }
+            response = requests.post(self.embedding_url, headers=self.headers, json=payload)
+            response.raise_for_status()
+            data = response.json()
+            docs = data["response"]
 
-            water_result = data.get("result")
-            water_affected_counties = data.get("affectedCounties")
-            water_affected_towns = data.get("affectedTowns")
+            #if not docs:
+            #    return "❌ 沒有找到相關文件。", history
 
-            if water_affected_towns == "null":
-                water_affected_towns = None
+            # 更新shared字典，保持與原代碼相容
+            self.shared["last_docs"] = docs
+
+            docs_text = "\n\n".join(
+                f"{i+1} 標題：{d['title']}\n內容：{d['content']}"
+                for i, d in enumerate(docs)
+            )
+
+            # 將每一個文件標題加入快捷訊息
+            for d in docs:
+                quick_replies.append(d['title'])
+
+            #print(docs)
+            # 判斷是否能回答
+            answerable = can_answer_chain.predict(
+                question=text,
+                docs=docs_text
+            ).strip()
+
+            if answerable == "是":
+                result = llm_retrieve_chain.predict(
+                    question=text,
+                    docs=docs_text
+                ).strip()
+
+                #try:
+                result = docs[int(result)-1]['content'] 
+                #except:
+                #    return "❌ 無法獲取正確的文件編號，請稍後再試。", history
             
-            # print(water_result)
-            # print(water_affected_counties)
-            # print(water_affected_towns)
+                user_history.append({"role": "assistant", "content": "(RAG內容)"})
 
-            if water_result == "true":
-                self.water_outage_flag = True
+                return result, user_history
+            else:
+                # 判斷是否為水務相關問題
+                wrong_question = wrong_question_classifier.predict(text=text).strip()
+                if wrong_question == "是":
+                    return "✔ 我可以幫你接洽專人", history # 不新增歷史對話
+                else:
+                    return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!", history # 不新增歷史對話
+                
+        if status['status'] == "OUTAGE":
+            location_outage_str = location_outage_classifier.predict(text=text).strip()
+            location_outage_str = location_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
+
+            try:
+                print(location_outage_str)
+                location = json.loads(location_outage_str)
+                water_affected_counties = location['Counties']
+                water_affected_towns = location['Towns']
+
+                if water_affected_towns == "null":
+                    water_affected_towns = None
+
+                if water_affected_counties == "null":
+                    user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
+                    return "請輸入詳細地區，例如：台中市北區", user_history
+
                 response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name"})
                 
                 response = response.json()
@@ -582,7 +686,7 @@ class WaterGPTClient:
                 if response.get("message") == "success":
                     response = response.get("result")
                 else:
-                    return "伺服器忙碌中，請稍後再試。"
+                    return "伺服器忙碌中，請稍後再試。", history # 不新增歷史對話
 
                 output = ""
                 for i in response:
@@ -600,72 +704,21 @@ class WaterGPTClient:
                         pressure_down_reason=i["pressureDownReason"],
                         pressure_down_number=i["pressureDownNumber"],
                     )
+                user_history.append({"role": "assistant", "content": "(回應停水內容)"})
                 if output == "":
                     if water_affected_towns != None:
-                        return f"✅ 目前{water_affected_counties}{water_affected_towns}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。"
+                        return f"✅ 目前{water_affected_counties}{water_affected_towns}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。", user_history
                     else:
-                        return f"✅ 目前{water_affected_counties}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。"
+                        return f"✅ 目前{water_affected_counties}地區無停水資訊，如有用水問題請撥本公司24小時免付費客服專線『1910』。", user_history
                 
-                return template_title + output + template_note
+                return template_title + output + template_note, user_history
 
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON: {e}")
-            print(f"Problematic string that caused error: ---{e.doc}---") # e.doc 是導致錯誤的原始字串
-            return "您輸入的資訊有誤，請稍後再試。"
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
+                print(f"Problematic string that caused error: ---{e.doc}---") # e.doc 是導致錯誤的原始字串
+                return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
 
-
-        # 直接使用requests發送POST請求
-        payload = {
-            "request": text,
-            "top_k": 5
-        }
-        response = requests.post(self.embedding_url, headers=self.headers, json=payload)
-        response.raise_for_status()
-        data = response.json()
-        docs = data["response"]
-        
-        if not docs:
-            return "❌ 沒有找到相關文件。"
-
-        # 更新shared字典，保持與原代碼相容
-        self.shared["last_docs"] = docs
-
-        docs_text = "\n\n".join(
-            f"{i+1} 標題：{d['title']}\n內容：{d['content']}"
-            for i, d in enumerate(docs)
-        )
-
-        # 將每一個文件標題加入快捷訊息
-        for d in docs:
-            quick_replies.append(d['title'])
-
-        #print(docs)
-        # 判斷是否能回答
-        answerable = can_answer_chain.predict(
-            question=text,
-            docs=docs_text
-        ).strip()
-
-        if answerable == "是":
-            result = llm_retrieve_chain.predict(
-                question=text,
-                docs=docs_text
-            ).strip()
-
-            try:
-                result = docs[int(result)-1]['content'] 
-            except:
-                return "❌ 無法獲取正確的文件編號，請稍後再試。"
-
-            return result
-
-        # 判斷是否為水務相關問題
-        wrong_question = wrong_question_classifier.predict(text=text).strip()
-        if wrong_question == "是":
-            return "✔ 我可以幫你接洽專人"
-        else:
-            return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!"
-
+        return "✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
 
 # 移除原來的handle_ws函數，改為直接請求的函數
 async def get_embedding_data(text, top_k=5):
@@ -737,25 +790,8 @@ async def main():
         else:
             print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
 
-
 if __name__ == "__main__":
-    # asyncio.run(main())
-
-    # payload = {
-    #     "model":    MODEL,
-    #     "messages": [
-    #         {"role": "system", "content": "你是一個客服，請回答使用者提出的問題。"},
-    #         {"role": "user",   "content": "請問如何繳水費？"}
-    #     ],
-    #     "stream": False
-    # }
-    # resp = requests.post(API_URL, headers=HEADERS, json=payload)
-    # resp.raise_for_status()
-    # data = resp.json()
-    # print(data["choices"][0]["message"]["content"])
-    
     pass
-
 
 # WaterGPTClient 測試
 '''
