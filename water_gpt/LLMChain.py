@@ -24,6 +24,7 @@ class ClassifierLLM(LLM):
                 {"role": "system", "content": "你是一個訊息分類器，只回覆單字 \"是\" 或 \"否\""},
                 {"role": "user",   "content": prompt}
             ],
+            "temperature": 0.0,  # 確保輸出一致性
             "stream": False
         }
         resp = requests.post(API_URL, headers=HEADERS, json=payload)
@@ -719,7 +720,7 @@ class WaterGPTClient:
             self.shared["last_docs"] = docs
 
             docs_text = "\n\n".join(
-                f"{i+1} 標題：{d['title']}\n內容：{d['content']}"
+                f"{i+1} 標題：{d['title']}"#\n內容：{d['content']}"
                 for i, d in enumerate(docs)
             )
 
@@ -733,6 +734,7 @@ class WaterGPTClient:
                 question=text,
                 docs=docs_text
             ).strip()
+            print(docs_text)
             print("能否回答:", answerable)
             if answerable == "是":
                 result = llm_retrieve_chain.predict(
