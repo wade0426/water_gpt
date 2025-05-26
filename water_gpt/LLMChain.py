@@ -121,7 +121,7 @@ class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
 
 分析原則：
 1. **整體理解**：綜合分析整個對話流程，不只看最後一句話
-2. **意圖演變**：追蹤用戶意圖的變化和澄清過程  
+2. **意圖演變**：追蹤用戶意圖的變化和澄清過程
 3. **上下文連貫**：考慮前後訊息的邏輯關聯性
 4. **最終目標**：識別用戶當前最迫切想要完成的任務
 
@@ -142,6 +142,20 @@ class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
   - 服務諮詢（繳費、申請等）
   - 問題解決方案諮詢
   - 非即時性的水務相關問題
+
+  關鍵區別：
+OUTAGE vs RAG 的判斷標準：
+- OUTAGE：查詢停水公告/預告 
+  ✓ "台中現在有停水嗎？"
+  ✓ "這裡會停水嗎？" 
+  ✓ "查詢停水資訊"
+  ✓ 在OUTAGE狀態下提供地點參數："台中市北區"
+
+- RAG：故障、報修、服務問題
+  ✓ "家裡沒有水了，能派人來修嗎？" (這是報修，不是查公告)
+  ✓ "停水了該怎麼辦？" (這是諮詢，不是查公告)
+  ✓ "水壓不足怎麼處理？"
+  ✓ "如何繳水費？"
 
 分析步驟：
 1. **回顧對話歷程**：用戶從開始到現在經歷了什麼
@@ -714,7 +728,7 @@ class WaterGPTClient:
 
         # 用換行符連接結果
         formatted_string = '\n'.join(history_str)
-        #print(formatted_string)
+        print(formatted_string)
 
         #print(history)
         status = status_classifier.predict(text=formatted_string, status=self.STATUS, user_message=text).strip()
@@ -761,7 +775,7 @@ class WaterGPTClient:
                 question=text,
                 docs=docs_text
             ).strip()
-            print(docs_text)
+            #print(docs_text)
             print("能否回答:", answerable)
             if answerable == "是":
                 result = llm_retrieve_chain.predict(
@@ -842,7 +856,7 @@ class WaterGPTClient:
                 print(f"Problematic string that caused error: ---{e.doc}---") # e.doc 是導致錯誤的原始字串
                 return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
 
-        return "✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
+        return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
 
 # 移除原來的handle_ws函數，改為直接請求的函數
 async def get_embedding_data(text, top_k=5):
