@@ -36,6 +36,7 @@ class ClassifierLLM(LLM):
     def identifying_params(self) -> dict:
         return {"model": MODEL}
 
+
 class JailbreakLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
         system_prompt = """# 越獄攻擊檢測系統提示詞
@@ -114,6 +115,7 @@ class JailbreakLLM(ClassifierLLM):  # 可繼承同樣底層
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
+
 
 class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
@@ -226,6 +228,7 @@ OUTAGE vs RAG 的判斷標準：
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+
 class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
         payload = {
@@ -312,6 +315,7 @@ class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+
 class LocationOutageLLM(ClassifierLLM):
     def _call(self, prompt: str, stop=None) -> str:
         system_prompt = """你是一個地點捕捉器，使用結構化驗證來判斷地點。
@@ -383,6 +387,7 @@ class LocationOutageLLM(ClassifierLLM):
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
+
 
 # 普通對話機器人
 class NormalLLM(ClassifierLLM):  # 可繼承同樣底層
@@ -477,6 +482,7 @@ llm_retrieve_chain = LLMChain(
     ),
     output_key="verdict"
 )
+
 
 emotion_classifier = LLMChain(
     llm=EmotionLLM(),
@@ -675,10 +681,12 @@ def generate_water_off_notification(no=None, start_date=None, end_date=None, sta
 
     return template
 
+
 # 定義模板頭部
 template_title = """# 🚰 [供水查詢](https://web.water.gov.tw/wateroffmap/map)
 
 """
+
 
 # 定義模板尾部
 template_note = """## ⚠️ 重要注意事項
@@ -858,6 +866,7 @@ class WaterGPTClient:
 
         return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
 
+
 # 移除原來的handle_ws函數，改為直接請求的函數
 async def get_embedding_data(text, top_k=5):
     payload = {
@@ -927,6 +936,8 @@ async def main():
             print("✔ 我可以幫你接洽專人")
         else:
             print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
+
+
 
 if __name__ == "__main__":
     pass
