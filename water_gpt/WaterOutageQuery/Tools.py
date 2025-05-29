@@ -166,7 +166,7 @@ def get_water_outage_notices():
     print(f"停水公告已保存至 {os.path.join(FolderPath, f'water_outage_notices.json')}")
 
 
-def find_matching_outages(data_list, affectedCounties, affectedTowns=None, startDate=None, endDate=None):
+def find_matching_outages(data_list, affectedCounties, affectedTowns=None, startDate=None, endDate=None, addressKeyword=None):
     """
     根據受影響的縣市和可選的鄉鎮市區篩選停水/降壓資料。
 
@@ -182,6 +182,10 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None, start
             開始日期。如果提供，則只返回事件結束日期在此日期之後的停水事件。
         endDate (str, optional): (YYYY-MM-DD)
             結束日期。如果提供，則只返回事件開始日期在此日期之前的停水事件。
+        addressKeyword (str, optional): 
+            地址關鍵字。如果提供，則只返回包含此關鍵字的停水事件。
+            例如：'三民路三段'等。預設為 None (不按地址篩選)。
+
 
     Returns:
         list: 一個新的列表，其中只包含符合條件的字典。
@@ -317,6 +321,21 @@ def find_matching_outages(data_list, affectedCounties, affectedTowns=None, start
             # 篩選結束日期 (事件開始日期必須在篩選結束日期之前或等於)
             if filter_end_date and item_start_date > filter_end_date:
                 continue
+
+        # 地址關鍵字篩選
+        if addressKeyword:  # 如果提供了地址關鍵字
+            waterOffRegion = item.get('waterOffRegion', '')
+            pressureDownRegion = item.get('pressureDownRegion', '')
+            
+            # 確保是字串類型以避免錯誤
+            if not isinstance(waterOffRegion, str):
+                waterOffRegion = str(waterOffRegion) if waterOffRegion is not None else ''
+            if not isinstance(pressureDownRegion, str):
+                pressureDownRegion = str(pressureDownRegion) if pressureDownRegion is not None else ''
+            
+            # 檢查地址關鍵字是否在區域描述中
+            if addressKeyword not in waterOffRegion and addressKeyword not in pressureDownRegion:
+                continue  # 如果關鍵字不在任何區域描述中，跳過此項目
 
         # 如果所有條件都通過
         filtered_results.append(item)

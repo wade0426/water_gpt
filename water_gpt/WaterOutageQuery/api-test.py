@@ -8,10 +8,17 @@ import json
 
 #response = requests.get(URL, params={"affectedCounties": "66000"})
 # response = requests.get(URL, params={"affectedCounties": "臺中市", "query": "name"})
+# response = requests.get(URL, params={"affectedCounties": "臺中市", 
+#                                      "query": "name", 
+#                                      "startDate": "2025-06-01", 
+#                                      "endDate": "2025-06-02"})
+
+# 測試地址關鍵字
 response = requests.get(URL, params={"affectedCounties": "臺中市", 
                                      "query": "name", 
-                                     "startDate": "2025-06-01", 
-                                     "endDate": "2025-06-02"})
+                                     "startDate": "2025-05-01", 
+                                     "endDate": "2025-06-30",
+                                     "addressKeyword": "三民路三段"})
 
 # print(len(response.json()["result"]))
 print(response.json())

@@ -133,11 +133,11 @@ async def root():
 
 
 @app.get("/water-outage-query")
-async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code', startDate: str = None, endDate: str = None):
+async def water_outage_query(affectedCounties: str, affectedTowns: str = None, query: str = 'code', startDate: str = None, endDate: str = None, addressKeyword: str = None):
     try:
         # 使用全局變量就不需要每次重新讀取
         if query == 'code':
-            result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns, startDate, endDate)
+            result = find_matching_outages(water_outage_data, affectedCounties, affectedTowns, startDate, endDate, addressKeyword)
         elif query == 'name':
             #affectedCounties = affectedCounties.replace("台", "臺")
             #affectedTowns = affectedTowns.replace("台", "臺") if affectedTowns else None
@@ -172,7 +172,7 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
 
             #print(f"county_value: {county_value}, town_value: {town_value}")
             
-            result = find_matching_outages(water_outage_data, county_value, town_value, startDate, endDate)
+            result = find_matching_outages(water_outage_data, county_value, town_value, startDate, endDate, addressKeyword)
 
         # 定義要取得的欄位
         # waterOffNumber: 停水影響戶數
