@@ -2,3 +2,4 @@ water_gpt/db/*
 *.pyc
 *.env
 water_gpt/WaterOutageQuery/data/*
+water_gpt/output.log

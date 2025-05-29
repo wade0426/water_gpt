@@ -4,6 +4,7 @@ import asyncio
 import json
 from langchain.llms.base import LLM
 from datetime import datetime
+import logging
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 WATER_OUTAGE_URL = "http://localhost:8002/water-outage-query"
@@ -11,6 +12,13 @@ EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
 
+# 設定 logging 輸出到檔案
+logging.basicConfig(
+    filename='output.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(message)s',
+    encoding='utf-8'
+)
 
 class ClassifierLLM(LLM):
     @property
@@ -745,6 +753,11 @@ class WaterGPTClient:
     async def ask(self, text, history, quick_replies=[]):
         text = text.strip()
         jailbrea = jailbrea_classifier.predict(text=text).strip()  # 執行Jailbreak檢測
+        
+        logging.info("")
+        logging.info("使用者輸入:" + text)
+        logging.info("Jailbreak檢測結果:" + jailbrea)
+
         print("Jailbreak檢測結果:", jailbrea)
         if jailbrea == "是":
             return "❌ 請勿嘗試繞過系統限制。", history
@@ -769,6 +782,7 @@ class WaterGPTClient:
         status = status_classifier.predict(text=formatted_string, status=self.STATUS, user_message=text).strip()
         status = status.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
         print(status)
+        logging.info(status)
         status = json.loads(status)
         self.STATUS = status['status']  # 更新機器人狀態
         #print("機器人狀態:", self.STATUS)
@@ -811,6 +825,9 @@ class WaterGPTClient:
                 docs=docs_text
             ).strip()
             #print(docs_text)
+
+            logging.info(docs_text)
+            logging.info("能否回答:" + answerable)
             print("能否回答:", answerable)
             if answerable == "是":
                 result = llm_retrieve_chain.predict(
@@ -822,7 +839,7 @@ class WaterGPTClient:
                 result = docs[int(result)-1]['content'] 
                 #except:
                 #    return "❌ 無法獲取正確的文件編號，請稍後再試。", history
-            
+                logging.info(result)
                 user_history.append({"role": "assistant", "content": "(RAG內容)"})
 
                 return result, user_history
@@ -830,6 +847,9 @@ class WaterGPTClient:
                 # 判斷是否為水務相關問題
                 wrong_question = wrong_question_classifier.predict(text=text).strip()
                 print("是否為水務相關問題:", wrong_question)
+
+                logging.info("是否為水務相關問題:" + wrong_question)
+                       
                 if wrong_question == "是":
                     return "✔ 我可以幫你接洽專人", history # 不新增歷史對話
                 else:
