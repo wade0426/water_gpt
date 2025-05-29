@@ -335,6 +335,7 @@ class LocationOutageLLM(ClassifierLLM):
 【核心原則】：
 - 只有當輸入的地名組合在地名對應表中找到**完全匹配**時，才輸出結果，否則地點部分一律輸出 null。
 - 時間資訊根據用戶輸入進行智能解析，未提及時間時相關欄位輸出 null。
+- 地址關鍵字只有在確定縣市資訊的前提下才進行提取，否則輸出 null。
 
 【地名對應表】：
 以下是完整的縣市-鄉鎮區對應關係，**只能使用表中的完整組合**：
@@ -359,6 +360,20 @@ class LocationOutageLLM(ClassifierLLM):
 臺東縣: 長濱鄉,卑南鄉,延平鄉,成功鎮,鹿野鄉,池上鄉,東河鄉,關山鎮,海端鄉,金峰鄉,達仁鄉,臺東市,太麻里鄉,大武鄉,綠島鄉,蘭嶼鄉
 澎湖縣: 湖西鄉,馬公市,白沙鄉,西嶼鄉,望安鄉,七美鄉
 
+【地址提取規則】：
+1. **前提條件**：必須先確定有效的縣市資訊，否則地址關鍵字一律輸出 null
+2. **提取範圍**：
+   - 路段：如「三民路三段」、「中正路二段」、「建國路一段」
+   - 街道：如「民生街」、「和平街」、「中山路」
+   - 大路：如「中華路」、「建國路」、「復興路」
+3. **提取方式**：
+   - 優先提取完整路段（含段數）：「三民路三段」優於「三民路」
+   - 不包含門牌號碼：「三民路三段129號」→提取「三民路三段」
+   - 不包含巷弄：「三民路三段50巷」→提取「三民路三段」
+4. **無效情況**：
+   - 沒有明確縣市資訊時：「請問中正路會停水嗎？」→ addressKeyword: null
+   - 只有區域性描述：「工業區」、「市中心」→ addressKeyword: null
+
 【時間處理規則】：
 目前系統當前時間：{current_date}
 1. **相對時間解析**：
@@ -379,12 +394,13 @@ class LocationOutageLLM(ClassifierLLM):
 【驗證流程】：
 1. **提取地名**：從輸入中提取所有可能的地名片段
 2. **提取時間**：識別並解析時間相關表達
-3. **精確匹配**：
+3. **提取地址**：在確定縣市後，提取街道路段資訊
+4. **精確匹配**：
    - 情況A：只提及縣市名 → 檢查是否在對應表中存在該縣市
    - 情況B：只提及鄉鎮區名 → 檢查該鄉鎮區在對應表中的唯一歸屬
    - 情況C：同時提及縣市和鄉鎮區 → 檢查該組合是否在對應表中完全匹配
-4. **衝突檢測**：如果提及多個不同縣市的地名，直接輸出 null
-5. **模糊拒絕**：無法確定唯一對應關係時，輸出 null
+5. **衝突檢測**：如果提及多個不同縣市的地名，直接輸出 null
+6. **模糊拒絕**：無法確定唯一對應關係時，輸出 null
 
 【特殊處理】：
 - 重複地名（如多個縣市都有「北區」）：必須有縣市前綴才有效
@@ -872,6 +888,7 @@ class WaterGPTClient:
                 water_affected_towns = location['Towns']
                 start_date = location['startDate']
                 end_date = location['endDate']
+                address_keyword = location['addressKeyword']
 
                 if water_affected_towns == "null":
                     water_affected_towns = None
@@ -885,13 +902,16 @@ class WaterGPTClient:
                 if water_affected_counties == "null":
                     user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
                     return "請輸入詳細地區，例如：台中市北區", user_history
+                
+                if address_keyword == "null":
+                    address_keyword = None
 
                 # 如果 endDate 小於今天的日期就返回
                 if end_date and end_date < datetime.now().strftime("%Y-%m-%d"):
                     user_history.append({"role": "assistant", "content": f"{template_no_past_date}"})
                     return template_no_past_date, user_history
 
-                response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name", "startDate": start_date, "endDate": end_date})
+                response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name", "startDate": start_date, "endDate": end_date, "addressKeyword": address_keyword})
                 
                 response = response.json()
 
