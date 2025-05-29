@@ -419,13 +419,18 @@ class LocationOutageLLM(ClassifierLLM):
 
 【測試案例】：
 輸入："臺南市里水" → 檢查「里水」是否在臺南市對應表中 → 不存在 → {{"Counties": "null", "Towns": "null"}}
-輸入："高雄七美" → 檢查「七美鄉」是否屬於高雄市 → 不是，屬於澎湖縣 → {{"Counties": "null", "Towns": "null"}}
-輸入："澎湖七美" → 檢查「七美鄉」是否屬於澎湖縣 → 是 → {{"Counties": "澎湖縣", "Towns": "七美鄉"}}
-輸入："萬巒" → 檢查「萬巒鄉」唯一歸屬 → 屏東縣 → {{"Counties": "屏東縣", "Towns": "萬巒鄉"}}
-輸入："6天後臺中市會不會停水" → 地點：臺中市，時間：2025-06-03 → {{"Counties": "臺中市", "Towns": "null", "startDate": "2025-06-03", "endDate": "2025-06-03"}}
-輸入："新北板橋 6/1~6/12 期間停水" → 地點：新北市板橋區，時間範圍 → {{"Counties": "新北市", "Towns": "板橋區", "startDate": "2025-06-01", "endDate": "2025-06-12"}}
-輸入："苗栗 5/7 之後停水" → 地點：苗栗縣，起始時間 → {{"Counties": "苗栗縣", "Towns": "null", "startDate": "2025-05-07", "endDate": "null"}}
-輸入："臺南 6/31 之前停水" → 地點：臺南市，結束時間 → {{"Counties": "臺南市", "Towns": "null", "startDate": "null", "endDate": "2025-06-31"}}""".format(current_date=datetime.now().strftime('%Y-%m-%d'))
+輸入："臺南市里水" → 檢查「里水」是否在臺南市對應表中 → 不存在 → {{"Counties": "null", "Towns": "null", "addressKeyword": "null", "startDate": "null", "endDate": "null"}}
+輸入："高雄七美" → 檢查「七美鄉」是否屬於高雄市 → 不是，屬於澎湖縣 → {{"Counties": "null", "Towns": "null", "addressKeyword": "null", "startDate": "null", "endDate": "null"}}
+輸入："澎湖七美" → 檢查「七美鄉」是否屬於澎湖縣 → 是 → {{"Counties": "澎湖縣", "Towns": "七美鄉", "addressKeyword": "null", "startDate": "null", "endDate": "null"}}
+輸入："萬巒" → 檢查「萬巒鄉」唯一歸屬 → 屏東縣 → {{"Counties": "屏東縣", "Towns": "萬巒鄉", "addressKeyword": "null", "startDate": "null", "endDate": "null"}}
+輸入："404台中市北區三民路三段129號" → 地點：臺中市北區，地址：三民路三段 → {{"Counties": "臺中市", "Towns": "北區", "addressKeyword": "三民路三段", "startDate": "null", "endDate": "null"}}
+輸入："請問中正路會停水嗎?" → 無縣市資訊 → {{"Counties": "null", "Towns": "null", "addressKeyword": "null", "startDate": "null", "endDate": "null"}}
+輸入："台南市東區府前路二段停水" → 地點：臺南市東區，地址：府前路二段 → {{"Counties": "臺南市", "Towns": "東區", "addressKeyword": "府前路二段", "startDate": "null", "endDate": "null"}}
+輸入："高雄三民區建國路明天會停水嗎" → 地點：高雄市三民區，地址：建國路，時間：明天 → {{"Counties": "高雄市", "Towns": "三民區", "addressKeyword": "建國路", "startDate": "2025-05-30", "endDate": "2025-05-30"}}
+輸入："6天後臺中市會不會停水" → 地點：臺中市，時間：2025-06-04 → {{"Counties": "臺中市", "Towns": "null", "addressKeyword": "null", "startDate": "2025-06-04", "endDate": "2025-06-04"}}
+輸入："新北板橋 6/1~6/12 期間停水" → 地點：新北市板橋區，時間範圍 → {{"Counties": "新北市", "Towns": "板橋區", "addressKeyword": "null", "startDate": "2025-06-01", "endDate": "2025-06-12"}}
+輸入："苗栗 5/7 之後停水" → 地點：苗栗縣，起始時間 → {{"Counties": "苗栗縣", "Towns": "null", "addressKeyword": "null", "startDate": "2025-05-07", "endDate": "null"}}
+輸入："臺南 6/31 之前停水" → 地點：臺南市，結束時間 → {{"Counties": "臺南市", "Towns": "null", "addressKeyword": "null", "startDate": "null", "endDate": "2025-06-31"}}""".format(current_date=datetime.now().strftime('%Y-%m-%d'))
 
         payload = {
             "model":    MODEL,
