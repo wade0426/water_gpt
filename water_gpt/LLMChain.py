@@ -12,6 +12,7 @@ EMBEDDING_URL = "http://3090p8001.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
 
+
 # 設定 logging 輸出到檔案
 logging.basicConfig(
     filename='output.log',
@@ -19,6 +20,7 @@ logging.basicConfig(
     format='%(asctime)s - %(message)s',
     encoding='utf-8'
 )
+
 
 class ClassifierLLM(LLM):
     @property
@@ -733,6 +735,10 @@ template_note = """## ⚠️ 重要注意事項
 5. **進度查詢**：可至[停水查詢系統](https://web.water.gov.tw/wateroffmap/map)查詢停復水進度"""
 
 
+# 定義無法查詢過去日期
+template_no_past_date = """⚠️**無法查詢過去日期**我們僅提供**未來已公告**的停水資訊查詢。**請重新輸入未來日期進行查詢**。"""
+
+
 class WaterGPTClient:
     def __init__(self):
         self.shared = {"last_docs": []}
@@ -879,6 +885,11 @@ class WaterGPTClient:
                 if water_affected_counties == "null":
                     user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
                     return "請輸入詳細地區，例如：台中市北區", user_history
+
+                # 如果 endDate 小於今天的日期就返回
+                if end_date and end_date < datetime.now().strftime("%Y-%m-%d"):
+                    user_history.append({"role": "assistant", "content": f"{template_no_past_date}"})
+                    return template_no_past_date, user_history
 
                 response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name", "startDate": start_date, "endDate": end_date})
                 
