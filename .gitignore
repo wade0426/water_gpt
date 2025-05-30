@@ -1,5 +1,6 @@
 water_gpt/db/*
 *.pyc
 *.env
-water_gpt/WaterOutageQuery/data/*
+water_gpt/WaterOutageQuery/data/last_update.txt
+water_gpt/WaterOutageQuery/data/water_outage_notices.json
 water_gpt/output.log

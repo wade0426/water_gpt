@@ -879,7 +879,7 @@ class WaterGPTClient:
             # 直接使用requests發送POST請求
             payload = {
                 "request": text,
-                "top_k": 5
+                "top_k": 10
             }
             response = requests.post(self.embedding_url, headers=self.headers, json=payload)
             response.raise_for_status()

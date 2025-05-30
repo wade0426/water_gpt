@@ -13,6 +13,7 @@ FolderPath = "./data"
 
 # 全局變量用於存儲停水資料
 water_outage_data = []
+water_location_data = []
 
 # 讀取停水資料的函數
 def load_water_outage_data():
@@ -26,6 +27,16 @@ def load_water_outage_data():
         with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
             water_outage_data = json.load(f)
 
+def load_water_location_data():
+    global water_location_data
+    #try:
+    with open(os.path.join(FolderPath, "water_location_data_v2.json"), "r", encoding="utf-8") as f:
+        water_location_data = json.load(f)
+    #except FileNotFoundError:
+    #    print("水源地資料檔案不存在，將進行首次下載")
+    #    get_water_outage_notices()
+    #    with open(os.path.join(FolderPath, "water_location.json"), "r", encoding="utf-8") as f:
+    #        water_location_data = json.load(f)
 
 # 檢查並更新停水資料的函數
 def update_water_outage_data():
@@ -60,6 +71,7 @@ def update_water_outage_data():
 
 # 初始化，載入停水資料
 load_water_outage_data()
+load_water_location_data()
 
 # 啟動更新線程
 update_thread = threading.Thread(target=update_water_outage_data, daemon=True)
@@ -190,6 +202,55 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
         print(f"發生錯誤: {e}")
         return {"message": "error", "error": str(e)}
 
+@app.get("/water-location-query")
+async def water_location_query(location: str):
+    try:
+        # 使用全局變量就不需要每次重新讀取
+        #if not water_location_data:
+        #    load_water_location_data()
+
+        # 檢查 location 是否為空
+        if not location:
+            return {"message": "error", "error": "Location keyword is required"}
+
+        def search_multiple_records(data_list, search_term):
+            """
+            在多筆JSON資料中搜尋area欄位包含指定文字的所有記錄
+            """
+            results = []
+            for item in data_list:
+                if 'area' in item and search_term in item['area']:
+                    results.append(item)
+            return results
+
+        # 假設您有多筆資料的清單
+        #data_list = [
+        #    {
+        #        "title": "溪湖營運所",
+        #        "area": "轄區: 彰化縣福興鄉、秀水鄉、溪湖鎮、埔鹽鄉、永靖鄉、二林鎮、田尾鄉",
+        #        # ... 其他欄位
+        #    },
+        #    # 其他營運所資料...
+        #]
+
+        # 搜尋範例
+        results = search_multiple_records(water_location_data, location)
+        print(f"找到 {len(results)} 筆符合的資料")
+        for result in results:
+            print(f"- {result['title']}")
+
+
+        # 過濾資料
+        #filtered_results = [item for item in water_location_data if location in item['name']]
+
+        if not results:
+            return {"message": "error", "error": "No matching locations found"}
+
+        print(results)  # debug
+        return {"message": "success", "result": results}
+    except Exception as e:
+        print(f"發生錯誤: {e}")
+        return {"message": "error", "error": str(e)}
 
 
 if __name__ == "__main__":
