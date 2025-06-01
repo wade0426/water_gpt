@@ -203,24 +203,26 @@ async def water_outage_query(affectedCounties: str, affectedTowns: str = None, q
         return {"message": "error", "error": str(e)}
 
 @app.get("/water-location-query")
-async def water_location_query(location: str):
+async def water_location_query(affected_counties: str, affected_towns: str):
     try:
         # 使用全局變量就不需要每次重新讀取
         #if not water_location_data:
         #    load_water_location_data()
 
         # 檢查 location 是否為空
-        if not location:
+        if not affected_counties or not affected_towns:
             return {"message": "error", "error": "Location keyword is required"}
 
-        def search_multiple_records(data_list, search_term):
+        def search_multiple_records(data_list, counties, towns):
             """
             在多筆JSON資料中搜尋area欄位包含指定文字的所有記錄
             """
+            #replace("json", "")
             results = []
             for item in data_list:
-                if 'area' in item and search_term in item['area']:
-                    results.append(item)
+                if 'area' in item and towns in item['area']:
+                    if 'address' in item and counties in item['address'].replace("台", "臺"):
+                        results.append(item)
             return results
 
         # 假設您有多筆資料的清單
@@ -234,7 +236,7 @@ async def water_location_query(location: str):
         #]
 
         # 搜尋範例
-        results = search_multiple_records(water_location_data, location)
+        results = search_multiple_records(water_location_data, affected_counties, affected_towns)
         print(f"找到 {len(results)} 筆符合的資料")
         for result in results:
             print(f"- {result['title']}")

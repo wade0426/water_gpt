@@ -8,6 +8,7 @@ import logging
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 WATER_OUTAGE_URL = "http://localhost:8002/water-outage-query"
+WATER_LOCATION_URL = "http://localhost:8002/water-location-query"
 EMBEDDING_URL = "https://embedding.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
@@ -147,83 +148,92 @@ class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
   - 想了解特定地區當前的停水狀況
   - 查詢計劃性停水公告
   - 確認某時間某地點是否會停水
-  (無法提供科普相關資訊或非即時性查詢)
-
-- **RAG**：尋求水務服務或資訊
-  - 故障報修、維修需求
-  - 服務諮詢（繳費、申請等）
-  - 問題解決方案諮詢
-  - 非即時性的水務相關問題
-
-  關鍵區別：
-OUTAGE vs RAG 的判斷標準：
-- OUTAGE：查詢停水公告/預告 
   ✓ "台中現在有停水嗎？"
   ✓ "這裡會停水嗎？" 
   ✓ "查詢停水資訊"
-  ✓ 在OUTAGE狀態下提供地點參數："台中市北區"
 
-- RAG：故障、報修、服務問題
-  ✓ "家裡沒有水了，能派人來修嗎？" (這是報修，不是查公告)
-  ✓ "停水了該怎麼辦？" (這是諮詢，不是查公告)
+- **PAYMENT**：查詢繳費地點資訊
+  - 詢問特定地區的繳費據點位置
+  - 想知道就近的繳費地點
+  - 基於地理位置的繳費查詢
+  ✓ "我住台中北區，我要去哪裡繳費？"
+  ✓ "附近有哪些繳費據點？"
+  ✓ "台中市有哪些地方可以繳水費？"
+
+- **RAG**：尋求水務服務或資訊
+  - 故障報修、維修需求
+  - 服務諮詢（繳費方式、申請等）
+  - 問題解決方案諮詢
+  - 非即時性的水務相關問題
+  ✓ "家裡沒有水了，能派人來修嗎？"
   ✓ "水壓不足怎麼處理？"
-  ✓ "如何繳水費？"
+  ✓ "如何繳水費？"（方式諮詢，非地點查詢）
+  ✓ "停水了該怎麼辦？"
+
+關鍵區別判斷標準：
+
+**OUTAGE vs PAYMENT vs RAG**：
+- **OUTAGE**：關鍵詞包含「停水」+「查詢/確認」時間或狀態
+  - 焦點：停水事件的時間、狀態、影響範圍
+  
+- **PAYMENT**：關鍵詞包含「繳費」+「地點/位置/據點」查詢
+  - 焦點：繳費的實體地點、據點分布
+  - 通常會提到具體地區作為查詢範圍
+  
+- **RAG**：其他水務相關服務、故障、諮詢
+  - 焦點：服務流程、問題解決、操作方法
+
+特殊情況處理：
+- 繳費相關區分：
+  - "哪裡可以繳費？" → PAYMENT（地點查詢）
+  - "如何繳費？" → RAG（方式諮詢）
+  - "繳費時間？" → RAG（規則諮詢）
 
 分析步驟：
 1. **回顧對話歷程**：用戶從開始到現在經歷了什麼
 2. **識別轉折點**：是否有澄清、否定、或意圖轉換
-3. **理解當前狀態**：用戶現在處於什麼情況
+3. **關鍵詞匹配**：判斷核心需求是「停水狀態」、「繳費地點」還是「服務諮詢」
 4. **判斷真實需求**：用戶最終想要什麼操作
-
-特殊情況處理：
-- 如果用戶否定了某個操作，要分析否定後的真實意圖
-- 如果對話中有誤解，要以澄清後的意圖為準
-- 如果用戶提供了補充資訊，要結合完整脈絡判斷
-- 如果意圖模糊，傾向於選擇最符合對話邏輯的操作
 
 輸出格式：
 {
   "status": "操作類型",
-  "reasoning": "判斷reasoning，說明為什麼是這個操作"
+  "reasoning": "判斷理由"
 }
 
 範例分析：
 
 對話1：
-用戶: 家裡沒有水了，你們能派人來修嗎
-助理: 請輸入詳細地區，例如：台中市北區
-用戶: 我不是要查停水，是要報修
-
+用戶: 我住台中北區，我要去哪裡繳費？
 分析結果：
 {
-  "status": "RAG", 
-  "reasoning": "用戶明確澄清不是要查停水資訊，而是需要報修服務"
+  "status": "PAYMENT",
+  "reasoning": "詢問特定地區的繳費據點位置"
 }
 
 對話2：
-用戶: 我要查詢停水資訊
-助理: 請提供詳細地區
-用戶: 台中市北區
-
+用戶: 台中現在有停水嗎？
 分析結果：
 {
   "status": "OUTAGE",
-  "reasoning": "用戶在停水查詢流程中提供地點資訊，意圖明確且連貫"
+  "reasoning": "查詢當前停水狀態資訊"
 }
 
 對話3：
-用戶: 你好
-助理: 您好，有什麼可以幫您的嗎？
-用戶: 沒事，謝謝
-
+用戶: 如何繳水費？
 分析結果：
 {
-  "status": "READY",
-  "reasoning": "用戶表示沒有特定需求，處於結束對話狀態"
+  "status": "RAG",
+  "reasoning": "諮詢繳費方式而非地點查詢"
 }
 
-注意事項：
-"reasoning"請盡量減短。"""
+對話4：
+用戶: 家裡沒有水了，能派人來修嗎？
+分析結果：
+{
+  "status": "RAG",
+  "reasoning": "報修服務需求"
+}"""
 
         payload = {
             "model":    MODEL,
@@ -825,6 +835,56 @@ template_note = """## ⚠️ 重要注意事項
 # 定義無法查詢過去日期
 template_no_past_date = """⚠️**無法查詢過去日期**我們僅提供**未來已公告**的停水資訊查詢。**請重新輸入未來日期進行查詢**。"""
 
+def format_water_service_info(data):
+    """格式化台水服務所資訊為Markdown模板"""
+    
+    template = f"""## 🏢 {data['title']}
+
+### 📍 服務地址
+{data['address']}
+
+### 📞 聯絡電話
+{data['phone']}
+
+### 👨‍💼 聯絡人
+{data['contact_person']}
+
+### 📠 傳真號碼
+{data['fax']}
+
+### 📧 服務信箱
+{data['service_email']}
+
+### 🌐 服務區域
+{data['region']}
+
+### 📋 轄區範圍
+{data['jurisdiction']}
+
+### 🗺️ 詳細服務範圍
+{data['area_description']}"""
+
+    # 添加營業時間（如果有）
+    if data['note']:
+        template += f"""
+
+### ⏰ 營業時間
+{data['note'].replace('【', '').replace('】', '')}"""
+    
+    # 添加地圖連結
+    if data['mapURL']:
+        template += f"""
+
+### 🗺️ 地圖位置
+[點此查看地圖]({data['mapURL']})"""
+    
+    # 添加官網連結
+    if data['href']:
+        template += f"""
+
+### 🔗 官方網站
+[服務所詳細資訊]({data['href']})"""
+        return template
 
 class WaterGPTClient:
     def __init__(self):
@@ -1024,6 +1084,38 @@ class WaterGPTClient:
             except json.JSONDecodeError as e:
                 print(f"Error decoding JSON: {e}")
                 print(f"Problematic string that caused error: ---{e.doc}---") # e.doc 是導致錯誤的原始字串
+                return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
+
+        if self.STATUS == "PAYMENT":
+            location_outage_str = location_outage_classifier.predict(text=text).strip()
+            location_outage_str = location_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
+            print(location_outage_str)
+            try:
+                location = json.loads(location_outage_str)
+                affected_counties = location['Counties']
+                affected_towns = location['Towns']
+
+                if affected_counties == "null" or affected_towns == "null":
+                    user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
+                    return "請輸入詳細地區，例如：台中市北區", user_history
+                
+                response = requests.get(WATER_LOCATION_URL, params={"affected_counties": affected_counties, "affected_towns": affected_towns})
+                
+                response = response.json()
+
+                if response.get("message") == "success":
+                    response = response.get("result")
+                else:
+                    return "伺服器忙碌中，請稍後再試。", history
+                
+                #print(response[0])
+                response = format_water_service_info(response[0])
+                user_history.append({"role": "assistant", "content": "(回應繳費地點內容)"})
+                return response, user_history
+                
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
+                print(f"Problematic string that caused error: ---{e.doc}---")
                 return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
 
         return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
