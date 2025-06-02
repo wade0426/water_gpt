@@ -1036,8 +1036,8 @@ class WaterGPTClient:
                     end_date = None
 
                 if water_affected_counties == "null":
-                    user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
-                    return "請輸入詳細地區，例如：台中市北區", user_history
+                    user_history.append({"role": "assistant", "content": "請輸入您要查詢停水的詳細地區，例如：台中市北區"})
+                    return "請輸入您要查詢停水的詳細地區，例如：台中市北區", user_history
                 
                 if address_keyword == "null":
                     address_keyword = None
@@ -1096,8 +1096,8 @@ class WaterGPTClient:
                 affected_towns = location['Towns']
 
                 if affected_counties == "null" or affected_towns == "null":
-                    user_history.append({"role": "assistant", "content": "請輸入詳細地區，例如：台中市北區"})
-                    return "請輸入詳細地區，例如：台中市北區", user_history
+                    user_history.append({"role": "assistant", "content": "請輸入您要查詢繳費的詳細地區，例如：台中市北區"})
+                    return "請輸入您要查詢繳費的詳細地區，例如：台中市北區", user_history
                 
                 response = requests.get(WATER_LOCATION_URL, params={"affected_counties": affected_counties, "affected_towns": affected_towns})
                 
@@ -1106,7 +1106,7 @@ class WaterGPTClient:
                 if response.get("message") == "success":
                     response = response.get("result")
                 else:
-                    return "伺服器忙碌中，請稍後再試。", history
+                    return "目前查詢無相關資訊", history
                 
                 #print(response[0])
                 response = format_water_service_info(response[0])
