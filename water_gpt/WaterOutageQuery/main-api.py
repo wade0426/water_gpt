@@ -210,7 +210,7 @@ async def water_location_query(affected_counties: str, affected_towns: str):
         #    load_water_location_data()
 
         # 檢查 location 是否為空
-        if not affected_counties or not affected_towns:
+        if not affected_counties:# or not affected_towns:
             return {"message": "error", "error": "Location keyword is required"}
 
         def search_multiple_records(data_list, counties, towns):
@@ -222,6 +222,11 @@ async def water_location_query(affected_counties: str, affected_towns: str):
             for item in data_list:
                 for location in item['location']:
                     if counties in location['Counties']:
+                        
+                        if affected_towns == "null":
+                            results.append(item)
+                            break
+
                         for town in location['Towns']:
                             if towns in town:
                                 results.append(item)

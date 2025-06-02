@@ -1102,7 +1102,7 @@ class WaterGPTClient:
                 affected_counties = location['Counties']
                 affected_towns = location['Towns']
 
-                if affected_counties == "null" or affected_towns == "null":
+                if affected_counties == "null":# or affected_towns == "null":
                     user_history.append({"role": "assistant", "content": "請輸入您要查詢繳費的詳細地區，例如：台中市北區"})
                     return "請輸入您要查詢繳費的詳細地區，例如：台中市北區", user_history
                 
