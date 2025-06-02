@@ -835,10 +835,12 @@ template_note = """## ⚠️ 重要注意事項
 # 定義無法查詢過去日期
 template_no_past_date = """⚠️**無法查詢過去日期**我們僅提供**未來已公告**的停水資訊查詢。**請重新輸入未來日期進行查詢**。"""
 
-def format_water_service_info(data):
+def format_water_service_info(all_data):
     """格式化台水服務所資訊為Markdown模板"""
-    
-    template = f"""## 🏢 {data['title']}
+    #print(len(all_data))
+    template = ''
+    for data in all_data:
+        template += f"""## 🏢 {data['title']}
 
 ### 📍 服務地址
 {data['address']}
@@ -864,27 +866,32 @@ def format_water_service_info(data):
 ### 🗺️ 詳細服務範圍
 {data['area_description']}"""
 
-    # 添加營業時間（如果有）
-    if data['note']:
-        template += f"""
+        # 添加營業時間（如果有）
+        if data['note']:
+            template += f"""
 
 ### ⏰ 營業時間
 {data['note'].replace('【', '').replace('】', '')}"""
     
-    # 添加地圖連結
-    if data['mapURL']:
-        template += f"""
+        # 添加地圖連結
+        if data['mapURL']:
+            template += f"""
 
 ### 🗺️ 地圖位置
 [點此查看地圖]({data['mapURL']})"""
     
-    # 添加官網連結
-    if data['href']:
-        template += f"""
+        # 添加官網連結
+        if data['href']:
+            template += f"""
 
 ### 🔗 官方網站
 [服務所詳細資訊]({data['href']})"""
-        return template
+        template += """
+
+---
+
+"""
+    return template
 
 class WaterGPTClient:
     def __init__(self):
@@ -1108,10 +1115,14 @@ class WaterGPTClient:
                 else:
                     return "目前查詢無相關資訊", history
                 
+                results = format_water_service_info(response)
+                #print(results)
+                #results = '' 
                 #print(response[0])
-                response = format_water_service_info(response[0])
+                #for i in response:
+                #    results += format_water_service_info(i)
                 user_history.append({"role": "assistant", "content": "(回應繳費地點內容)"})
-                return response, user_history
+                return results, user_history
                 
             except json.JSONDecodeError as e:
                 print(f"Error decoding JSON: {e}")

@@ -1,0 +1,2901 @@
+[
+  {
+    "title": "基隆服務所",
+    "phone": "(02)24252103、24234195、台水客服專線1910",
+    "address": "202003基隆市中正區中正路106號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "11",
+    "area": "轄區: 基隆市",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8018?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.1375838,121.7496462",
+    "jurisdiction": "基隆市",
+    "area_description": "基隆市中正區、信義區、仁愛區、暖暖區、七堵區、安樂區、中山區皆為基隆所轄管",
+    "contact_person": "潘主任莉萍",
+    "fax": "(02)24212845",
+    "service_email": "z111@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2023-07-28 09:06",
+    "location": [
+      {
+        "Counties": "基隆市"
+      }
+    ]
+  },
+  {
+    "title": "淡水營運所",
+    "phone": "台水客服專線1910、(02)26212267 、26213170",
+    "address": "251009 新北市淡水區淡金路一段497號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1B",
+    "area": "轄區: 新北市淡水區、三芝區、石門區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8020?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.1782381445414,121.454028090819",
+    "jurisdiction": "新北市淡水區、三芝區、石門區",
+    "area_description": "新北市淡水區 皆為淡水所管轄 但蕃薯里、中和里未供水。",
+    "contact_person": "洪主任文祥",
+    "fax": "(02)2623-2555",
+    "service_email": "z11b@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2023-07-28 09:06",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "淡水區",
+          "三芝區",
+          "石門區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "瑞芳營運所",
+    "phone": "(02)24972006 、24972411、台水客服專線1910",
+    "address": "224014新北市瑞芳區三爪子坑路13巷5號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1C",
+    "area": "轄區: 新北市瑞芳區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8021?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.107340740894,121.814069854894",
+    "jurisdiction": "新北市瑞芳區",
+    "area_description": "新北市瑞芳區全為本所之管轄區域。",
+    "contact_person": "林主任連宏",
+    "fax": "(02)24972223",
+    "service_email": "z11c@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2024-04-04 21:58",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "瑞芳區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "汐止營運所",
+    "phone": "(02)86478218、86478219、台水客服專線1910",
+    "address": "221041新北市汐止區長興街一段100號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1D",
+    "area": "轄區: 新北市汐止區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8017?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.0790236,121.6720773",
+    "jurisdiction": "新北市汐止區",
+    "area_description": "新北市汐止區全為汐止所之管轄區域。",
+    "contact_person": "陳主任春泉",
+    "fax": "(02)86478220",
+    "service_email": "z11d@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2024-04-04 21:57",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "汐止區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "萬里金山營運所",
+    "phone": "(02)24922415、(02)24922425、台水客服專線1910",
+    "address": "207005新北市萬里區瑪鍊路54巷20號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1E",
+    "area": "轄區: 新北市萬里區、金山區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8022?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.177632,121.690742",
+    "jurisdiction": "新北市萬里區、金山區",
+    "area_description": "1. 新北市萬里區 全為萬金所管轄 但雙興村、溪底村未供水。",
+    "contact_person": "溫主任琮盟",
+    "fax": "(02)24926176",
+    "service_email": "z11e@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2023-07-28 09:06",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "萬里區",
+          "金山區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "文山營運所",
+    "phone": "(02)26631096、26631850、台水客服專線1910",
+    "address": "223001新北市石碇區雙溪口80-1號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1F",
+    "area": "轄區: 新北市深坑區、石碇區、坪林區、平溪區、烏來區（新烏路一段、二段、三段屬台北市自來水事業處所轄） 為文山所管轄",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8023?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.007101,121.65285900000003",
+    "jurisdiction": "新北市深坑區、石碇區、坪林區、平溪區、烏來區（新烏路一段、二段、三段屬台北市自來水事業處所轄） 為文山所管轄",
+    "area_description": "新北市深坑區、石碇區、坪林區、平溪區、烏來區（新烏路一段、二段、三段屬台北市自來水事業處所轄） 為文山所管轄",
+    "contact_person": "胡主任明進",
+    "fax": "(02)26634070",
+    "service_email": "z11f@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2023-07-28 09:07",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "深坑區",
+          "石碇區",
+          "坪林區",
+          "平溪區",
+          "烏來區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "貢寮雙溪營運所",
+    "phone": "(02)24941820、24941800、台水客服專線1910",
+    "address": "228003 新北市貢寮區下雙溪街20號",
+    "region": "第一區－新北市東北部、基隆",
+    "code": "1G",
+    "area": "轄區: 新北市貢寮區、雙溪區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8024?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.010451,121.920150",
+    "jurisdiction": "新北市貢寮區、雙溪區",
+    "area_description": "新北市貢寮區、雙溪區兩區全部村落都為本所之管轄區域。",
+    "contact_person": "吳股長子健",
+    "fax": "(02)2494-1773",
+    "service_email": "z11g@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】 【中午12:00至13:00未營業】",
+    "update_time": "2023-09-15 10:22",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "貢寮區",
+          "雙溪區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "桃園服務所",
+    "phone": "(03)3346128、台水客服專線1910",
+    "address": "33053 桃園市桃園區中山路291號",
+    "region": "第二區－桃園市",
+    "code": "22",
+    "area": "轄區: 桃園市桃園區、八德區、蘆竹區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8031?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.9919829,121.30454400000008",
+    "jurisdiction": "桃園市桃園區、八德區、蘆竹區",
+    "area_description": "桃園市桃園區全部。 桃園市八德區全部。 桃園市蘆竹區全部。 桃園市龜山區大坑村大坑路一段、南上村全部、南美村全部、山德村山鶯路1巷2巷3巷及2~100號。",
+    "contact_person": "林主任淑梅",
+    "fax": "(03)3327827",
+    "service_email": "shumeilin@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2022-08-10 15:53",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "桃園區",
+          "八德區",
+          "蘆竹區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "中壢服務所",
+    "phone": "(03)4251506、 4259492、台水客服專線1910",
+    "address": "32441 桃園市平鎮區延平路一段26號",
+    "region": "第二區－桃園市",
+    "code": "23",
+    "area": "轄區: 桃園市中壢區、平鎮區、桃園區、八德區、觀音區、大園區、楊梅區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8032?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.952805,121.22080900000003",
+    "jurisdiction": "桃園市中壢區、平鎮區、桃園區、八德區、觀音區、大園區、楊梅區",
+    "area_description": "桃園市中壢區全部。桃園市平鎮區雙連里、復旦里、廣達里、廣興里、廣仁里、義興里、義民里、新勢里、新榮里、新富里、新貴里、龍恩里、龍興里、建安里、華安里、東社里、忠貞里、中正里、貿易里、東安里、新安里、東勢里、福林里、高雙里、宋屋里、北安里、北勢里、北華里、北興里、北貴里、北富里、金陵里、新英里。桃園市桃園區龍岡里龍山街、龍門街。桃園市八德區宵裡里新生路坎頂路、白鷺里興仁路廣福路東泰新村、龍友里榮友新村龍宮街。桃園市觀音區崙坪里（1~9、13~25鄰全部）、上大里（3~14鄰全部）、富源里全部。桃園市大園區橫峰里高鐵重劃區內。桃園市楊梅區新榮里全部、高雙里雙榮路、高榮里全部。",
+    "contact_person": "黃主任俊穎",
+    "fax": "03-4223716",
+    "service_email": "jim0229@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-09-07 12:52",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "中壢區",
+          "平鎮區",
+          "桃園區",
+          "八德區",
+          "觀音區",
+          "大園區",
+          "楊梅區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "楊梅服務所",
+    "phone": "(03)4789261、台水客服專線1910",
+    "address": "32643 桃園市楊梅區楊新路18巷2號",
+    "region": "第二區－桃園市",
+    "code": "24",
+    "area": "轄區: 楊梅區（不含雙榮里）,新屋區平鎮區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8026?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.9135331921897,121.147636226156",
+    "jurisdiction": "楊梅區（不含雙榮里）,新屋區平鎮區",
+    "area_description": "楊梅區（不含雙榮里）新屋區平鎮區（山峰里、平安里、平南里、平鎮里、宋屋里、金星里、南勢里、高雙里、莊敬里、湧光里、湧光里、湧豐里、福林里、鎮興里、廣仁里）",
+    "contact_person": "吳主任政男",
+    "fax": "(03)4753991",
+    "service_email": "jnwu632@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-10-08 15:55",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "楊梅區",
+          "新屋區",
+          "平鎮區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "龜山服務所",
+    "phone": "(03)3294999、台水客服專線1910",
+    "address": "33356 桃園市龜山區光峰路2號",
+    "region": "第二區－桃園市",
+    "code": "25",
+    "area": "轄區: 桃園市龜山區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8033?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.9963043,121.34043099999996",
+    "jurisdiction": "桃園市龜山區",
+    "area_description": "桃園市龜山區精忠里、陸光里、中興里、新路里、龜山里、大同里、山頂里全部惟山鶯路台北監獄及宏德新村除外-、山德里全部惟山鶯路1巷2巷3巷及2~100號除外-、山福里、幸福里、嶺頂里、新嶺里、兔坑里、福源里、舊路里、大坑里、楓樹里、樂善里、公西里、大崗里、文化里、大湖里、新興里、大華里、長庚里、大坑路二段、三段。 桃園市桃園區成功里壽山路以北、桃園區三民路一段以東及長壽路以南區域除外。桃園市龜山區龍華里萬壽路一段666巷含-起、新北市泰山區南林路、壽山路190、192、194號。新北市泰山區大科里部份。",
+    "contact_person": "涂主任 季琪",
+    "fax": "(03)3500764",
+    "service_email": "af720602@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-09-07 12:53",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "龜山區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "林口服務所",
+    "phone": "(02)26031880、台水客服專線1910",
+    "address": "24446 新北市林口區佳林路40號",
+    "region": "第二區－桃園市",
+    "code": "2C",
+    "area": "轄區: 新北市林口區東林里、林口里、西林里、菁湖里、中湖里、湖北里、湖南里、南勢里、仁愛里、麗林里、東勢里、麗園里、頂福里、下福里、嘉寶里、瑞平里、太平里",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8027?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.082034583957,121.386371796712",
+    "jurisdiction": "新北市林口區東林里、林口里、西林里、菁湖里、中湖里、湖北里、湖南里、南勢里、仁愛里、麗林里、東勢里、麗園里、頂福里、下福里、嘉寶里、瑞平里、太平里",
+    "area_description": "",
+    "contact_person": "歐主任中行",
+    "fax": "02-26021696",
+    "service_email": "glaus@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-09-26 16:46",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "林口區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "大溪服務所",
+    "phone": "(03)4711836、(03)4713183、台水客服專線1910",
+    "address": "32546 桃園市龍潭區佳安村文化路209號",
+    "region": "第二區－桃園市",
+    "code": "2D",
+    "area": "轄區: 桃園市大溪區、龍潭區、復興區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8034?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.844697,121.241502",
+    "jurisdiction": "桃園市大溪區、龍潭區、復興區",
+    "area_description": "桃園市大溪區仁和里、康安里、一德里、興和里、美華里、福仁里、光明里、義和里、僑愛里、瑞興里、月眉里、員林里、仁愛里、中新里、南興里、一心里、三元里、福安里、新峰里部份、仁武里、瑞源里、永福里部份、仁善里、復興里部份、仁文里、田心里、仁義里。 桃園市龍潭區建林里、黃唐里、九龍里、上華里、龍潭里、佳安里、烏樹林里、烏林里、上林里、龍祥里、中正里、中山里、三林里、龍星里、富林里、凌雲里、東興里、中興里、北興里、百年里、大平里部份、三坑里部份。 桃園市復興區",
+    "contact_person": "李主任敏茹",
+    "fax": "(03)4711730",
+    "service_email": "sp236699@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-05-06 10:38",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "大溪區",
+          "龍潭區",
+          "復興區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "大園服務所",
+    "phone": "(03)3862156、台水客服專線1910",
+    "address": "33741 桃園市大園區忠孝一街10號",
+    "region": "第二區－桃園市",
+    "code": "2G",
+    "area": "轄區: 大園區,觀音區,蘆竹區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8025?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.0656766302918,121.198058467826",
+    "jurisdiction": "大園區,觀音區,蘆竹區",
+    "area_description": "桃園市大園區南港里、北港里、溪海里、田心里、內海里、圳頭里、後厝里、沙崙里、海口里、竹圍里、菓林里、三石里、大海里、大園里、埔心里、五權里（中正東路3段以東）、和平里、橫峰里(高鐵重劃區除外)。桃園市觀音區三和里、大潭里、大同里、大堀里、上大里1-2鄰全部、白玉里、坑尾里、金湖里、武威里、保生里、保障里、草新里、草漯里、崙坪里10-12鄰全部、富林里、塔腳里、新坡里、新興里、廣福里、廣興里、樹林里、觀音里、藍埔里。桃園市蘆竹區新莊里中油街全部。",
+    "contact_person": "陳主任佳中",
+    "fax": "(03)3852695",
+    "service_email": "jonathanchan4@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年5月1日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-24 15:26",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "龍潭區",
+          "平鎮區",
+          "大溪區",
+          "八德區",
+          "中壢區",
+          "復興區",
+          "新屋區",
+          "楊梅區",
+          "龜山區",
+          "桃園區",
+          "蘆竹區",
+          "大園區",
+          "觀音區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "新竹服務所",
+    "phone": "(03)5714321、台水客服專線1910",
+    "address": "30068新竹市東區博愛街1號",
+    "region": "第三區－新竹、苗栗",
+    "code": "31",
+    "area": "轄區: 新竹市、新竹縣竹東鎮、寶山鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8040?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.7969837840909,120.987840826154",
+    "jurisdiction": "新竹市、新竹縣竹東鎮、寶山鄉",
+    "area_description": "1. 新竹市 2. 新竹縣寶山鄉，其中寶山華城社區屬竹東營運所 3. 新竹縣竹東鎮員山里、柯湖里 4.與竹東營運所分界：新竹縣竹東鎮頭重里工研路往新竹市方向屬新竹服務所；竹東鎮頭重里工研路往竹東鎮方向屬竹東營運所。",
+    "contact_person": "任國炙主任",
+    "fax": "(03)5717864",
+    "service_email": "z331@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2025-05-18 15:41",
+    "location": [
+      {
+        "Counties": "新竹市",
+        "Towns": []
+      },
+      {
+        "Counties": "新竹縣",
+        "Towns": [
+          "竹東鎮",
+          "寶山鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "竹東營運所",
+    "phone": "03-5963356、03-5963359、台水客服專線1910",
+    "address": "31044新竹縣竹東鎮長安路123號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3A",
+    "area": "轄區: 新竹縣竹東鎮、北埔鄉、峨眉鄉、五峰鄉、橫山鄉、尖石鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8042?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.735818,121.09114109999996",
+    "jurisdiction": "新竹縣竹東鎮、北埔鄉、峨眉鄉、五峰鄉、橫山鄉、尖石鄉",
+    "area_description": "1. 新竹縣竹東鎮、北埔鄉、峨眉鄉、五峰鄉、橫山鄉、尖石鄉 2. 新竹縣竹東鎮頭重里中興路4段195號工業技術研究院-以東屬於竹東營運所，以西屬於新竹服務所",
+    "contact_person": "李訓杰主任",
+    "fax": "03-5943856",
+    "service_email": "z33a@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-09-04 10:08",
+    "location": [
+      {
+        "Counties": "新竹縣",
+        "Towns": [
+          "竹東鎮",
+          "北埔鄉",
+          "峨眉鄉",
+          "五峰鄉",
+          "橫山鄉",
+          "尖石鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "苗栗營運所",
+    "phone": "037-320334、037-330637、台水客服專線1910",
+    "address": "36059苗栗縣苗栗市勝利里15鄰水源路80號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3B",
+    "area": "轄區: 苗栗市、公館鄉、大湖鄉、泰安鄉、頭屋鄉、造橋鄉、後龍鎮",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8036?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.5433438,120.81879129999993",
+    "jurisdiction": "苗栗市、公館鄉、大湖鄉、泰安鄉、頭屋鄉、造橋鄉、後龍鎮",
+    "area_description": "1.苗栗市、公館鄉、大湖鄉、泰安鄉、頭屋鄉2.造橋鄉(大西、大龍、錦水村)3.後龍鎮(中和、南港、福寧里 屬通霄銅鑼營運所服務範圍)",
+    "contact_person": "鄭哲明主任",
+    "fax": "037-320144",
+    "service_email": "z33b@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-06-03 08:05",
+    "location": [
+      {
+        "Counties": "苗栗縣",
+        "Towns": [
+          "苗栗市",
+          "公館鄉",
+          "大湖鄉",
+          "泰安鄉",
+          "頭屋鄉",
+          "造橋鄉",
+          "後龍鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "竹南頭份營運所",
+    "phone": "037-623500、037-628000、台水客服專線1910",
+    "address": "35155苗栗縣頭份市民族路522號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3C",
+    "area": "轄區: 竹南鎮、頭份市、三灣鄉、造橋鄉、南庄鄉、後龍鎮",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8037?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.6857046748717,120.892123826151",
+    "jurisdiction": "竹南鎮、頭份市、三灣鄉、造橋鄉、南庄鄉、後龍鎮",
+    "area_description": "1.竹南鎮、頭份市、三灣鄉 2.造橋鄉(造橋村,豐湖村,平興村,朝陽村,龍昇村,談文村) 3.南庄鄉(獅山村,田美村,員林村,南富村,東村,西村,南江村) 4.後龍鎮(校椅里小部份)",
+    "contact_person": "劉春榮主任",
+    "fax": "037-614510",
+    "service_email": "z33c@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-06-03 08:07",
+    "location": [
+      {
+        "Counties": "苗栗縣",
+        "Towns": [
+          "竹南鎮",
+          "頭份市",
+          "三灣鄉",
+          "造橋鄉",
+          "南庄鄉",
+          "後龍鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "通霄銅鑼營運所",
+    "phone": "037-986206、037-986218、台水客服專線1910",
+    "address": "36645苗栗縣銅鑼鄉朝陽村朝西68號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3E",
+    "area": "轄區: 苗栗縣銅鑼鄉、三義鄉、西湖鄉、苑裡鎮、通霄鎮、後龍鎮",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8043?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.492827,120.78464400000007",
+    "jurisdiction": "苗栗縣銅鑼鄉、三義鄉、西湖鄉、苑裡鎮、通霄鎮、後龍鎮",
+    "area_description": "1.苗栗縣銅鑼鄉、三義鄉、西湖鄉、苑裡鎮、通霄鎮2.後龍鎮(南港里、中和里、福寧里)",
+    "contact_person": "徐錦圓主任",
+    "fax": "037-986225",
+    "service_email": "z33e@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-08-26 09:33",
+    "location": [
+      {
+        "Counties": "苗栗縣",
+        "Towns": [
+          "銅鑼鄉",
+          "三義鄉",
+          "西湖鄉",
+          "苑裡鎮",
+          "通霄鎮",
+          "後龍鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "湖口營運所",
+    "phone": "03-5981603、03-5983082、台水客服專線1910",
+    "address": "30353新竹縣湖口鄉仁興路3號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3F",
+    "area": "轄區: 湖口鄉、新豐鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8038?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.87487507571,121.011964896707",
+    "jurisdiction": "湖口鄉、新豐鄉",
+    "area_description": "1.湖口鄉、新豐鄉",
+    "contact_person": "沈特鈿主任",
+    "fax": "035-982395",
+    "service_email": "z33f@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-06-03 08:12",
+    "location": [
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "湖口鄉",
+          "新豐鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "竹北營運所",
+    "phone": "(03)5516814、(03)5552501、台水客服專線1910",
+    "address": "30295新竹縣竹北市縣政五街188號",
+    "region": "第三區－新竹、苗栗",
+    "code": "3H",
+    "area": "轄區: 竹北市、新埔鎮、關西鎮、芎林鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8041?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.8282676448089,121.015038559359",
+    "jurisdiction": "竹北市、新埔鎮、關西鎮、芎林鄉",
+    "area_description": "1.竹北市、新埔鎮、關西鎮、芎林鄉",
+    "contact_person": "紀添源主任",
+    "fax": "(03)5551513",
+    "service_email": "z33h@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間：星期一至星期五(國定假日休息)上午8:00至12:00、下午1:00至5:00(中午休息時間12:00-13:00暫停服務)】",
+    "update_time": "2024-06-03 08:07",
+    "location": [
+      {
+        "Counties": "新竹縣",
+        "Towns": [
+          "竹北市",
+          "新埔鎮",
+          "關西鎮",
+          "芎林鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "台中服務所",
+    "phone": "台水客服專線1910、04- 22542191",
+    "address": "台中市南屯區大業路605號",
+    "region": "第四區－台中、南投",
+    "code": "41",
+    "area": "轄區: 台中市中區、東區、西區、南區、北區、西屯區(部分)、南屯區(部分)、北屯區(部分)、潭子區(部份)、大雅區(部份)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8052?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.1535152,120.6337481",
+    "jurisdiction": "台中市中區、東區、西區、南區、北區、西屯區(部分)、南屯區(部分)、北屯區(部分)、潭子區(部份)、大雅區(部份)",
+    "area_description": "台中市中區(全區)、東區(全區)、西區(全區)、南區(全區)、北區(全區)、西屯區(台灣大道四段部份除外)、南屯區(部分)、北屯區(部分)、潭子區大富路一段(部份)、潭子區新興路一段(部份)、潭子區中山路一段(部份)、大雅區科技部中部科學園區(部份)",
+    "contact_person": "主任林貞君",
+    "fax": "04-22544612",
+    "service_email": "liou@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-17 14:43",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "中區",
+          "東區",
+          "西區",
+          "南區",
+          "北區",
+          "西屯區",
+          "南屯區",
+          "北屯區",
+          "潭子區",
+          "大雅區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "大里服務所",
+    "phone": "台水客服專線1910、0424821831",
+    "address": "412011臺中市大里區至聖路64號",
+    "region": "第四區－台中、南投",
+    "code": "47",
+    "area": "轄區: 台中市大里區、太平區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8047?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.1064152025535,120.682914186624",
+    "jurisdiction": "台中市大里區、太平區",
+    "area_description": "1.大里區 2.太平區",
+    "contact_person": "主任許文芊",
+    "fax": "0424822839",
+    "service_email": "cathy@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-05 14:25",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "大里區",
+          "太平區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "南投營運所",
+    "phone": "台水客服專線1910、049-2222635、",
+    "address": "540017南投市彰南路一段550號",
+    "region": "第四區－台中、南投",
+    "code": "4B",
+    "area": "轄區: 1.南投市(部分)\r\n2.南投縣中寮鄉(部分)\r\n3.南投縣名間鄉(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8046?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.8947355508471,120.688172766818",
+    "jurisdiction": "1.南投市(部分)2.南投縣中寮鄉(部分)3.南投縣名間鄉(部分)",
+    "area_description": "1.南投市三民里、三和里、三興里、千秋里、仁和里、平山里、平和里、永興里、永豐里、南投里、振興里、崇文里、康壽里、新興里、嘉和里、嘉興里、漳和里、彰仁里、漳興里、福山里、福興里、鳳山里、鳳鳴里、龍泉里計24里-。 2.南投縣中寮村、八仙村、永平村、永福村、和興村、崁頂村、復興村、義和村、福盛村、廣興村、廣福村計11村。3.南投縣名間鄉。",
+    "contact_person": "主任賴昱暄",
+    "fax": "0492233487",
+    "service_email": "peter2014@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-03-05 08:23",
+    "location": [
+      {
+        "Counties": "南投市",
+        "Towns": [
+          "中寮鄉",
+          "名間鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "竹山營運所",
+    "phone": "台水客服專線1910、0492642074",
+    "address": "557002南投縣竹山鎮大明路356號",
+    "region": "第四區－台中、南投",
+    "code": "4C",
+    "area": "轄區: 南投縣竹山鎮(部分)、鹿谷鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8049?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.7601075459343,120.682874973818",
+    "jurisdiction": "南投縣竹山鎮(部分)、鹿谷鄉",
+    "area_description": "1.南投縣竹山鎮﹙中央里、富州里、社寮里除外﹚。 2.鹿谷鄉全部。",
+    "contact_person": "主任張勝欽",
+    "fax": "0492643405",
+    "service_email": "chin01@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-09-16 09:19",
+    "location": [
+      {
+        "Counties": "南投縣",
+        "Towns": [
+          "竹山鎮",
+          "鹿谷鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "埔里營運所",
+    "phone": "台水客服專線1910、(049)2915176、2915008",
+    "address": "545005南投縣埔里鎮大城路9號",
+    "region": "第四區－台中、南投",
+    "code": "4D",
+    "area": "轄區: 南投縣埔里鎮、魚池鄉、國姓鄉、仁愛鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8053?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.9694232,120.9588491",
+    "jurisdiction": "南投縣埔里鎮、魚池鄉、國姓鄉、仁愛鄉",
+    "area_description": "南投縣埔里鎮、魚池鄉、國姓鄉、仁愛鄉",
+    "contact_person": "主任王駿彰",
+    "fax": "(049)2916987",
+    "service_email": "ychang0320@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-03 08:22",
+    "location": [
+      {
+        "Counties": "南投縣",
+        "Towns": [
+          "埔里鎮",
+          "魚池鄉",
+          "國姓鄉",
+          "仁愛鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "霧峰營運所",
+    "phone": "台水客服專線1910、0423393138",
+    "address": "413014臺中市霧峰區德泰街70巷5號",
+    "region": "第四區－台中、南投",
+    "code": "4E",
+    "area": "轄區: 台中市霧峰區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8058?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.067786,120.700644",
+    "jurisdiction": "台中市霧峰區",
+    "area_description": "霧峰區全部",
+    "contact_person": "主任黃世君",
+    "fax": "0423335034",
+    "service_email": "drhsj@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-05 14:25",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "霧峰區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "豐原服務所",
+    "phone": "台水客服專線1910、0425269895",
+    "address": "420087臺中市豐原區南陽路298巷15號",
+    "region": "第四區－台中、南投",
+    "code": "4F",
+    "area": "轄區: 台中市豐原區、潭子區(部分)、神岡區(部分)、石岡區(部分)、大雅區(部分)、北屯區(部分)、西屯區(部分)、后里區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8045?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.2461666990222,120.726649881964",
+    "jurisdiction": "台中市豐原區、潭子區(部分)、神岡區(部分)、石岡區(部分)、大雅區(部分)、北屯區(部分)、西屯區(部分)、后里區",
+    "area_description": "豐原區(全部) 潭子區(16里)：潭秀里、 潭北里、 潭陽里、頭家里、家福里、頭家東里、甘蔗里、栗林里、家仁里、聚興里、大豐里、新田里、福仁里(部分)、家興里(部分)、東寶里(部分)、大富里(部分) 神岡區(8里)：岸裡里、 神州里、 社口里、 三角里、 大社里、 豐洲里、 溪洲里(部分)、 社南里(部分) 石岡區：石岡里（部分）、金星里（部分）大雅區：「三和里（部分）、西寶里（部分）北屯區：仁美里（部分）西屯區：港尾里（部分）台中市后里區全區(中和里、仁里里、公館里、太平里、月眉里、后里里、厚里里、眉山里、泰安里、義里里、義德里、墩北里、墩西里、墩東里、墩南里、廣福里、聯合里、舊社里)",
+    "contact_person": "主任王碧滿",
+    "fax": "0425262202",
+    "service_email": "VER0424@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-08-19 08:25",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "豐原區",
+          "潭子區",
+          "神岡區",
+          "石岡區",
+          "大雅區",
+          "北屯區",
+          "西屯區",
+          "后里區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "東勢營運所",
+    "phone": "台水客服專線1910、(04)25874316",
+    "address": "423020臺中市東勢區中寧里正一街8號",
+    "region": "第四區－台中、南投",
+    "code": "4G",
+    "area": "轄區: 台中市東勢區、石岡區(部分)、新社區、苗栗縣卓蘭鎮、苗栗縣三義鄉鯉魚潭村(部分)、台中市北屯區民德里(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8048?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.2569977271601,120.82591355643",
+    "jurisdiction": "台中市東勢區、石岡區(部分)、新社區、苗栗縣卓蘭鎮、苗栗縣三義鄉鯉魚潭村(部分)、台中市北屯區民德里(部分)",
+    "area_description": "東勢區(全部)、新社區(全部)、石岡區：全區除石岡里（部分）、金星里（部分）、苗栗縣卓蘭鎮(全部)、苗栗縣三義鄉鯉魚潭村:矮山(部分)、台中市北屯區民德里(部分)",
+    "contact_person": "主任楊國洲",
+    "fax": "(04)25872370",
+    "service_email": "y90033@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-17 08:11",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "東勢區",
+          "石岡區",
+          "新社區",
+          "北屯區"
+        ]
+      },
+      {
+        "Counties": "苗栗縣",
+        "Towns": [
+          "卓蘭鎮",
+          "三義鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "水里營運所",
+    "phone": "台水客服專線1910、0492762076、0492760150",
+    "address": "552001南投縣集集鎮民權路430號",
+    "region": "第四區－台中、南投",
+    "code": "4H",
+    "area": "轄區: 南投縣集集鎮、信義鄉、水里鄉(部分)、竹山鎮(部分)、名間鄉(部分)、中寮鄉(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8051?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.826734,120.7881268",
+    "jurisdiction": "南投縣集集鎮、信義鄉、水里鄉(部分)、竹山鎮(部分)、名間鄉(部分)、中寮鄉(部分)",
+    "area_description": "南投縣集集鎮、信義鄉、水里鄉(新興村除外)、竹山鎮(中央里、社寮里、富州里)、名間鄉(濁水村1~3鄰)、中寮鄉(崁頂村6~12鄰)",
+    "contact_person": "主任曾彥中",
+    "fax": "0492760140",
+    "service_email": "thomas7735tw@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-04-21 07:51",
+    "location": [
+      {
+        "Counties": "南投縣",
+        "Towns": [
+          "集集鎮",
+          "信義鄉",
+          "水里鄉",
+          "竹山鎮",
+          "名間鄉",
+          "中寮鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "清水營運所",
+    "phone": "台水客服專線1910、0426222614",
+    "address": "436220臺中市清水區大街路134號",
+    "region": "第四區－台中、南投",
+    "code": "4K",
+    "area": "轄區: 台中市清水區(部分)、沙鹿區(部分)、梧棲區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8055?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.2687231730495,120.578486490814",
+    "jurisdiction": "台中市清水區(部分)、沙鹿區(部分)、梧棲區",
+    "area_description": "1.台中市清水區吳厝里、楊厝里、海風里、東山里除外- 2.梧棲鎮工業區草湳里、永安里、永寧里、興農里除外- 3.沙鹿區鹿峰里",
+    "contact_person": "主任陳立人",
+    "fax": "0426227456",
+    "service_email": "lijen99@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-17 13:55",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "清水區",
+          "沙鹿區",
+          "梧棲區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "大甲營運所",
+    "phone": "台水客服專線1910、0426872777、 0426882626",
+    "address": "437001台中市大甲區甲東路595號",
+    "region": "第四區－台中、南投",
+    "code": "4L",
+    "area": "轄區: 台中市大甲區、外埔區、大安區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8054?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 24.3400481818705,120.627002429841",
+    "jurisdiction": "台中市大甲區、外埔區、大安區",
+    "area_description": "台中市大甲區、外埔區、大安區",
+    "contact_person": "主任黃敏華",
+    "fax": "0426869488",
+    "service_email": "hmh0106@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-17 13:56",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "大甲區",
+          "外埔區",
+          "大安區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "烏日營運所",
+    "phone": "台水客服專線1910、0423381614",
+    "address": "414215臺中市烏日區五光路1031號",
+    "region": "第四區－台中、南投",
+    "code": "4N",
+    "area": "轄區: 台中市烏日區、大肚區(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8059?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.1036942,120.6274492",
+    "jurisdiction": "台中市烏日區、大肚區(部分)",
+    "area_description": "1.烏日區(全區不含溪尾里)。 2.大肚區王田村3戶的門牌為興中路55號、60號、63號。 3.中和村的門牌為中山路1-1號。 4.南榮路70巷8號、10號。",
+    "contact_person": "主任賴冠宏",
+    "fax": "0423376942",
+    "service_email": "littlelie@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-17 08:18",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "烏日區",
+          "大肚區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "沙鹿營運所",
+    "phone": "台水客服專線1910、0426312127",
+    "address": "433002臺中市沙鹿區北勢東路829號",
+    "region": "第四區－台中、南投",
+    "code": "4P",
+    "area": "轄區: 台中市大肚區、龍井區、沙鹿區(部分)、梧棲區(部分)、清水區(部分)、西屯區(部分)、南屯區(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8056?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.2293133,120.56932319999998",
+    "jurisdiction": "台中市大肚區、龍井區、沙鹿區(部分)、梧棲區(部分)、清水區(部分)、西屯區(部分)、南屯區(部分)",
+    "area_description": "台中市大肚區全區、龍井區全區、沙鹿區：竹林里、晉江里(部分) 、埔子里、六路里、三鹿里、鹿寮里(部分) 、斗抵里、福興里、南勢里、北勢里、興安里、興仁里、居仁里、洛泉里、沙鹿里、美仁里、犁份里、梧棲區：大村里(部分)、大庄里(部分)、草湳里(部分)、興農里、永安里、永寧里、清水區：海濱里(部分) 、西屯區：福聯里(部分) 、南屯區：春社里(部分)",
+    "contact_person": "主任李偉宏",
+    "fax": "0426312139",
+    "service_email": "marlboro@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-04-14 08:03",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "大肚區",
+          "龍井區",
+          "沙鹿區",
+          "梧棲區",
+          "清水區",
+          "西屯區",
+          "南屯區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "草屯營運所",
+    "phone": "台水客服專線1910、(049)2563505",
+    "address": "542020南投縣草屯鎮博愛路6號",
+    "region": "第四區－台中、南投",
+    "code": "4R",
+    "area": "轄區: 南投縣草屯鎮、南投市(部分)、中寮鄉(部分)、台中市烏日區(部份)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8050?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.9811197,120.69301870000004",
+    "jurisdiction": "南投縣草屯鎮、南投市(部分)、中寮鄉(部分)、台中市烏日區(部份)",
+    "area_description": "1.南投縣草屯鎮:玉峰里、明正里、炎峰里、中正里、和平里、中山里、敦和里、山腳里、新厝里、上林里、碧峰里、碧洲里、復興里、御史里、新豐里、新庄里、加老里、石川里、北投里、富寮里、北勢里、中原里、南埔里、坪頂里、土城里、平林里、雙冬里計27里。 2.南投縣南投市:軍功里、東山里、內新里、內興里、營南里、營北里、光明里、光輝里、光華里、光榮里計10里。 3.南投縣中寮鄉:清水村、內城村、龍安村、爽文村、龍岩村、永芳村、永和村計7村。 4.台中市烏日區:溪尾里計1里。",
+    "contact_person": "主任劉欽益",
+    "fax": "(049)2563376",
+    "service_email": "muffy@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-10-14 08:36",
+    "location": [
+      {
+        "Counties": "南投縣",
+        "Towns": [
+          "草屯鎮",
+          "南投市",
+          "中寮鄉"
+        ]
+      },
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "烏日區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "大雅營運所",
+    "phone": "台水客服專線1910、0425661234",
+    "address": "428008臺中市大雅區中清路四段888號",
+    "region": "第四區－台中、南投",
+    "code": "4T",
+    "area": "轄區: 台中市清水區(部分)、沙鹿區(部分)、大雅區(部分)、神岡區(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8057?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.2405617,120.6312701",
+    "jurisdiction": "台中市清水區(部分)、沙鹿區(部分)、大雅區(部分)、神岡區(部分)",
+    "area_description": "1. 大雅區：大雅里、文雅里、員林里、四德里、秀山里、六寶里、橫山里、二和里、三和里、上雅里、大楓里、上楓里、雅楓里、忠義里等14里全部，西寶里昌平路四段部份、昌平路三段國道1號以西及雅潭路三段國道1號以西路段。 2. 神岡區：圳前里、圳堵里、北庄里、神岡里、山皮里、新庄里、庄前里、庄後里等8里。 3. 清水區：東山里、海風里、楊厝里、吳厝里等4里。 4. 沙鹿區：公明里、西勢里、清泉里、晉江里等4里。",
+    "contact_person": "主任林玉華",
+    "fax": "0425605395",
+    "service_email": "lyh0505@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-22 13:14",
+    "location": [
+      {
+        "Counties": "臺中市",
+        "Towns": [
+          "清水區",
+          "沙鹿區",
+          "大雅區",
+          "神岡區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "嘉義服務所",
+    "phone": "05-2252670、台水客服專線1910",
+    "address": "60042嘉義市民權路293號",
+    "region": "第五區－雲林、嘉義",
+    "code": "51",
+    "area": "轄區: 嘉義市、嘉義縣水上鄉及嘉義縣中埔鄉和美村、和睦村、和興村、富收村（富和路及興化廍）等4村。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8073?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.4830609,120.4552408",
+    "jurisdiction": "嘉義市、嘉義縣水上鄉及嘉義縣中埔鄉和美村、和睦村、和興村、富收村（富和路及興化廍）等4村。",
+    "area_description": "嘉義市、嘉義縣水上鄉及嘉義縣中埔鄉和美村、和睦村、和興村、富收村（富和路及興化廍）等4村。",
+    "contact_person": "李主任景文",
+    "fax": "05-2250196",
+    "service_email": "ljw0127@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-05-09 10:48",
+    "location": [
+      {
+        "Counties": "嘉義市",
+        "Towns": []
+      },
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "水上鄉",
+          "中埔鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "朴子服務所",
+    "phone": "05-3700625、台水客服專線1910",
+    "address": "61342嘉義縣朴子市文明路28號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5B",
+    "area": "轄區: 嘉義縣朴子市、六腳鄉、太保市（東勢里、安仁里、田尾里等3里）、布袋鎮樹林里（5~9鄰）、鹿草鄉豐稠村(6~10鄰)。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8071?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.4688430870399,120.248244676128",
+    "jurisdiction": "嘉義縣朴子市、六腳鄉、太保市（東勢里、安仁里、田尾里等3里）、布袋鎮樹林里（5~9鄰）、鹿草鄉豐稠村(6~10鄰)。",
+    "area_description": "嘉義縣朴子市、六腳鄉、太保市（東勢里、安仁里、田尾里等3里）、布袋鎮樹林里（5~9鄰）、鹿草鄉豐稠村(6~10鄰)。",
+    "contact_person": "黃主任輝揚",
+    "fax": "05-3708410",
+    "service_email": "HFY@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-05-22 15:55",
+    "location": [
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "朴子市",
+          "六腳鄉",
+          "太保市",
+          "布袋鎮",
+          "鹿草鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "義竹服務所",
+    "phone": "05-3414045、台水客服專線1910",
+    "address": "62441嘉義縣義竹鄉傳芳村475-2號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5C",
+    "area": "轄區: 嘉義縣義竹鄉、鹿草鄉（豐稠村6~10鄰除外）、東石鄉、布袋鎮（樹林里5~9鄰除外）。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8072?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.3406699373404,120.242364539004",
+    "jurisdiction": "嘉義縣義竹鄉、鹿草鄉（豐稠村6~10鄰除外）、東石鄉、布袋鎮（樹林里5~9鄰除外）。",
+    "area_description": "嘉義縣義竹鄉、鹿草鄉（豐稠村6~10鄰除外）、東石鄉、布袋鎮（樹林里5~9鄰除外）。",
+    "contact_person": "何主任佳玲",
+    "fax": "05-3413892",
+    "service_email": "neal@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-05-22 15:39",
+    "location": [
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "義竹鄉",
+          "鹿草鄉",
+          "東石鄉",
+          "布袋鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "北港營運所",
+    "phone": "05-7832564、台水客服專線1910",
+    "address": "65142雲林縣北港鎮文仁路152號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5E",
+    "area": "轄區: 雲林縣北港鎮、水林鄉、元長鄉(山內村、瓦磘、卓運、後湖、鹿北、鹿南除外)、口湖鄉(下崙村、崙中村、崙東村除外)、四湖鄉溪底村。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8066?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.578701,120.300498",
+    "jurisdiction": "雲林縣北港鎮、水林鄉、元長鄉(山內村、瓦磘、卓運、後湖、鹿北、鹿南除外)、口湖鄉(下崙村、崙中村、崙東村除外)、四湖鄉溪底村。",
+    "area_description": "雲林縣北港鎮、水林鄉、元長鄉(山內村、瓦磘、卓運、後湖、鹿北、鹿南除外)、口湖鄉(下崙村、崙中村、崙東村除外)、四湖鄉溪底村。",
+    "contact_person": "何錦龍主任",
+    "fax": "05-7732773",
+    "service_email": "HCL2001@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-12-19 14:47",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "北港鎮",
+          "水林鄉",
+          "元長鄉",
+          "口湖鄉",
+          "四湖鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "斗南服務所",
+    "phone": "05-5972144、台水客服專線1910",
+    "address": "63041雲林縣斗南鎮中山路172號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5F",
+    "area": "轄區: 雲林縣斗南鎮、大埤鄉、斗六市江厝里新厝路、虎尾鎮（平和里平和路、興南里竹圍路地區）。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8063?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.6763252131506,120.478482099755",
+    "jurisdiction": "雲林縣斗南鎮、大埤鄉、斗六市江厝里新厝路、虎尾鎮（平和里平和路、興南里竹圍路地區）。",
+    "area_description": "雲林縣斗南鎮、大埤鄉、斗六市江厝里新厝路、虎尾鎮（平和里平和路、興南里竹圍路地區）。",
+    "contact_person": "王仁娜主任",
+    "fax": "05-5971781",
+    "service_email": "jenna01@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-12-19 14:46",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "斗南鎮",
+          "大埤鄉",
+          "斗六市",
+          "虎尾鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "台西營運所",
+    "phone": "05-6982250、台水客服專線1910",
+    "address": "63673雲林縣台西鄉民權路7號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5G",
+    "area": "轄區: 雲林縣台西鄉、麥寮鄉、口湖鄉下崙村、崙中村、崙東村、東勢鄉程海村、四湖鄉(溪底村部分用戶除外)。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8067?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.701099058935533,120.19976853498841",
+    "jurisdiction": "雲林縣台西鄉、麥寮鄉、口湖鄉下崙村、崙中村、崙東村、東勢鄉程海村、四湖鄉(溪底村部分用戶除外)。",
+    "area_description": "雲林縣台西鄉、麥寮鄉、口湖鄉下崙村、崙中村、崙東村、東勢鄉程海村、四湖鄉(溪底村部分用戶除外)。",
+    "contact_person": "陳主任達彥",
+    "fax": "05-6986142",
+    "service_email": "daryen@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-05-09 10:47",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "台西鄉",
+          "麥寮鄉",
+          "口湖鄉",
+          "東勢鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "斗六服務所",
+    "phone": "05-5322362、台水客服專線1910",
+    "address": "64044雲林縣斗六市成功路293號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5H",
+    "area": "轄區: 雲林縣斗六市、林內鄉、莿桐鄉埔尾村、五華村、六合村、斗南鎮東明里各小部份、古坑鄉棋盤村。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8065?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.707266719098,120.548569953798",
+    "jurisdiction": "雲林縣斗六市、林內鄉、莿桐鄉埔尾村、五華村、六合村、斗南鎮東明里各小部份、古坑鄉棋盤村。",
+    "area_description": "雲林縣斗六市、林內鄉、莿桐鄉埔尾村、五華村、六合村、斗南鎮東明里各小部份、古坑鄉棋盤村。",
+    "contact_person": "陳主任中和",
+    "fax": "05-5330901",
+    "service_email": "5H02@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-05-22 15:41",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "斗六市",
+          "林內鄉",
+          "莿桐鄉",
+          "斗南鎮",
+          "古坑鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "西螺服務所",
+    "phone": "05-5869165、台水客服專線1910",
+    "address": "64841雲林縣西螺鎮光復東路100號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5J",
+    "area": "轄區: 雲林縣崙背鄉、二崙鄉、西螺鎮、虎尾鎮墾地里、芳草里、惠來里部份地區、土庫鎮新庄里、莿桐鄉(五華與六和村除外）。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8064?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.7973887350232,120.474892896684",
+    "jurisdiction": "雲林縣崙背鄉、二崙鄉、西螺鎮、虎尾鎮墾地里、芳草里、惠來里部份地區、土庫鎮新庄里、莿桐鄉(五華與六和村除外）。",
+    "area_description": "雲林縣崙背鄉、二崙鄉、西螺鎮、虎尾鎮墾地里、芳草里、惠來里部份地區、土庫鎮新庄里、莿桐鄉(五華與六和村除外）。",
+    "contact_person": "羅主任明對",
+    "fax": "05-5864765",
+    "service_email": "luomd@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-16 14:31",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "崙背鄉",
+          "二崙鄉",
+          "西螺鎮",
+          "虎尾鎮",
+          "土庫鎮",
+          "莿桐鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "古坑營運所",
+    "phone": "05-5824950、台水客服專線1910",
+    "address": "64642雲林縣古坑鄉朝陽村中山路270號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5K",
+    "area": "轄區: 雲林縣古坑鄉、斗六市嘉東里、江厝里、三光里、斗南鎮將軍里大松部落，阿丹里德高部落，新南里南勢部落、嘉義縣梅山鄉梅東村、梅北村、梅南村、圳北村、圳南村、過山村、永興村、大南及雙溪村、大林鎮過溪里崎頭、油車店、崎頂、大美里大埔美、永祿新城、互助社區。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8068?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.6504627846459,120.560672496682",
+    "jurisdiction": "雲林縣古坑鄉、斗六市嘉東里、江厝里、三光里、斗南鎮將軍里大松部落，阿丹里德高部落，新南里南勢部落、嘉義縣梅山鄉梅東村、梅北村、梅南村、圳北村、圳南村、過山村、永興村、大南及雙溪村、大林鎮過溪里崎頭、油車店、崎頂、大美里大埔美、永祿新城、互助社區。",
+    "area_description": "雲林縣古坑鄉、斗六市嘉東里、江厝里、三光里、斗南鎮將軍里大松部落，阿丹里德高部落，新南里南勢部落、嘉義縣梅山鄉梅東村、梅北村、梅南村、圳北村、圳南村、過山村、永興村、大南及雙溪村、大林鎮過溪里崎頭、油車店、崎頂、大美里大埔美、永祿新城、互助社區。",
+    "contact_person": "蕭主任文河",
+    "fax": "05-5825150",
+    "service_email": "smh77w@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-09-25 09:15",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "古坑鄉",
+          "斗六市",
+          "斗南鎮"
+        ]
+      },
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "梅山鄉",
+          "大林鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "虎尾服務所",
+    "phone": "05-6322047、台水客服專線1910",
+    "address": "63242雲林縣虎尾鎮明正路21號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5M",
+    "area": "轄區: 雲林縣虎尾鎮（包含中科虎尾園區與虎尾高鐵特定區）、斗南鎮田頭里17、18鄰、褒忠鄉、東勢鄉、台西鄉五榔村、富崎村、元長鄉山內村、瓦磘村、卓運村、後湖村、鹿北村、鹿南村及土庫鎮(新庄里除外)。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8069?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.713348,120.432522",
+    "jurisdiction": "雲林縣虎尾鎮（包含中科虎尾園區與虎尾高鐵特定區）、斗南鎮田頭里17、18鄰、褒忠鄉、東勢鄉、台西鄉五榔村、富崎村、元長鄉山內村、瓦磘村、卓運村、後湖村、鹿北村、鹿南村及土庫鎮(新庄里除外)。",
+    "area_description": "雲林縣虎尾鎮（包含中科虎尾園區與虎尾高鐵特定區）、斗南鎮田頭里17、18鄰、褒忠鄉、東勢鄉、台西鄉五榔村、富崎村、元長鄉山內村、瓦磘村、卓運村、後湖村、鹿北村、鹿南村及土庫鎮(新庄里除外)。",
+    "contact_person": "廖主任洲瑯",
+    "fax": "05-6322846",
+    "service_email": "sd3526@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-05-22 15:56",
+    "location": [
+      {
+        "Counties": "雲林縣",
+        "Towns": [
+          "虎尾鎮",
+          "斗南鎮",
+          "褒忠鄉",
+          "東勢鄉",
+          "台西鄉",
+          "元長鄉",
+          "土庫鎮"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "新港營運所",
+    "phone": "05-3746674、台水客服專線1910",
+    "address": "61641嘉義縣新港鄉中山路165號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5N",
+    "area": "轄區: 嘉義縣新港鄉、民雄鄉西昌村、太保市（溪南高速鐵路以東、安仁里（頂港子墘、三塊厝）、東勢里（東勢寮）、溪口鄉(不含疊溪村、柳溝村、坪頂村、妙崙村；本厝村只含括本廳及厝子30-1~30-27、29-2~29-4、31-3號等30戶）。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8060?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.552110399388,120.348071930818",
+    "jurisdiction": "嘉義縣新港鄉、民雄鄉西昌村、太保市（溪南高速鐵路以東、安仁里（頂港子墘、三塊厝）、東勢里（東勢寮）、溪口鄉(不含疊溪村、柳溝村、坪頂村、妙崙村；本厝村只含括本廳及厝子30-1~30-27、29-2~29-4、31-3號等30戶）。",
+    "area_description": "嘉義縣新港鄉、民雄鄉西昌村、太保市（溪南高速鐵路以東、安仁里（頂港子墘、三塊厝）、東勢里（東勢寮）、溪口鄉(不含疊溪村、柳溝村、坪頂村、妙崙村；本厝村只含括本廳及厝子30-1~30-27、29-2~29-4、31-3號等30戶）。",
+    "contact_person": "陳主任家綺",
+    "fax": "05-3743183",
+    "service_email": "HLCSH@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-19 14:13",
+    "location": [
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "新港鄉",
+          "民雄鄉",
+          "太保市"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "竹崎營運所",
+    "phone": "05-2614332、1910",
+    "address": "60496嘉義縣竹崎鄉龍山村義崎3-2號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5X",
+    "area": "轄區: 嘉義縣竹崎鄉、大埔鄉、番路鄉、阿里山鄉、縣中埔鄉（和美村、和睦村、和興村、富收村富和路及興化廍除外）、民雄鄉秀林村東義1號至32號及嘉義市盧厝里紅毛埤2-1號至16號。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8070?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.520962,120.55811100000005",
+    "jurisdiction": "嘉義縣竹崎鄉、大埔鄉、番路鄉、阿里山鄉、縣中埔鄉（和美村、和睦村、和興村、富收村富和路及興化廍除外）、民雄鄉秀林村東義1號至32號及嘉義市盧厝里紅毛埤2-1號至16號。",
+    "area_description": "嘉義縣竹崎鄉、大埔鄉、番路鄉、阿里山鄉、縣中埔鄉（和美村、和睦村、和興村、富收村富和路及興化廍除外）、民雄鄉秀林村東義1號至32號及嘉義市盧厝里紅毛埤2-1號至16號。",
+    "contact_person": "羅主任盛瀛",
+    "fax": "05-2615697",
+    "service_email": "smalllolo@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-09-25 09:15",
+    "location": [
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "竹崎鄉",
+          "大埔鄉",
+          "番路鄉",
+          "阿里山鄉",
+          "中埔鄉",
+          "民雄鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "民雄營運所",
+    "phone": "05-2262806、1910",
+    "address": "62141台灣嘉義縣民雄鄉安和路393號",
+    "region": "第五區－雲林、嘉義",
+    "code": "5Y",
+    "area": "轄區: 嘉義縣民雄鄉（西昌村除外）、大林鎮（含大埔美工業區、不含大美里大埔美384號以後及過溪里過溪502號以後用戶）、溪口鄉疊溪村、柳溝村、坪頂村、妙崙村及本厝村厝仔1~41號及嘉義市忠孝路231~808號及忠孝北街1~202號。",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8061?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.552279006180736,120.42225437567139",
+    "jurisdiction": "嘉義縣民雄鄉（西昌村除外）、大林鎮（含大埔美工業區、不含大美里大埔美384號以後及過溪里過溪502號以後用戶）、溪口鄉疊溪村、柳溝村、坪頂村、妙崙村及本厝村厝仔1~41號及嘉義市忠孝路231~808號及忠孝北街1~202號。",
+    "area_description": "嘉義縣民雄鄉（西昌村除外）、大林鎮（含大埔美工業區、不含大美里大埔美384號以後及過溪里過溪502號以後用戶）、溪口鄉疊溪村、柳溝村、坪頂村、妙崙村及本厝村厝仔1~41號及嘉義市忠孝路231~808號及忠孝北街1~202號。",
+    "contact_person": "蔡主任敏男",
+    "fax": "05-2265449",
+    "service_email": "minan@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-16 14:31",
+    "location": [
+      {
+        "Counties": "嘉義縣",
+        "Towns": [
+          "民雄鄉",
+          "大林鎮",
+          "溪口鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "台南服務所",
+    "phone": "(06)237-0021、台水客服專線1910",
+    "address": "70442台南市北區開元路67號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "60",
+    "area": "轄區: 東區、中西區、南區、北區、安平區、安南區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8075?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.0061842,120.21676359999992",
+    "jurisdiction": "東區、中西區、南區、北區、安平區、安南區",
+    "area_description": "東區、中西區、南區、北區、安平區、安南區",
+    "contact_person": "呂主任俊達",
+    "fax": "(06)2362802",
+    "service_email": "z660@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:01",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "東區",
+          "中西區",
+          "南區",
+          "北區",
+          "安平區",
+          "安南區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "新市服務所",
+    "phone": "(06)597-3437、台水客服專線1910",
+    "address": "74448台南市新市區永就里永就55-7號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "63",
+    "area": "轄區: 新市區、新化區、左鎮區、善化區、安定區、大內區、山上區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8077?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.060618,120.297161",
+    "jurisdiction": "新市區、新化區、左鎮區、善化區、安定區、大內區、山上區",
+    "area_description": "新市區、新化區、左鎮區、善化區、安定區、大內區、山上區",
+    "contact_person": "李主任美燕",
+    "fax": "(06)5974137",
+    "service_email": "z663@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:01",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "新市區",
+          "新化區",
+          "左鎮區",
+          "善化區",
+          "安定區",
+          "大內區",
+          "山上區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "歸仁服務所",
+    "phone": "(06)2303-756、台水客服專線1910",
+    "address": "71146台南市歸仁區中山路二段6號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "65",
+    "area": "轄區: 歸仁區、仁德區、關廟區、龍崎區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8079?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.9668183,120.29394360000003",
+    "jurisdiction": "歸仁區、仁德區、關廟區、龍崎區",
+    "area_description": "歸仁區、仁德區、關廟區、龍崎區",
+    "contact_person": "王主任涵煦",
+    "fax": "(06)2300844",
+    "service_email": "z665@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:04",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "歸仁區",
+          "仁德區",
+          "關廟區",
+          "龍崎區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "白河營運所",
+    "phone": "(06)685-2135、台水客服專線1910",
+    "address": "73241台南市白河區外角里庄內15之2號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "66",
+    "area": "轄區: 白河區、後壁區、東山區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8082?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.35129,120.42563900000004",
+    "jurisdiction": "白河區、後壁區、東山區",
+    "area_description": "白河區、後壁區、東山區",
+    "contact_person": "楊主任孟學",
+    "fax": "(06)6830770",
+    "service_email": "z666@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:01",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "白河區",
+          "後壁區",
+          "東山區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "佳里服務所",
+    "phone": "(06)722-2477、台水客服專線1910",
+    "address": "72252台南市佳里區進學路139號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "68",
+    "area": "轄區: 佳里區、西港區、七股區、將軍區、學甲區、北門區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8078?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.163837,120.17893600000002",
+    "jurisdiction": "佳里區、西港區、七股區、將軍區、學甲區、北門區",
+    "area_description": "佳里區、西港區、七股區、將軍區、學甲區、北門區",
+    "contact_person": "吳主任景明",
+    "fax": "(06)7210865",
+    "service_email": "z668@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:03",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "佳里區",
+          "西港區",
+          "七股區",
+          "將軍區",
+          "學甲區",
+          "北門區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "新營營運所",
+    "phone": "(06)6322240、台水客服專線1910",
+    "address": "73049台南市新營區三民路70號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "6A",
+    "area": "轄區: 新營區、柳營區、鹽水區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8081?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.307475,120.31738100000007",
+    "jurisdiction": "新營區、柳營區、鹽水區",
+    "area_description": "新營區、柳營區、鹽水區",
+    "contact_person": "馬代理主任洲偉",
+    "fax": "(06)6320-545",
+    "service_email": "z66a@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:03",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "新營區",
+          "柳營區",
+          "鹽水區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "玉井營運所",
+    "phone": "(06)5742-323、台水客服專線1910",
+    "address": "71441台南市玉井區民族路249號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "6B",
+    "area": "轄區: 玉井區、楠西區、南化區、高雄市內門區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8083?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.123941,120.469019",
+    "jurisdiction": "玉井區、楠西區、南化區、高雄市內門區",
+    "area_description": "玉井區、楠西區、南化區、高雄市內門區",
+    "contact_person": "王代理主任國海",
+    "fax": "(06)5747160",
+    "service_email": "z66b@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:04",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "玉井區",
+          "楠西區",
+          "南化區"
+        ]
+      },
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "內門區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "麻豆服務所",
+    "phone": "(06)572-1165、台水客服專線1910",
+    "address": "72145台南市麻豆區興中路211號(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "6C",
+    "area": "轄區: 麻豆區、官田區、下營區、六甲區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8080?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.183857,120.25607100000002",
+    "jurisdiction": "麻豆區、官田區、下營區、六甲區",
+    "area_description": "麻豆區、官田區、下營區、六甲區",
+    "contact_person": "許代理主任昆中",
+    "fax": "(06)5720675",
+    "service_email": "z66c@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:04",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "麻豆區",
+          "官田區",
+          "下營區",
+          "六甲區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "永康服務所",
+    "phone": "(06)232-5714、台水客服專線1910",
+    "address": "71075台南市永康區中山南路316巷4號之1(上午8時至12時，下午1時至5時)",
+    "region": "第六區－台南市",
+    "code": "6H",
+    "area": "轄區: 永康區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8076?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.0157305302179,120.23800019518",
+    "jurisdiction": "永康區",
+    "area_description": "永康區",
+    "contact_person": "李主任宗坤",
+    "fax": "(06)2332724",
+    "service_email": "z66h@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "營業時間:星期一至星期五(國定例假日休息)上午8時至12時，下午1時至5時。",
+    "update_time": "2025-03-20 11:01",
+    "location": [
+      {
+        "Counties": "臺南市",
+        "Towns": [
+          "永康區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "高雄服務所",
+    "phone": "(07)3312292、台水客服專線1910",
+    "address": "80654高雄市前鎮區復興三路131號",
+    "region": "第七區－高雄",
+    "code": "71",
+    "area": "轄區: 高雄市鹽埕區、鼓山區、左營區(莒光里、光輝里屬楠梓所)、三民區、新興區、前金區、苓雅區、前鎮區、旗津區、小港區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8087?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.60828,120.30827999999997",
+    "jurisdiction": "高雄市鹽埕區、鼓山區、左營區(莒光里、光輝里屬楠梓所)、三民區、新興區、前金區、苓雅區、前鎮區、旗津區、小港區",
+    "area_description": "高雄市鹽埕區、鼓山區、左營區(莒光里、光輝里屬楠梓所)、三民區、新興區、前金區、苓雅區、前鎮區、旗津區、小港區",
+    "contact_person": "丁主任榮儒",
+    "fax": "(07)3354214",
+    "service_email": "rongru@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-01-05 10:26",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "鹽埕區",
+          "鼓山區",
+          "左營區",
+          "三民區",
+          "新興區",
+          "前金區",
+          "苓雅區",
+          "前鎮區",
+          "旗津區",
+          "小港區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "鳳山服務所",
+    "phone": "(07)7424163、台水客服專線1910",
+    "address": "83063高雄市鳳山區光復路11號",
+    "region": "第七區－高雄",
+    "code": "74",
+    "area": "轄區: 高雄市鳳山區、林園區、大寮區、大樹區、鳥松區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8088?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.628639,120.36206400000003",
+    "jurisdiction": "高雄市鳳山區、林園區、大寮區、大樹區、鳥松區",
+    "area_description": "高雄市鳳山區、林園區、大寮區、大樹區、鳥松區",
+    "contact_person": "邱主任詮展",
+    "fax": "(07)7462250",
+    "service_email": "cloudchu1978@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-12-26 15:42",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "鳳山區",
+          "林園區",
+          "大寮區",
+          "大樹區",
+          "鳥松區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "路竹服務所",
+    "phone": "(07)6934819、台水客服專線1910",
+    "address": "82941高雄市湖內區中山路一段148號",
+    "region": "第七區－高雄",
+    "code": "75",
+    "area": "轄區: 高雄市路竹區、阿蓮區、湖內區、茄萣區、永安區、田寮區(崑山部分屬旗山所)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8093?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 22.8800378869195,120.250739918543",
+    "jurisdiction": "高雄市路竹區、阿蓮區、湖內區、茄萣區、永安區、田寮區(崑山部分屬旗山所)",
+    "area_description": "高雄市路竹區、阿蓮區、湖內區、茄萣區、永安區、田寮區(崑山部分屬旗山所)",
+    "contact_person": "葉主任淑芬",
+    "fax": "(07)6933941",
+    "service_email": "sophia8956113@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-12-26 15:39",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "路竹區",
+          "阿蓮區",
+          "湖內區",
+          "茄萣區",
+          "永安區",
+          "田寮區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "岡山服務所",
+    "phone": "(07)6222814、台水客服專線1910",
+    "address": "82049高雄市岡山區岡山路450號",
+    "region": "第七區－高雄",
+    "code": "76",
+    "area": "轄區: 高雄市岡山區、橋頭區、燕巢區、彌陀區、梓官區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8089?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 22.7977422104462,120.295511889143",
+    "jurisdiction": "高雄市岡山區、橋頭區、燕巢區、彌陀區、梓官區",
+    "area_description": "高雄市岡山區、橋頭區、燕巢區、彌陀區、梓官區",
+    "contact_person": "林主任浩淳",
+    "fax": "(07)6221410",
+    "service_email": "allenlin@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2022-08-10 16:21",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "岡山區",
+          "橋頭區",
+          "燕巢區",
+          "彌陀區",
+          "梓官區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "楠梓服務所",
+    "phone": "(07)3513332、台水客服專線1910",
+    "address": "81547高雄市大社區自強街5號",
+    "region": "第七區－高雄",
+    "code": "77",
+    "area": "轄區: 高雄市大社區、仁武區、左營區(莒光里、光輝里)、楠梓區(宏毅里、宏榮里、宏南里除外)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8090?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 22.7308519836573,120.346852296663",
+    "jurisdiction": "高雄市大社區、仁武區、左營區(莒光里、光輝里)、楠梓區(宏毅里、宏榮里、宏南里除外)",
+    "area_description": "高雄市大社區、仁武區、左營區(莒光里、光輝里)、楠梓區(宏毅里、宏榮里、宏南里除外)",
+    "contact_person": "林主任琮偉",
+    "fax": "(07)3526455",
+    "service_email": "kenneth@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-12-26 15:42",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "大社區",
+          "仁武區",
+          "左營區",
+          "楠梓區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "旗山營運所",
+    "phone": "(07)6613807、台水客服專線1910",
+    "address": "84258高雄市旗山區瑞吉里民權三街22號",
+    "region": "第七區－高雄",
+    "code": "7A",
+    "area": "轄區: 高雄市旗山區、甲仙區、杉林區、內門區(三平里、內興里、木柵里、石坑里、東埔里小部分屬六區玉井所)、那瑪夏區、田寮區(崑山部分屬旗山所)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8094?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.8918572,120.48457099999996",
+    "jurisdiction": "高雄市旗山區、甲仙區、杉林區、內門區(三平里、內興里、木柵里、石坑里、東埔里小部分屬六區玉井所)、那瑪夏區、田寮區(崑山部分屬旗山所)",
+    "area_description": "高雄市旗山區、甲仙區、杉林區、內門區(三平里、內興里、木柵里、石坑里、東埔里小部分屬六區玉井所)、那瑪夏區、田寮區(崑山部分屬旗山所)",
+    "contact_person": "蔡主任亞娟",
+    "fax": "(07)6612278",
+    "service_email": "7887209@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2022-06-14 12:24",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "旗山區",
+          "甲仙區",
+          "杉林區",
+          "內門區",
+          "那瑪夏區",
+          "田寮區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "澎湖營運所",
+    "phone": "(06)9273840-2、台水客服專線1910",
+    "address": "88050澎湖縣馬公市新生路130號",
+    "region": "第七區－高雄",
+    "code": "7D",
+    "area": "轄區: 澎湖縣馬公市、湖西鄉、白沙鄉、西嶼鄉，望安鄉、七美鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8092?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.5697761,119.57339100000001",
+    "jurisdiction": "澎湖縣馬公市、湖西鄉、白沙鄉、西嶼鄉，望安鄉、七美鄉",
+    "area_description": "澎湖縣馬公市、湖西鄉、白沙鄉、西嶼鄉，望安鄉、七美鄉",
+    "contact_person": "葉主任清興",
+    "fax": "(06)9273683",
+    "service_email": "0383@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-12-26 15:40",
+    "location": [
+      {
+        "Counties": "澎湖縣",
+        "Towns": [
+          "馬公市",
+          "湖西鄉",
+          "白沙鄉",
+          "西嶼鄉",
+          "望安鄉",
+          "七美鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "美濃營運所",
+    "phone": "(07)6812250、台水客服專線1910",
+    "address": "84349高雄市美濃區中正路二段169巷1號",
+    "region": "第七區－高雄",
+    "code": "7K",
+    "area": "轄區: 高雄市美濃區、六龜區、桃源區、茂林區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8095?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.888106,120.53635199999996",
+    "jurisdiction": "高雄市美濃區、六龜區、桃源區、茂林區",
+    "area_description": "高雄市美濃區、六龜區、桃源區、茂林區",
+    "contact_person": "辜主任琪媜",
+    "fax": "(07)682-2170",
+    "service_email": "kukovy@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-12-26 15:41",
+    "location": [
+      {
+        "Counties": "高雄市",
+        "Towns": [
+          "美濃區",
+          "六龜區",
+          "桃源區",
+          "茂林區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "宜蘭北區服務所",
+    "phone": "(03)932-3255   台水客服專線1910",
+    "address": "26051宜蘭市復興路一段5號",
+    "region": "第八區－宜蘭縣",
+    "code": "8A",
+    "area": "轄區: 宜蘭縣宜蘭市、頭城鎮、礁溪鄉、壯圍鄉、員山鄉、三星鄉、大同鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8100?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.7491104,121.75285889999998",
+    "jurisdiction": "宜蘭縣宜蘭市、頭城鎮、礁溪鄉、壯圍鄉、員山鄉、三星鄉、大同鄉",
+    "area_description": "宜蘭縣宜蘭市、頭城鎮、礁溪鄉、壯圍鄉、員山鄉",
+    "contact_person": "章少斐主任",
+    "fax": "(03)932-1935",
+    "service_email": "z8@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2022-08-04 08:17",
+    "location": [
+      {
+        "Counties": "宜蘭縣",
+        "Towns": [
+          "宜蘭市",
+          "頭城鎮",
+          "礁溪鄉",
+          "壯圍鄉",
+          "員山鄉",
+          "三星鄉",
+          "大同鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "宜蘭南區服務所",
+    "phone": "(03)958-9176   台水客服專線1910",
+    "address": "26941宜蘭縣冬山鄉廣興村廣興路63號",
+    "region": "第八區－宜蘭縣",
+    "code": "8B",
+    "area": "轄區: 宜蘭縣羅東鎮、蘇澳鎮、冬山鄉、五結鄉、南澳鄉、三星鄉、大同鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8101?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.670840625346166,121.75260244572452",
+    "jurisdiction": "宜蘭縣羅東鎮、蘇澳鎮、冬山鄉、五結鄉、南澳鄉、三星鄉、大同鄉",
+    "area_description": "宜蘭縣羅東鎮、蘇澳鎮、冬山鄉、五結鄉、南澳鄉",
+    "contact_person": "顏萬益主任",
+    "fax": "(03)958-9174",
+    "service_email": "z8@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2023-06-01 09:30",
+    "location": [
+      {
+        "Counties": "宜蘭縣",
+        "Towns": [
+          "羅東鎮",
+          "蘇澳鎮",
+          "冬山鄉",
+          "五結鄉",
+          "南澳鄉",
+          "三星鄉",
+          "大同鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "花蓮服務所",
+    "phone": "(03)8350255、8322016、台水客服專線1910",
+    "address": "97059 花蓮市松園街36號",
+    "region": "第九區－花蓮縣",
+    "code": "9A",
+    "area": "轄區: 花蓮縣花蓮市、新城鄉、秀林鄉(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8107?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.9827346,121.616402",
+    "jurisdiction": "花蓮縣花蓮市、新城鄉、秀林鄉(部分)",
+    "area_description": "花蓮縣花蓮市、新城鄉、秀林鄉(文蘭村、銅門村銅門、榕樹除外)，屬花蓮服務所管轄",
+    "contact_person": "張主任麗珠",
+    "fax": "(03)8335623",
+    "service_email": "clj@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-04 17:12",
+    "location": [
+      {
+        "Counties": "花蓮縣",
+        "Towns": [
+          "花蓮市",
+          "新城鄉",
+          "秀林鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "吉安壽豐服務所",
+    "phone": "(03)8523131、8523132、台水客服專線1910",
+    "address": "97361 花蓮縣吉安鄉稻香村16鄰稻香路8號",
+    "region": "第九區－花蓮縣",
+    "code": "9B",
+    "area": "轄區: 花蓮縣吉安鄉、壽豐鄉、秀林鄉與花蓮市(部分)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8108?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.9620639,121.57202400000005",
+    "jurisdiction": "花蓮縣吉安鄉、壽豐鄉、秀林鄉與花蓮市(部分)",
+    "area_description": "花蓮縣吉安鄉、壽豐鄉(米棧村除外)，以及秀林鄉部分(文蘭村、銅門村銅門、榕樹)，與花蓮市部分(中華路506-4號、506-8號、512號、534巷5號、447-1號、447-3號、447-4號、447-5號、447-12號、449號、453-8號、453巷16號)，屬吉安壽豐服務所管轄",
+    "contact_person": "高主任鈺鈞",
+    "fax": "(03)8539463",
+    "service_email": "kaonick@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-02-04 17:11",
+    "location": [
+      {
+        "Counties": "花蓮縣",
+        "Towns": [
+          "吉安鄉",
+          "壽豐鄉",
+          "秀林鄉",
+          "花蓮市"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "鳳林營運所",
+    "phone": "(03)8762058、8763064、台水客服專線1910",
+    "address": "97545花蓮縣鳳林鎮中華路25號",
+    "region": "第九區－花蓮縣",
+    "code": "9D",
+    "area": "轄區: 花蓮縣鳳林鎮、壽豐鄉、光復鄉、豐濱鄉、瑞穗鄉、萬榮鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8109?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.7457345,121.4503344",
+    "jurisdiction": "花蓮縣鳳林鎮、壽豐鄉、光復鄉、豐濱鄉、瑞穗鄉、萬榮鄉",
+    "area_description": "花蓮縣鳳林鎮，壽豐鄉米棧村，光復鄉(大興村除外)，豐濱鄉，瑞穗鄉富源村、富民村、富興村，與萬榮鄉(紅葉村除外)，屬鳳林營運所管轄",
+    "contact_person": "陳主任炳坤",
+    "fax": "(03)8764380",
+    "service_email": "yl302@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2022-07-20 10:44",
+    "location": [
+      {
+        "Counties": "花蓮縣",
+        "Towns": [
+          "鳳林鎮",
+          "壽豐鄉",
+          "光復鄉",
+          "豐濱鄉",
+          "瑞穗鄉",
+          "萬榮鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "玉里營運所",
+    "phone": "(03)8882403、8886560、台水客服專線1910",
+    "address": "98147花蓮縣玉里鎮中華路361號",
+    "region": "第九區－花蓮縣",
+    "code": "9F",
+    "area": "轄區: 花蓮縣玉里鎮、瑞穗鄉、富里鄉、萬榮鄉、卓溪鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8105?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.3425907437283,121.316851850561",
+    "jurisdiction": "花蓮縣玉里鎮、瑞穗鄉、富里鄉、萬榮鄉、卓溪鄉",
+    "area_description": "花蓮縣玉里鎮、瑞穗鄉(富源村、富民村、富興村除外)、富里鄉、萬榮鄉紅葉村、卓溪鄉，屬玉里營運所管轄",
+    "contact_person": "黃主任茂杰",
+    "fax": "(03)8887510",
+    "service_email": "mjhuang@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-07-21 10:38",
+    "location": [
+      {
+        "Counties": "花蓮縣",
+        "Towns": [
+          "玉里鎮",
+          "瑞穗鄉",
+          "富里鄉",
+          "萬榮鄉",
+          "卓溪鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "台東營運所",
+    "phone": "089)322138、台水客服專線1910",
+    "address": "(95047)台東市臨海路一段48號",
+    "region": "第十區－台東縣",
+    "code": "AA",
+    "area": "轄區: 台東縣台東市、卑南鄉、太麻里鄉、東河鄉、蘭嶼鄉、綠島鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8111?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 22.7556100668935,121.16115136559",
+    "jurisdiction": "台東縣台東市、卑南鄉、太麻里鄉、東河鄉、蘭嶼鄉、綠島鄉",
+    "area_description": "台東縣台東市、卑南鄉、太麻里鄉、東河鄉、蘭嶼鄉、綠島鄉",
+    "contact_person": "蕭主任天賀",
+    "fax": "(089)352457",
+    "service_email": "greedwave@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-05-27 14:39",
+    "location": [
+      {
+        "Counties": "臺東縣",
+        "Towns": [
+          "台東市",
+          "卑南鄉",
+          "太麻里鄉",
+          "東河鄉",
+          "蘭嶼鄉",
+          "綠島鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "池上營運所",
+    "phone": "(089)862625、台水客服專線1910",
+    "address": "(95872)台東縣池上鄉中新街5號",
+    "region": "第十區－台東縣",
+    "code": "AB",
+    "area": "轄區: 台東縣關山鎮、池上鄉、海端鄉、鹿野鄉、延平鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8113?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.1230751685571,121.217172179596",
+    "jurisdiction": "台東縣關山鎮、池上鄉、海端鄉、鹿野鄉、延平鄉",
+    "area_description": "台東縣關山鎮、池上鄉、海端鄉、鹿野鄉、延平鄉",
+    "contact_person": "吳主任月綾",
+    "fax": "(089)861426",
+    "service_email": "irene@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-05-27 14:39",
+    "location": [
+      {
+        "Counties": "臺東縣",
+        "Towns": [
+          "關山鎮",
+          "池上鄉",
+          "海端鄉",
+          "鹿野鄉",
+          "延平鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "成功營運所",
+    "phone": "(089)851190、台水客服專線1910",
+    "address": "(96142)台東縣成功鎮開封街12號",
+    "region": "第十區－台東縣",
+    "code": "AE",
+    "area": "轄區: 台東縣成功鎮、東河鄉、長濱鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8112?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.10304598754871,121.3750666835525",
+    "jurisdiction": "台東縣成功鎮、東河鄉、長濱鄉",
+    "area_description": "台東縣成功鎮、東河鄉、長濱鄉",
+    "contact_person": "邱主任德意",
+    "fax": "(089)850647",
+    "service_email": "chiuteyi@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-01-17 12:01",
+    "location": [
+      {
+        "Counties": "臺東縣",
+        "Towns": [
+          "成功鎮",
+          "東河鄉",
+          "長濱鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "太麻里營運所",
+    "phone": "(089)782902 、台水客服專線1910",
+    "address": "(96346)台東縣太麻里鄉南里街22號",
+    "region": "第十區－台東縣",
+    "code": "AF",
+    "area": "轄區: 台東縣太麻里鄉、大武鄉、達仁鄉、金峰鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8114?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 22.6127406095954,121.005922125781",
+    "jurisdiction": "台東縣太麻里鄉、大武鄉、達仁鄉、金峰鄉",
+    "area_description": "台東縣太麻里鄉、大武鄉、達仁鄉、金峰鄉",
+    "contact_person": "蔡主任志揚",
+    "fax": "(089)780681",
+    "service_email": "tcy1685@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-05-27 14:38",
+    "location": [
+      {
+        "Counties": "臺東縣",
+        "Towns": [
+          "太麻里鄉",
+          "大武鄉",
+          "達仁鄉",
+          "金峰鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "花壇營運所芬園服務站(每周三上午8：30分至12： 00遇假日順延)",
+    "phone": "04-7867044、台水客服專線1910",
+    "address": "502彰化縣芬園鄉芬草路2段290號",
+    "region": "第十一區－彰化市",
+    "code": "",
+    "area": "轄區:",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/80256?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.0137566,120.6292702",
+    "jurisdiction": "",
+    "area_description": "",
+    "contact_person": "",
+    "fax": "",
+    "service_email": "timlin@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "",
+    "update_time": "2024-06-03 15:03",
+    "location": []
+  },
+  {
+    "title": "彰化服務所",
+    "phone": "(04)7254043、7238015、台水客服專線1910",
+    "address": "50094彰化市桃源里公園路二段1號",
+    "region": "第十一區－彰化市",
+    "code": "BA",
+    "area": "轄區: 彰化縣彰化市、和美鎮、線西鄉、伸港鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8116?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.0745579,120.55669599999999",
+    "jurisdiction": "彰化縣彰化市、和美鎮、線西鄉、伸港鄉",
+    "area_description": "彰化市 全部 和美鎮 全部 線西鄉 全部 伸港鄉 全部 秀水鄉 馬興村、安溪村 花壇鄉 岩竹村",
+    "contact_person": "張主任真",
+    "fax": "(04)7293135",
+    "service_email": "Cjane@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-03 15:01",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "彰化市",
+          "和美鎮",
+          "線西鄉",
+          "伸港鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "北斗營運所",
+    "phone": "(04)8882073、8889072、台水客服專線1910",
+    "address": "52144彰化縣北斗鎮斗中路811號",
+    "region": "第十一區－彰化市",
+    "code": "BB",
+    "area": "轄區: 彰化縣田中鎮、永靖鄉、社頭鄉、北斗鎮、二林鎮、田尾鄉、埤頭鄉、溪州鄉、埔心鄉、溪湖鎮、員林鎮",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8117?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=23.87112,120.53081900000006",
+    "jurisdiction": "彰化縣田中鎮、永靖鄉、社頭鄉、北斗鎮、二林鎮、田尾鄉、埤頭鄉、溪州鄉、埔心鄉、溪湖鎮、員林鎮",
+    "area_description": "北斗鎮 七星里、大新里、大道里、中和里、中寮里、五權里、文昌里、光復里、西安里、西德里、居仁里 、東光里、重慶里、新生里、新政里。 埤頭鄉 大湖村、元埔村、平原村、永豐村、合興村、和豐村、芙朝村、埤頭村、崙子村、崙腳村、陸嘉村 、新庄村、豐崙村、興農村。 田尾鄉 田尾村、豐田村、饒平村、睦宜村、新生村、南鎮村、北鎮村、新興村、南曾村、北曾村、溪畔村 、打簾村、柳鳳村、陸豐村、海豐村、仁里村、新厝村、溪頂村、正義村。 溪州鄉 坑厝村、東州村、溪州村、尾厝村、瓦厝村、舊眉村、圳寮村、溪厝村。 永靖鄉 五汴村、",
+    "contact_person": "陳主任新昇",
+    "fax": "(04)8872130",
+    "service_email": "css88@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-03 15:03",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "田中鎮",
+          "永靖鄉",
+          "社頭鄉",
+          "北斗鎮",
+          "二林鎮",
+          "田尾鄉",
+          "埤頭鄉",
+          "溪州鄉",
+          "埔心鄉",
+          "溪湖鎮",
+          "員林市"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "員林營運所",
+    "phone": "(04)8320083、8321341、台水客服專線1910",
+    "address": "51048員林市靜修路74-21號",
+    "region": "第十一區－彰化市",
+    "code": "BD",
+    "area": "轄區: 彰化縣員林鎮、大村鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8118?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.9631719844921,120.563886996688",
+    "jurisdiction": "彰化縣員林鎮、大村鄉",
+    "area_description": "員林鎮 林厝、出水、振興、南東、大峰、鎮興崙雅、萬年、東和、溝皂、中央、忠孝、黎明、惠來、光明 、中山、和平、南平、南興、湖水、仁美、三橋、三信、三多、三愛、民生、源潭、大埔、新生、三義、三 和、仁愛、中正、浮圳、中東、東北、大明、大饒、西東等三十九里。 大村鄉 美港、擺塘等二村。",
+    "contact_person": "陳明峯",
+    "fax": "(04)8373917",
+    "service_email": "chen-feng@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-03 14:25",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "員林市",
+          "大村鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "二水營運所",
+    "phone": "(04)8793277、8793211、台水客服專線1910",
+    "address": "53042彰化縣二水鄉員集路三段391號",
+    "region": "第十一區－彰化市",
+    "code": "BE",
+    "area": "轄區: 彰化縣田中鎮、二水鄉、溪州鄉、社頭鄉、田尾鄉、員林鎮、永靖鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8119?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.8091982778162,120.620525563388",
+    "jurisdiction": "彰化縣田中鎮、二水鄉、溪州鄉、社頭鄉、田尾鄉、員林鎮、永靖鄉",
+    "area_description": "二水鄉 二水村、上豐村、五伯村、光化村、合興村、修仁村、惠民村、聖化村、過圳村、十五村、大園村 、文化村、合和村、倡和村、復興村、源泉村、裕民村。 田中鎮 三民里、三光里、三安里、大社里、大崙里、中路里、中田里、北路里、平和里、西路里、沙崙里 、東源里、東路里、南路里、香山里、梅州里、頂潭里、復興里、新民里、新庄里、碧峰里、龍潭里。 社頭鄉 山湖村、仁和村、仁雅村、平和村、東興村、松竹村、社頭村、美雅村、泰安村、埤斗村、崙雅村 、張厝村、清水村、朝興村、新厝村、廣福村、廣興村、橋頭村、龍井村、舊社村、湳底",
+    "contact_person": "梁主任福智",
+    "fax": "(04)8791563",
+    "service_email": "casper@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-08-07 16:31",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "田中鎮",
+          "二水鄉",
+          "溪州鄉",
+          "社頭鄉",
+          "田尾鄉",
+          "員林市",
+          "永靖鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "鹿港營運所",
+    "phone": "(04)7772127、7772609、台水客服專線1910",
+    "address": "50547彰化縣鹿港鎮鹿和路一段184號",
+    "region": "第十一區－彰化市",
+    "code": "BG",
+    "area": "轄區: 彰化縣鹿港鎮、福興鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8120?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.060711,120.44207600000004",
+    "jurisdiction": "彰化縣鹿港鎮、福興鄉",
+    "area_description": "鹿港鎮 全部、 福興鄉 二港村.三和村.同安村.西勢村.秀厝村.社尾村粿店巷.頂粘村.麥厝村.番婆村.廈粘村.福南村.福 興村.福寶村.橋頭村.鎮平村",
+    "contact_person": "江主任培祥",
+    "fax": "(04)7782750",
+    "service_email": "james@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-08-07 17:18",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "鹿港鎮",
+          "福興鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "二林營運所",
+    "phone": "(04)8960240、8967940、台水客服專線1910",
+    "address": "52642彰化縣二林鎮儒林路二段100號",
+    "region": "第十一區－彰化市",
+    "code": "BH",
+    "area": "轄區: 彰化縣二林鎮、埤頭鄉、芳苑鄉、大城鄉、竹塘鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8121?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.8925807727813,120.370878535044",
+    "jurisdiction": "彰化縣二林鎮、埤頭鄉、芳苑鄉、大城鄉、竹塘鄉",
+    "area_description": "二林鎮 二林鎮全部除萬興里、永興里、振興里、華倫里、梅芳里、西庄里等6里由溪湖營運所- 埤頭鄉 中和村、竹圍村、大湖村、庄內村 芳苑鄉 全區 大城鄉 全區 竹塘鄉 全區",
+    "contact_person": "田主任吉星",
+    "fax": "(04)8969574",
+    "service_email": "tangi@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-03 15:02",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "二林鎮",
+          "埤頭鄉",
+          "芳苑鄉",
+          "大城鄉",
+          "竹塘鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "溪湖營運所",
+    "phone": "(04)8851778、8815901、台水客服專線1910",
+    "address": "51452彰化縣溪湖鎮湖東里大溪路二段61號",
+    "region": "第十一區－彰化市",
+    "code": "BM",
+    "area": "轄區: 彰化縣福興鄉、秀水鄉、溪湖鎮、埔鹽鄉、永靖鄉、二林鎮、田尾鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8122?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 23.9677964717567,120.487738596688",
+    "jurisdiction": "彰化縣福興鄉、秀水鄉、溪湖鎮、埔鹽鄉、永靖鄉、二林鎮、田尾鄉",
+    "area_description": "溪湖鎮 　 湖東里 大溪路、員鹿路、向上路 中山里 大溪路、銀錠路、成功路 東溪里 員鹿路、成功路、銀錠路 西溪里 立業街、建業街、忠工路、忠溪路、員鹿路 西勢里 彰水路、西安路、海豐路 番婆里 彰水路、鎮安路、海豐路、草埔路、顯光路 大竹里 彰水路、西環路、福德路、平和街、糖友街 東寮里 頂新街、彰水路、培英路、大溪路、消防街、育才街 西寮里 員鹿路 大突里 二溪路、大發路、大同路、大道街 太平里 文二街、信善街、員鹿路 光平里 員鹿路、彰水路、平和街、民生街、東環路 光華里 二",
+    "contact_person": "林主任孟慶",
+    "fax": "(04)8822977",
+    "service_email": "linmon@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2025-03-21 11:43",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "福興鄉",
+          "秀水鄉",
+          "溪湖鎮",
+          "埔鹽鄉",
+          "永靖鄉",
+          "二林鎮",
+          "田尾鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "花壇營運所",
+    "phone": "(04)7867044、7867970、台水客服專線1910",
+    "address": "50347彰化縣花壇鄉灣雅村花橋街11號",
+    "region": "第十一區－彰化市",
+    "code": "BN",
+    "area": "轄區: 彰化縣秀水鄉、花壇鄉、大村鄉、埔心鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8123?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.0197569,120.55824099999995",
+    "jurisdiction": "彰化縣秀水鄉、花壇鄉、大村鄉、埔心鄉",
+    "area_description": "秀水鄉 秀水村、陜西村、金興村、下崙村 花壇鄉 全 大村鄉 全 埔心鄉 油車村、埤霞村、埤腳村 彰化市 南興12戶、延和58戶",
+    "contact_person": "林主任信廷",
+    "fax": "(04)7878784",
+    "service_email": "timlin@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【111年4月18日起中午時間12:00時至13：00時停止對外營業】【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00】",
+    "update_time": "2024-06-03 15:02",
+    "location": [
+      {
+        "Counties": "彰化縣",
+        "Towns": [
+          "秀水鄉",
+          "花壇鄉",
+          "大村鄉",
+          "埔心鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "板橋服務所",
+    "phone": "(02)29612196、29612197、台水客服專線1910",
+    "address": "22069新北市板橋區三民路二段253號",
+    "region": "第十二區－新北市西南部",
+    "code": "C1",
+    "area": "轄區: 新北市板橋區、中和區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8125?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.0118681,121.47900709999999",
+    "jurisdiction": "新北市板橋區、中和區",
+    "area_description": "新北市板橋區除大觀路3段、金門街、篤行路1-3段、存德街、溪崑一街、溪崑二街、溪北路、溪城路、滿平街、滿平二街、沙崙街外全部。 新北市中和區包括： 中山路3段全部 中正路1184～1228號 員山路單號側-115號～611巷全部 員山路雙號側-570號、572巷2～14號 連城路單號側-631-1號、629號 連城路雙號側-378號～534巷6號 立德街單號側-189～195號；305號、307號、311～329號 立德街雙號側-200巷19～23號、200巷10號、28號2F、202號、306號、308",
+    "contact_person": "趙胤芝主任",
+    "fax": "(02)29565217",
+    "service_email": "jizz@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2022-05-31 15:10",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "板橋區",
+          "中和區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "新莊服務所",
+    "phone": "(02)29966681-3、台水客服專線1910",
+    "address": "24214新北市新莊區思源路32號",
+    "region": "第十二區－新北市西南部",
+    "code": "C3",
+    "area": "轄區: 新北市新莊區、新北市三重區(二重疏洪道以西)、桃園市龜山區萬壽路1段2-38號、1-113號、宏慶街",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8126?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.040989,121.46032600000001",
+    "jurisdiction": "新北市新莊區、新北市三重區(二重疏洪道以西)、桃園市龜山區萬壽路1段2-38號、1-113號、宏慶街",
+    "area_description": "新北市新莊區新樹路334號以後雙號側-新樹路609號以後單號側、環漢路3段以後含單、雙號、樹新路、新崑路屬樹林所轄區新北市新莊區福慧路(五工路以西)、新知三路、新知五路、新知六路、新知八路、新知十路、五股工業區屬泰山所轄區",
+    "contact_person": "李建興主任",
+    "fax": "(02)29934275",
+    "service_email": "leecs@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2023-02-24 08:41",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "新莊區",
+          "三重區"
+        ]
+      },
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "龜山區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "蘆洲服務所",
+    "phone": "(02)22821817、22823354、台水客服專線1910",
+    "address": "24762新北市蘆洲區中原路68號",
+    "region": "第十二區－新北市西南部",
+    "code": "C4",
+    "area": "轄區: 新北市蘆洲區、五股區、八里區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8127?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.0821670805532,121.458402755512",
+    "jurisdiction": "新北市蘆洲區、五股區、八里區",
+    "area_description": "新北市蘆洲區全區 五股區成泰路4段33號以後及成泰路4段28號以後，四維路全部，中興路1-2段 八里區全區 林口區太平村、瑞平村",
+    "contact_person": "蕭佳宏主任",
+    "fax": "(02)28476159",
+    "service_email": "kerryshiau@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2022-05-31 15:11",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "蘆洲區",
+          "五股區",
+          "八里區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "樹林服務所",
+    "phone": "(02)26812254、26812526、台水客服專線1910",
+    "address": "23876新北市樹林區武林街6-1號",
+    "region": "第十二區－新北市西南部",
+    "code": "C5",
+    "area": "轄區: 新北市板橋區、樹林區、新莊區、桃園市龜山區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8128?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=25.001724,121.41810699999996",
+    "jurisdiction": "新北市板橋區、樹林區、新莊區、桃園市龜山區",
+    "area_description": "桃園市龜山區： 萬壽路1段42號～萬壽路1段642號雙號側- 萬壽路1段125號～萬壽路1段613號單號側- 萬壽路1段頂好巷、龍壽里尖山外、龍興街、龍新街、龍祥街、龍泉街、龍江街、龍華街、自由街。 新北市新莊區： 新樹路334號以後雙號側- 新樹路609號以後單號側- 樹新路全部- 環漢路3段以後含單、雙號- 新北市板橋區： 大觀路3段、金門街、篤行路1-3段、存德街、溪崑一街、溪崑二街、溪北路、溪城路、滿平街、滿平二街、沙崙街 新北市樹林區： 樹林柑園地區屬於鶯歌所C6-管轄",
+    "contact_person": "范積藝主任",
+    "fax": "(02)26816844",
+    "service_email": "chiyi@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2023-02-22 16:53",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "板橋區",
+          "樹林區",
+          "新莊區"
+        ]
+      },
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "龜山區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "鶯歌服務所",
+    "phone": "(02)26792224、26792527、台水客服專線1910",
+    "address": "23942新北市鶯歌區環河路57號",
+    "region": "第十二區－新北市西南部",
+    "code": "C6",
+    "area": "轄區: 新北市鶯歌區、三峽區、桃園市龜山區、八德區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8129?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.944967,121.35125700000003",
+    "jurisdiction": "新北市鶯歌區、三峽區、桃園市龜山區、八德區",
+    "area_description": "新北市鶯歌區全區 三峽鎮全區 樹林市西園里、東園里、北園里、南園里及柑園里 共計5里：柑園地區－佳園路2段至3段、柑園街1段至2段、西圳街1段至2段、寶園街、田尾街 北大重劃區－大義路、大雅路、大成路、大有路、佳園路、桃子腳路、 學府路、學林路、學勤路、學成路、學士路。 桃園縣八德市大仁里、大安里及大明里3里部份地區 後庄街、福德一街、福德二街、福德三街、桃鶯路2至146號、桃鶯路1至139號、桃鶯路鶯鳴一巷、華安街、興隆路2巷至22巷。 龜山區山頂村部份地區宏德路、宏德新村。",
+    "contact_person": "陳志明主任",
+    "fax": "(02)26706659",
+    "service_email": "jim1020@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2024-09-26 11:52",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "鶯歌區",
+          "三峽區"
+        ]
+      },
+      {
+        "Counties": "桃園市",
+        "Towns": [
+          "龜山區",
+          "八德區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "泰山營運所",
+    "phone": "(02)29097480、29097529、台水客服專線1910",
+    "address": "24344新北市泰山區泰林路二段347號",
+    "region": "第十二區－新北市西南部",
+    "code": "C7",
+    "area": "轄區: 新北市泰山區、五股區、新莊區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8130?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 25.0633939018176,121.428883832143",
+    "jurisdiction": "新北市泰山區、五股區、新莊區",
+    "area_description": "新北市泰山區除壽山單號屬新莊所外全部。 新北市五股區除成泰路4段33號以後及成泰路4段28號以後，四維路全部，中興路1-2段屬蘆洲所外全部 新北市新莊區五股工業區全部",
+    "contact_person": "曾祖佑主任",
+    "fax": "(02)22962662",
+    "service_email": "TSENG2002@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2022-05-31 15:12",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "泰山區",
+          "五股區",
+          "新莊區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "土城服務所",
+    "phone": "(02)22655672、22655172、台水客服專線1910",
+    "address": "23657新北市土城區學享街63號",
+    "region": "第十二區－新北市西南部",
+    "code": "CH",
+    "area": "轄區: 新北市土城區",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8131?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=24.9869649,121.45213100000001",
+    "jurisdiction": "新北市土城區",
+    "area_description": "新北市土城區全區",
+    "contact_person": "簡宗富主任",
+    "fax": "(02)22607790",
+    "service_email": "jeff@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:每星期一至星期五(國定例假日休息)上午8時至12時、下午1時至5時】",
+    "update_time": "2022-05-31 15:13",
+    "location": [
+      {
+        "Counties": "新北市",
+        "Towns": [
+          "土城區"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "屏東營運所",
+    "phone": "(08)7220040、台水客服專線1910",
+    "address": "90047屏東市林森路6號",
+    "region": "屏東區管理處－屏東縣",
+    "code": "D1",
+    "area": "轄區: 屏東市、萬丹鄉、長治鄉、麟洛鄉、九如鄉、鹽埔鄉、內埔鄉、竹田鄉、瑪家鄉、三地門鄉(永久屋)、霧台鄉(永久屋)",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8096?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.670082,120.502762",
+    "jurisdiction": "屏東市、萬丹鄉、長治鄉、麟洛鄉、九如鄉、鹽埔鄉、內埔鄉、竹田鄉、瑪家鄉、三地門鄉(永久屋)、霧台鄉(永久屋)",
+    "area_description": "屏東市、萬丹鄉、長治鄉、麟洛鄉、九如鄉、鹽埔鄉、內埔鄉、竹田鄉、瑪家鄉、三地門鄉(永久屋)、霧台鄉(永久屋)",
+    "contact_person": "蔡主任明道",
+    "fax": "(08)7220464",
+    "service_email": "tommax@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00(中午不營業)】",
+    "update_time": "2024-03-07 15:28",
+    "location": [
+      {
+        "Counties": "屏東市",
+        "Towns": [
+          "屏東市"
+        ]
+      },
+      {
+        "Counties": "屏東縣",
+        "Towns": [
+          "萬丹鄉",
+          "長治鄉",
+          "麟洛鄉",
+          "九如鄉",
+          "鹽埔鄉",
+          "內埔鄉",
+          "竹田鄉",
+          "瑪家鄉",
+          "三地門鄉",
+          "霧臺鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "東港營運所",
+    "phone": "(08)8325550、台水客服專線1910",
+    "address": "92847屏東縣東港鎮共和街107之2號",
+    "region": "屏東區管理處－屏東縣",
+    "code": "D2",
+    "area": "轄區: 屏東縣東港鎮、枋寮鄉、新園鄉、佳冬鄉、琉球鄉、枋山鄉(加祿村、內獅村屬東港所）、林邊鄉、獅子鄉南勢村",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8097?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.464094,120.455363",
+    "jurisdiction": "屏東縣東港鎮、枋寮鄉、新園鄉、佳冬鄉、琉球鄉、枋山鄉(加祿村、內獅村屬東港所）、林邊鄉、獅子鄉南勢村",
+    "area_description": "屏東縣東港鎮、枋寮鄉、新園鄉、佳冬鄉、琉球鄉、枋山鄉(加祿村、內獅村屬東港所）、林邊鄉、獅子鄉南勢村",
+    "contact_person": "陳主任佳暐",
+    "fax": "(08)8336344",
+    "service_email": "jackcw@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00(中午不營業)】",
+    "update_time": "2024-03-07 15:30",
+    "location": [
+      {
+        "Counties": "屏東縣",
+        "Towns": [
+          "東港鎮",
+          "枋寮鄉",
+          "新園鄉",
+          "佳冬鄉",
+          "琉球鄉",
+          "枋山鄉",
+          "林邊鄉",
+          "獅子鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "恆春營運所",
+    "phone": "(08)8892265、台水客服專線1910",
+    "address": "94646屏東縣恆春鎮龍泉路102號",
+    "region": "屏東區管理處－屏東縣",
+    "code": "D3",
+    "area": "轄區: 屏東縣恆春鎮、車城鄉、滿州鄉、枋山鄉（加祿村、內獅村屬東港所）、獅子鄉（南勢村屬東港所）、牡丹鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8098?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q= 21.9862662769191,120.731469297687",
+    "jurisdiction": "屏東縣恆春鎮、車城鄉、滿州鄉、枋山鄉（加祿村、內獅村屬東港所）、獅子鄉（南勢村屬東港所）、牡丹鄉",
+    "area_description": "屏東縣恆春鎮、車城鄉、滿州鄉、枋山鄉（加祿村、內獅村屬東港所）、獅子鄉（南勢村屬東港所）、牡丹鄉",
+    "contact_person": "陳代主任志忠",
+    "fax": "(08)8894260",
+    "service_email": "snopy@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00(中午不營業)】",
+    "update_time": "2024-03-07 15:31",
+    "location": [
+      {
+        "Counties": "屏東縣",
+        "Towns": [
+          "恆春鎮",
+          "車城鄉",
+          "滿州鄉",
+          "枋山鄉",
+          "獅子鄉",
+          "牡丹鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "高樹營運所",
+    "phone": "(08)7962041、台水客服專線1910",
+    "address": "90641屏東縣高樹鄉華光路89號",
+    "region": "屏東區管理處－屏東縣",
+    "code": "D4",
+    "area": "轄區: 屏東縣高樹鄉、三地門鄉、里港鄉、霧台鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/8091?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.825483,120.596902",
+    "jurisdiction": "屏東縣高樹鄉、三地門鄉、里港鄉、霧台鄉",
+    "area_description": "屏東縣高樹鄉、三地門鄉、里港鄉、霧台鄉",
+    "contact_person": "盧主任俊龍",
+    "fax": "(08)7962474",
+    "service_email": "kickoff101@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00(中午不營業)】",
+    "update_time": "2024-03-07 15:31",
+    "location": [
+      {
+        "Counties": "屏東縣",
+        "Towns": [
+          "高樹鄉",
+          "三地門鄉",
+          "里港鄉",
+          "霧臺鄉"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "潮州營運所",
+    "phone": "(08)7891691、台水客服專線1910",
+    "address": "92042屏東縣潮州鎮萬年路176號",
+    "region": "屏東區管理處－屏東縣",
+    "code": "D5",
+    "area": "轄區: 屏東縣潮州鎮、萬巒鄉、新埤鄉、崁頂鄉、南州鄉、泰武鄉、來義鄉、春日鄉",
+    "href": "https://www.water.gov.tw/ch/Location/Detail/14445?nodeId=4890",
+    "mapURL": "https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=22.5443219,120.5324403",
+    "jurisdiction": "屏東縣潮州鎮、萬巒鄉、新埤鄉、崁頂鄉、南州鄉、泰武鄉、來義鄉、春日鄉",
+    "area_description": "屏東縣潮州鎮、萬巒鄉、新埤鄉、崁頂鄉、南州鄉、泰武鄉、來義鄉、春日鄉",
+    "contact_person": "陳主任家寶",
+    "fax": "(08)7891621",
+    "service_email": "3845014@mail.water.gov.tw",
+    "traffic_info": "",
+    "note": "【營業時間:星期一至星期五(國定例假日休息)上午8:00至12:00、下午1:00至5:00(中午不營業)】",
+    "update_time": "2024-03-07 15:30",
+    "location": [
+      {
+        "Counties": "屏東縣",
+        "Towns": [
+          "潮州鎮",
+          "萬巒鄉",
+          "新埤鄉",
+          "崁頂鄉",
+          "南州鄉",
+          "泰武鄉",
+          "來義鄉",
+          "春日鄉"
+        ]
+      }
+    ]
+  }
+]

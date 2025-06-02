@@ -30,7 +30,7 @@ def load_water_outage_data():
 def load_water_location_data():
     global water_location_data
     #try:
-    with open(os.path.join(FolderPath, "water_location_data_v2.json"), "r", encoding="utf-8") as f:
+    with open(os.path.join(FolderPath, "water_location_data_v2_location.json"), "r", encoding="utf-8") as f:
         water_location_data = json.load(f)
     #except FileNotFoundError:
     #    print("水源地資料檔案不存在，將進行首次下載")
@@ -220,9 +220,15 @@ async def water_location_query(affected_counties: str, affected_towns: str):
             #replace("json", "")
             results = []
             for item in data_list:
-                if 'area' in item and towns in item['area']:
-                    if 'address' in item and counties in item['address'].replace("台", "臺"):
-                        results.append(item)
+                for location in item['location']:
+                    if counties in location['Counties']:
+                        for town in location['Towns']:
+                            if towns in town:
+                                results.append(item)
+                                break
+                #if 'area' in item and towns in item['area']:
+                #    if 'address' in item and counties in item['address'].replace("台", "臺"):
+                #        results.append(item)
             return results
 
         # 假設您有多筆資料的清單
