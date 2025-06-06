@@ -909,6 +909,32 @@ class WaterGPTClient:
         #self.OUTAGE_COUNTY = ""  # 停水查詢縣市
         #self.OUTAGE_TOWNS = ""  # 停水查詢鄉鎮市區
 
+    async def rag(self, text, quick_replies=[]):
+        payload = {
+            "request": text,
+            "top_k": 10
+        }
+        response = requests.post(self.embedding_url, headers=self.headers, json=payload)
+        response.raise_for_status()
+        data = response.json()
+        docs = data["response"]
+
+        #if not docs:
+        #    return "❌ 沒有找到相關文件。", history
+
+        # 更新shared字典，保持與原代碼相容
+        self.shared["last_docs"] = docs
+
+        docs_text = "\n\n".join(
+            f"{i+1} 標題：{d['title']}"#\n內容：{d['content']}"
+            for i, d in enumerate(docs)
+        )
+
+        # 將每一個文件標題加入快捷訊息
+        for d in docs:
+            quick_replies.append(d['title'])
+        return docs, docs_text, quick_replies
+
     # 移除WebSocket連接方法，改為直接使用requests
     async def ask(self, text, history, quick_replies=[]):
         text = text.strip()
@@ -949,72 +975,10 @@ class WaterGPTClient:
         # 情緒判斷
         emotion = emotion_classifier.predict(text=text).strip()
         print("情緒判斷結果:", emotion)
+
         if emotion == "anger":
             return "非常抱歉讓您感到不滿意，我會盡快為您服務。", history # 返回情緒回應, 不新增歷史對話
 
-        if self.STATUS == "RAG":
-            # 直接使用requests發送POST請求
-            payload = {
-                "request": text,
-                "top_k": 10
-            }
-            response = requests.post(self.embedding_url, headers=self.headers, json=payload)
-            response.raise_for_status()
-            data = response.json()
-            docs = data["response"]
-
-            #if not docs:
-            #    return "❌ 沒有找到相關文件。", history
-
-            # 更新shared字典，保持與原代碼相容
-            self.shared["last_docs"] = docs
-
-            docs_text = "\n\n".join(
-                f"{i+1} 標題：{d['title']}"#\n內容：{d['content']}"
-                for i, d in enumerate(docs)
-            )
-
-            # 將每一個文件標題加入快捷訊息
-            for d in docs:
-                quick_replies.append(d['title'])
-
-            #print(docs)
-            # 判斷是否能回答
-            answerable = can_answer_chain.predict(
-                question=text,
-                docs=docs_text
-            ).strip()
-            #print(docs_text)
-
-            logging.info(docs_text)
-            logging.info("能否回答:" + answerable)
-            print("能否回答:", answerable)
-            if answerable == "是":
-                result = llm_retrieve_chain.predict(
-                    question=text,
-                    docs=docs_text
-                ).strip()
-                print("檢索結果:", result)
-                #try:
-                result = docs[int(result)-1]['content'] 
-                #except:
-                #    return "❌ 無法獲取正確的文件編號，請稍後再試。", history
-                logging.info(result)
-                user_history.append({"role": "assistant", "content": "(RAG內容)"})
-
-                return result, user_history
-            else:
-                # 判斷是否為水務相關問題
-                wrong_question = wrong_question_classifier.predict(text=text).strip()
-                print("是否為水務相關問題:", wrong_question)
-
-                logging.info("是否為水務相關問題:" + wrong_question)
-                       
-                if wrong_question == "是":
-                    return "✔ 我可以幫你接洽專人", history # 不新增歷史對話
-                else:
-                    return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!", history # 不新增歷史對話
-                
         if self.STATUS == "OUTAGE":
             location_outage_str = location_outage_classifier.predict(text=text).strip()
             location_outage_str = location_outage_str.replace("json", "").replace("```", "").replace("\n", "").replace(" ", "")
@@ -1129,8 +1093,68 @@ class WaterGPTClient:
                 print(f"Problematic string that caused error: ---{e.doc}---")
                 return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
 
-        return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
+        #if self.STATUS == "RAG":
+        # 直接使用requests發送POST請求
+        
+        docs, docs_text, quick_replies = await self.rag(text, quick_replies)
+        #payload = {
+        #    "request": text,
+        #    "top_k": 10
+        #}
+        #response = requests.post(self.embedding_url, headers=self.headers, json=payload)
+        #response.raise_for_status()
+        #data = response.json()
+        #docs = data["response"]
 
+        ##if not docs:
+        ##    return "❌ 沒有找到相關文件。", history
+
+        ## 更新shared字典，保持與原代碼相容
+        #self.shared["last_docs"] = docs
+
+        #docs_text = "\n\n".join(
+        #    f"{i+1} 標題：{d['title']}"#\n內容：{d['content']}"
+        #    for i, d in enumerate(docs)
+        #)
+
+        ## 將每一個文件標題加入快捷訊息
+        #for d in docs:
+        #    quick_replies.append(d['title'])
+        #print(docs)
+        # 判斷是否能回答
+        answerable = can_answer_chain.predict(
+            question=text,
+            docs=docs_text
+        ).strip()
+        #print(docs_text)
+        logging.info(docs_text)
+        logging.info("能否回答:" + answerable)
+        print("能否回答:", answerable)
+        if answerable == "是":
+            result = llm_retrieve_chain.predict(
+                question=text,
+                docs=docs_text
+            ).strip()
+            print("檢索結果:", result)
+            #try:
+            result = docs[int(result)-1]['content'] 
+            #except:
+            #    return "❌ 無法獲取正確的文件編號，請稍後再試。", history
+            logging.info(result)
+            user_history.append({"role": "assistant", "content": "(RAG內容)"})
+            return result, user_history
+        else:
+            # 判斷是否為水務相關問題
+            wrong_question = wrong_question_classifier.predict(text=text).strip()
+            print("是否為水務相關問題:", wrong_question)
+            logging.info("是否為水務相關問題:" + wrong_question)
+                   
+            if wrong_question == "是":
+                return "✔ 我可以幫你接洽專人", history # 不新增歷史對話
+            else:
+                return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!", history # 不新增歷史對話
+
+        #return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
 
 # 移除原來的handle_ws函數，改為直接請求的函數
 async def get_embedding_data(text, top_k=5):
