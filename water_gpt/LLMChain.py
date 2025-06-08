@@ -835,6 +835,7 @@ template_note = """## ⚠️ 重要注意事項
 # 定義無法查詢過去日期
 template_no_past_date = """⚠️**無法查詢過去日期**我們僅提供**未來已公告**的停水資訊查詢。**請重新輸入未來日期進行查詢**。"""
 
+
 def format_water_service_info(all_data):
     """格式化台水服務所資訊為Markdown模板"""
     #print(len(all_data))
@@ -892,6 +893,7 @@ def format_water_service_info(all_data):
 
 """
     return template
+
 
 class WaterGPTClient:
     def __init__(self):
@@ -1155,6 +1157,7 @@ class WaterGPTClient:
                 return "✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!", history # 不新增歷史對話
 
         #return "請詢問水務相關問題喔~", history#"✘ 這看起來不是一個問題，請輸入水務相關提問。", history # 不新增歷史對話
+
 
 # 移除原來的handle_ws函數，改為直接請求的函數
 async def get_embedding_data(text, top_k=5):
