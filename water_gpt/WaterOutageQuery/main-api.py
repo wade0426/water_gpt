@@ -15,6 +15,7 @@ FolderPath = "./data"
 water_outage_data = []
 water_location_data = []
 
+
 # 讀取停水資料的函數
 def load_water_outage_data():
     global water_outage_data
@@ -27,6 +28,7 @@ def load_water_outage_data():
         with open(os.path.join(FolderPath, "water_outage_notices.json"), "r", encoding="utf-8") as f:
             water_outage_data = json.load(f)
 
+
 def load_water_location_data():
     global water_location_data
     #try:
@@ -37,6 +39,7 @@ def load_water_location_data():
     #    get_water_outage_notices()
     #    with open(os.path.join(FolderPath, "water_location.json"), "r", encoding="utf-8") as f:
     #        water_location_data = json.load(f)
+
 
 # 檢查並更新停水資料的函數
 def update_water_outage_data():
@@ -88,6 +91,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 def build_county_district_dict():
     # 讀取 GetCounty.json 取得所有縣市的 key
     with open(os.path.join("./", "County_data/GetCounty.json"), "r", encoding="utf-8") as f:
@@ -138,6 +142,7 @@ all_counties_dict, all_towns_dict = build_county_district_dict()
 
 print(f"all_counties_dict: {all_counties_dict}")
 print(f"all_towns_dict: {all_towns_dict}")
+
 
 @app.get("/")
 async def root():
