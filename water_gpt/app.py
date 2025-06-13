@@ -17,6 +17,12 @@ messages = []
 # 儲存快捷訊息的列表
 quick_replies = []
 
+# 定義要被排除的快捷訊息
+exclude_quick_messages = ["如何申辦自動讀表"]
+
+# 定義熱門快捷訊息
+hot_quick_messages = ["請你介紹一下你的服務範圍", "停水查詢", "如何繳水費?", "我該去哪繳水費?"]
+
 
 @app.route("/")
 def home():
@@ -71,14 +77,18 @@ def clear():
 async def quick_messages():
     """ 取得快捷訊息 """
     if len(messages) < 2:
-        return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
+        return jsonify(hot_quick_messages)
     else:
         # quick_replies = await chatbot.generate_quick_messages(messages)
         if quick_replies:
             # 根據 被排除的快捷訊息 排除熱門快捷訊息
+            quick_replies = [reply for reply in quick_replies if reply not in exclude_quick_messages]
+            # 如果熱門快捷訊息有被排除，則返回熱門快捷訊息
+            if not quick_replies:
+                return jsonify(hot_quick_messages)
             return jsonify(quick_replies)
         else:
-            return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
+            return jsonify(hot_quick_messages)
 
 
 if __name__ == "__main__":
