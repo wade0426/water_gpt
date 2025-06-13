@@ -14,8 +14,11 @@ chatbot = ChatBot()
 # 儲存訊息的列表
 messages = []
 
-# 儲存快捷訊息的列表
+# 儲存快捷訊息的列表 (是全域變數)
 quick_replies = []
+
+# 回傳快捷訊息的列表
+return_quick_messages = []
 
 # 定義要被排除的快捷訊息
 exclude_quick_messages = ["如何申辦自動讀表"]
@@ -79,14 +82,15 @@ async def quick_messages():
     if len(messages) < 2:
         return jsonify(hot_quick_messages)
     else:
-        # quick_replies = await chatbot.generate_quick_messages(messages)
-        if quick_replies:
+        # quick_replies 不能賦值 以免變成區域變數
+        return_quick_messages = quick_replies
+        if return_quick_messages:
             # 根據 被排除的快捷訊息 排除熱門快捷訊息
-            quick_replies = [reply for reply in quick_replies if reply not in exclude_quick_messages]
+            return_quick_messages = [reply for reply in quick_replies if reply not in exclude_quick_messages]
             # 如果熱門快捷訊息有被排除，則返回熱門快捷訊息
-            if not quick_replies:
+            if not return_quick_messages:
                 return jsonify(hot_quick_messages)
-            return jsonify(quick_replies)
+            return jsonify(return_quick_messages)
         else:
             return jsonify(hot_quick_messages)
 

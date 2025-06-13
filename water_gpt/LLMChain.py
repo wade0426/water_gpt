@@ -494,6 +494,7 @@ class TimeExtractor(ClassifierLLM):
         data = resp.json()
         return data["choices"][0]["message"]["content"]
 
+
 class greetingLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
         system_prompt = """# 台灣自來水公司智慧助理 - 問候回應模組系統提示
@@ -1419,7 +1420,6 @@ async def main():
             print("✔ 我可以幫你接洽專人")
         else:
             print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
-
 
 
 if __name__ == "__main__":
