@@ -75,6 +75,7 @@ async def quick_messages():
     else:
         # quick_replies = await chatbot.generate_quick_messages(messages)
         if quick_replies:
+            # 根據 被排除的快捷訊息 排除熱門快捷訊息
             return jsonify(quick_replies)
         else:
             return jsonify(["停水查詢", "如何繳水費?", "我該去哪繳水費?"])
