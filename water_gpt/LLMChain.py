@@ -130,113 +130,112 @@ class JailbreakLLM(ClassifierLLM):  # 可繼承同樣底層
 
 class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
     def _call(self, prompt: str, stop=None) -> str:
-        system_prompt = """你是一個用戶意圖分析專家，需要分析完整的對話脈絡，理解用戶在當前時刻真正想要的操作或服務。
+        system_prompt = """# 用戶意圖分析系統提示（簡化版）
 
-分析原則：
-1. **整體理解**：綜合分析整個對話流程，不只看最後一句話
-2. **意圖演變**：追蹤用戶意圖的變化和澄清過程
-3. **上下文連貫**：考慮前後訊息的邏輯關聯性
-4. **最終目標**：識別用戶當前最迫切想要完成的任務
+你是一個用戶意圖分析專家，專門識別用戶是否需要「停水查詢」或「繳費地點查詢」服務。
 
-操作類型定義：
-- **READY**：無特定操作需求
+## 分析目標
+分析用戶對話內容，判斷是否符合以下兩種特定操作需求：
+
+### 操作類型定義
+
+**OUTAGE**：查詢即時停水資訊
+- 想了解特定地區當前的停水狀況
+- 查詢計劃性停水公告  
+- 確認某時間某地點是否會停水
+- 關鍵詞：「停水」+「地點/時間」+「查詢/確認」
+
+✓ 範例：
+- "台中現在有停水嗎？"
+- "這裡會停水嗎？" 
+- "明天我家這邊會不會停水？"
+- "查詢停水資訊"
+
+**PAYMENT**：查詢繳水費地點資訊
+- 詢問特定地區的繳水費據點位置
+- 想知道就近的繳水費地點
+- 基於地理位置的繳水費查詢
+- 關鍵詞：「繳費/繳水費」+「地點/據點」+「哪裡/在哪」
+
+✓ 範例：
+- "我住台中北區，我要去哪裡繳費？"
+- "附近有哪些繳水費據點？"
+- "台中市有哪些地方可以繳水費？"
+- "最近的繳費地點在哪？"
+
+**NONE**：不符合上述兩種操作需求
+- 其他所有情況，包括：
   - 一般寒暄、問候
   - 表達感謝、結束對話
-  - 純粹的否定回應（沒有新的明確需求）
-
-- **OUTAGE**：查詢即時停水資訊
-  - 想了解特定地區當前的停水狀況
-  - 查詢計劃性停水公告
-  - 確認某時間某地點是否會停水
-  ✓ "台中現在有停水嗎？"
-  ✓ "這裡會停水嗎？" 
-  ✓ "查詢停水資訊"
-
-- **PAYMENT**：查詢繳水費地點資訊
-  - 詢問特定地區的繳水費據點位置
-  - 想知道就近的繳水費地點
-  - 基於地理位置的繳水費查詢
-  ✓ "我住台中北區，我要去哪裡繳費？"
-  ✓ "附近有哪些繳水費據點？"
-  ✓ "台中市有哪些地方可以繳水費？"
-
-- **RAG**：尋求水務服務或資訊
   - 故障報修、維修需求
-  - 服務諮詢（繳費方式、申請等）
-  - 問題解決方案諮詢
-  - 非即時性的水務相關問題
-  ✓ "家裡沒有水了，能派人來修嗎？"
-  ✓ "水壓不足怎麼處理？"
-  ✓ "如何繳水費？"（方式諮詢，非地點查詢）
-  ✓ "停水了該怎麼辦？"
+  - 繳費方式諮詢（非地點查詢）
+  - 其他水務服務諮詢
 
-關鍵區別判斷標準：
+## 判斷標準
 
-**OUTAGE vs PAYMENT vs RAG**：
-- **OUTAGE**：關鍵詞包含「停水」+「地點」+「查詢」
-  - 焦點：停水事件的時間、狀態、影響範圍
+### 關鍵區別
+- **OUTAGE**：焦點是「停水事件的狀態、時間、影響範圍」
+- **PAYMENT**：焦點是「繳費的實體地點、據點分布」，且必須是繳水費
+- **NONE**：不是查詢停水狀態，也不是查詢繳費地點
 
-- **PAYMENT**：關鍵詞包含「繳費」+「地點」+「查詢」
-  - 焦點：繳費的實體地點、據點分布
-  - 必定是繳水費才可觸發，不包含其他如電費、瓦斯費、電話費等服務。
+### 特殊情況處理
+- "哪裡可以繳水費？" → PAYMENT（地點查詢）
+- "如何繳水費？" → NONE（方式諮詢）
+- "繳費時間？" → NONE（規則諮詢）
+- "家裡沒水了" → NONE（非停水公告查詢）
+- "水壓不足" → NONE（非停水查詢）
 
-- **RAG**：其他水務相關服務、故障、諮詢
-  - 焦點：服務流程、問題解決、操作方法
+## 分析流程
+1. 識別關鍵詞：是否包含「停水」或「繳費地點」相關字詞
+2. 判斷查詢類型：是狀態查詢還是地點查詢
+3. 確認範圍：是否符合定義的操作類型
+4. 輸出結果
 
-特殊情況處理：
-- 繳費相關區分：
-  - "哪裡可以繳費？" → PAYMENT（地點查詢）
-  - "如何繳費？" → RAG（方式諮詢）
-  - "繳費時間？" → RAG（規則諮詢）
-
-提示：
-- 通常使用者反覆問同個問題，就代表當前助理並沒有回應到使用者的問題。
-
-分析步驟：
-1. **回顧對話歷程**：用戶從開始到現在經歷了什麼
-2. **識別轉折點**：是否有澄清、否定、或意圖轉換
-3. **關鍵詞匹配**：判斷核心需求是「停水狀態」、「繳費地點」還是「服務諮詢」
-4. **判斷真實需求**：用戶最終想要什麼操作
-
-輸出格式：
+## 輸出格式
+```json
 {
-  "status": "操作類型",
-  "reasoning": "判斷理由"
+  "status": "OUTAGE/PAYMENT/NONE",
+  "reasoning": "判斷理由（簡要說明為什麼分類為此類型）"
 }
+```
 
-範例分析：
+## 範例分析
 
-對話1：
-用戶: 我住台中北區，我要去哪裡繳費？
-分析結果：
+**範例1：**
+用戶: "我住台中北區，我要去哪裡繳費？"
+```json
 {
   "status": "PAYMENT",
-  "reasoning": "詢問特定地區的繳費據點位置"
+  "reasoning": "詢問特定地區的繳水費據點位置"
 }
+```
 
-對話2：
-用戶: 台中現在有停水嗎？
-分析結果：
+**範例2：**
+用戶: "台中現在有停水嗎？"
+```json
 {
-  "status": "OUTAGE",
+  "status": "OUTAGE", 
   "reasoning": "查詢當前停水狀態資訊"
 }
+```
 
-對話3：
-用戶: 如何繳水費？
-分析結果：
+**範例3：**
+用戶: "如何繳水費？"
+```json
 {
-  "status": "RAG",
+  "status": "NONE",
   "reasoning": "諮詢繳費方式而非地點查詢"
 }
+```
 
-對話4：
-用戶: 家裡沒有水了，能派人來修嗎？
-分析結果：
+**範例4：**
+用戶: "家裡沒有水了，能派人來修嗎？"
+```json
 {
-  "status": "RAG",
-  "reasoning": "報修服務需求"
-}"""
+  "status": "NONE",
+  "reasoning": "報修服務需求，非停水公告查詢"
+}
+```"""
 
         payload = {
             "model":    MODEL,
@@ -252,13 +251,27 @@ class StatusLLM(ClassifierLLM):  # 可繼承同樣底層
         return data["choices"][0]["message"]["content"]
 
 
-class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
-    def _call(self, prompt: str, stop=None) -> str:
+class RetrieveLLM(ClassifierLLM):
+    def _call(self, prompt: str, stop=None, **kwargs) -> str:
+        # 從 kwargs 或其他方式獲取文件片段和問題
+        docs = kwargs.get('docs', '')
+        question = kwargs.get('question', '')
+        
+        system_prompt = f"""你是一個文件片段選擇器，只回覆文件片段所屬的編號。
+下面是從本地知識庫檢索到的文件片段：
+```
+{docs}
+```
+
+請根據上述片段，選擇一個最能解答使用者疑問的文件片段：
+- 僅回覆解答文件片段所屬括號內的int整數編號
+- 絕對不要將標題、內容或符號(括號)一同輸出，以及其它多餘文字"""
+
         payload = {
-            "model":    MODEL,
+            "model": MODEL,
             "messages": [
-                {"role": "system", "content": "你是一個文件片段選擇器，只回覆文件片段所屬的編號"},
-                {"role": "user",   "content": prompt}
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": f"使用者問題：「{question}」"}
             ],
             "stream": False
         }
@@ -266,6 +279,22 @@ class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
         resp.raise_for_status()
         data = resp.json()
         return data["choices"][0]["message"]["content"]
+
+
+#class RetrieveLLM(ClassifierLLM):  # 可繼承同樣底層
+#    def _call(self, prompt: str, stop=None) -> str:
+#        payload = {
+#            "model":    MODEL,
+#            "messages": [
+#                {"role": "system", "content": "你是一個文件片段選擇器，只回覆文件片段所屬的編號"},
+#                {"role": "user",   "content": prompt}
+#            ],
+#            "stream": False
+#        }
+#        resp = requests.post(API_URL, headers=HEADERS, json=payload)
+#        resp.raise_for_status()
+#        data = resp.json()
+#        return data["choices"][0]["message"]["content"]
 
 
 class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
@@ -541,21 +570,6 @@ class greetingLLM(ClassifierLLM):  # 可繼承同樣底層
 - **簡潔明瞭**：避免冗長說明，重點突出
 - **主動積極**：展現願意協助的服務精神
 
-## 邊界設定
-- 僅回應與用水服務相關的問候互動
-- 非業務相關話題應禮貌轉向專業服務
-- 遇到複雜問題時，引導至人工客服或相關部門
-
-## 特殊情境處理
-**用戶情緒不佳時**：
-「我了解您的困擾，台灣自來水公司非常重視每位用戶的需求，讓我來協助您解決問題。」
-
-**系統繁忙或故障時**：
-「不好意思讓您久等了，台水持續優化服務品質，請問有什麼可以為您服務的嗎？」
-
-**重複問候時**：
-「很高興再次為您服務！請問這次需要什麼協助呢？」
-
 接下來請根據以上準則，為用戶提供溫暖、親切且專業的問候回應。"""
 
         payload = {
@@ -566,7 +580,7 @@ class greetingLLM(ClassifierLLM):  # 可繼承同樣底層
             ],
             "stream": False
         }
-        print(payload)
+        #print(payload)
         resp = requests.post(API_URL, headers=HEADERS, json=payload)
         resp.raise_for_status()
         data = resp.json()
@@ -587,6 +601,7 @@ question_classifier = LLMChain(
     )
 )
 
+
 can_answer_chain = LLMChain(
     llm=ClassifierLLM(),
     prompt=PromptTemplate(
@@ -597,12 +612,15 @@ can_answer_chain = LLMChain(
 
 請根據上述片段，判斷能否回答以下用戶提問：
 「{question}」
+- 優先判斷title與提問是否相關
+- 若與title無關，則判斷content是否能回答問題
 - 如果能，僅回「是」
 - 如果不能，僅回「否」
 且回覆中僅包含一個字，不要其它多餘文字。"""
     ),
     output_key="verdict"
 )
+
 
 wrong_question_classifier = LLMChain(
     llm=ClassifierLLM(),
@@ -619,6 +637,7 @@ wrong_question_classifier = LLMChain(
     )
 )
 
+
 greeting_classifier = LLMChain(
     llm=ClassifierLLM(),
     prompt=PromptTemplate(
@@ -634,6 +653,7 @@ greeting_classifier = LLMChain(
     )
 )
 
+
 greeting_chain = LLMChain(
     llm=greetingLLM(),
     prompt=PromptTemplate(
@@ -642,44 +662,31 @@ greeting_chain = LLMChain(
     )
 )
 
-#greetingLLM
-#==========================
 
 #llm_retrieve_chain = LLMChain(
 #    llm=RetrieveLLM(),
 #    prompt=PromptTemplate(
 #        input_variables=["question", "docs"],
 #        template="""下面是從本地知識庫檢索到的文件片段：
+#```
 #{docs}
+#```
 #
-#請根據上述片段，請選擇一個最能解答使用者的疑問之文件片段：
-#「{question}」
+#請根據上述片段，請參考標題與內容後，選擇一個最能解答使用者的疑問之文件片段：
+#使用者:「{question}」
 #
-#且回覆中僅包含其中一個文件片段的內容，不要將編號與標題一同輸出，以及其它多餘文字。"""
+#- 僅回覆解答文件片段所屬括號內的int整數編號
+#- 絕對不要將標題、內容或符號(括號)一同輸出，以及其它多餘文字
+#
+#e.g:
+#input: 
+#(1) 標題：內容1
+#(2) 標題：內容2
+#
+#output: 1"""
 #    ),
 #    output_key="verdict"
 #)
-llm_retrieve_chain = LLMChain(
-    llm=RetrieveLLM(),
-    prompt=PromptTemplate(
-        input_variables=["question", "docs"],
-        template="""下面是從本地知識庫檢索到的文件片段：
-{docs}
-
-請根據上述片段，請選擇一個最能解答使用者的疑問之文件片段：
-「{question}」
-
-僅回覆解答文件片段所屬括號內的整數編號，不要將標題、內容或符號(括號)一同輸出，以及其它多餘文字。
-
-e.g:
-input: 
-(1) 標題：(內容1)
-(2) 標題：(內容2)
-
-output: 1"""
-    ),
-    output_key="verdict"
-)
 
 
 emotion_classifier = LLMChain(
@@ -1123,12 +1130,12 @@ class WaterGPTClient:
         self.shared["last_docs"] = docs
 
         docs_title = "\n\n".join(
-            f"({i+1}) 標題：{d['title']}"#\n內容：{d['content']}"
+            f"({i+1}) title:{d['title']}"#\n內容：{d['content']}"
             for i, d in enumerate(docs)
         )
 
         docs_content = "\n\n".join(
-            f"({i+1}) 標題：{d['title']}\n內容：{d['content']}"
+            f"({i+1}) title:{d['title']}\ncontent：{d['content']}"
             for i, d in enumerate(docs)
         )
 
@@ -1304,9 +1311,18 @@ class WaterGPTClient:
                 print(f"Problematic string that caused error: ---{e.doc}---")
                 return "您輸入的資訊有誤，請稍後再試。", history # 不新增歷史對話
 
+        greeting = greeting_classifier.predict(text=text).strip()
+        print("問候語判斷結果:", greeting)
+        logging.info("問候語判斷結果:" + greeting)
+
+        if greeting == "是":
+            greeting_response = greeting_chain.predict(text=text).strip()
+            user_history.append({"role": "assistant", "content": "(問候語回應)"})
+            return greeting_response, user_history
+
         docs, docs_title, docs_content, quick_replies = await self.rag(text, quick_replies)
         # 判斷是否能回答
-        #print(f"rag結果: {docs_content}")
+        print(f"rag結果: {docs_content}")
         answerable = can_answer_chain.predict(
             question=text,
             docs=docs_content
@@ -1316,10 +1332,14 @@ class WaterGPTClient:
         logging.info("能否回答:" + answerable)
         print("能否回答:", answerable)
         if answerable == "是":
-            result = llm_retrieve_chain.predict(
-                question=text,
-                docs=docs_title
-            ).strip()
+            # 使用時直接傳參數
+            llm_retrieve = RetrieveLLM()
+            result = llm_retrieve._call("", docs=docs_content, question=text)
+
+            #result = llm_retrieve_chain.predict(
+            #    question=text,
+            #    docs=docs_title
+            #).strip()
             print("檢索結果:", result)
             #try:
             result = docs[int(result)-1]['content'] 
@@ -1329,15 +1349,6 @@ class WaterGPTClient:
             user_history.append({"role": "assistant", "content": "(RAG內容)"})
             return result, user_history
         else:
-            greeting = greeting_classifier.predict(text=text).strip()
-            print("問候語判斷結果:", greeting)
-            logging.info("問候語判斷結果:" + greeting)
-
-            if greeting == "是":
-                greeting_response = greeting_chain.predict(text=text).strip()
-                user_history.append({"role": "assistant", "content": greeting_response})
-                return greeting_response, user_history
-
             # 判斷是否為水務相關問題
             wrong_question = wrong_question_classifier.predict(text=text).strip()
             print("是否為水務相關問題:", wrong_question)
@@ -1363,63 +1374,63 @@ async def get_embedding_data(text, top_k=5):
     return data["response"]
 
 
-async def main():
-    print("Bot ready，輸入 exit 離開。")
-
-    shared = {"last_docs": []}
-
-    while True:
-        text = await asyncio.to_thread(input, "> ")
-        text = text.strip()
-        if text.lower() in ("exit", "quit"):
-            break
-
-        verdict = question_classifier.predict(text=text).strip()
-        print(f"[分類結果] {verdict}")
-
-        if verdict != "是":
-            print("✘ 這看起來不是一個問題，請隨時輸入水務相關提問。")
-            continue
-
-        # 使用requests直接獲取資料
-        try:
-            docs = await get_embedding_data(text)
-            shared["last_docs"] = docs
-
-            print(f"⟳ 找到 {len(docs)} 篇最相關文件：")
-            for i in docs:
-                print(f"[score{i['confidence']}｜類別{i['category']}｜{CATEGORY_MAP[int(i['category'])]}] {i['title']}")
-        except Exception as e:
-            print(f"❌ 獲取嵌入數據時出錯: {e}")
-            continue
-
-        if not docs:
-            print("❌ 沒有找到相關文件。")
-            continue
-
-        docs_text = "\n\n".join(
-            f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
-            for i, d in enumerate(docs)
-        )
-
-        answerable = can_answer_chain.predict(
-            question=text,
-            docs=docs_text
-        ).strip()
-
-        if answerable == "是":
-            result = llm_retrieve_chain.predict(
-                question=text,
-                docs=docs_text
-            ).strip()
-            print(result)
-            continue
-
-        wrong_question = wrong_question_classifier.predict(text=text).strip()
-        if wrong_question == "是":
-            print("✔ 我可以幫你接洽專人")
-        else:
-            print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
+#async def main():
+#    print("Bot ready，輸入 exit 離開。")
+#
+#    shared = {"last_docs": []}
+#
+#    while True:
+#        text = await asyncio.to_thread(input, "> ")
+#        text = text.strip()
+#        if text.lower() in ("exit", "quit"):
+#            break
+#
+#        verdict = question_classifier.predict(text=text).strip()
+#        print(f"[分類結果] {verdict}")
+#
+#        if verdict != "是":
+#            print("✘ 這看起來不是一個問題，請隨時輸入水務相關提問。")
+#            continue
+#
+#        # 使用requests直接獲取資料
+#        try:
+#            docs = await get_embedding_data(text)
+#            shared["last_docs"] = docs
+#
+#            print(f"⟳ 找到 {len(docs)} 篇最相關文件：")
+#            for i in docs:
+#                print(f"[score{i['confidence']}｜類別{i['category']}｜{CATEGORY_MAP[int(i['category'])]}] {i['title']}")
+#        except Exception as e:
+#            print(f"❌ 獲取嵌入數據時出錯: {e}")
+#            continue
+#
+#        if not docs:
+#            print("❌ 沒有找到相關文件。")
+#            continue
+#
+#        docs_text = "\n\n".join(
+#            f"[{i+1}] 標題：{d['title']}\n內容：{d['content']}"
+#            for i, d in enumerate(docs)
+#        )
+#
+#        answerable = can_answer_chain.predict(
+#            question=text,
+#            docs=docs_text
+#        ).strip()
+#
+#        if answerable == "是":
+#            result = llm_retrieve_chain.predict(
+#                question=text,
+#                docs=docs_text
+#            ).strip()
+#            print(result)
+#            continue
+#
+#        wrong_question = wrong_question_classifier.predict(text=text).strip()
+#        if wrong_question == "是":
+#            print("✔ 我可以幫你接洽專人")
+#        else:
+#            print("✘ 很抱歉，請詢問與台灣自來水公司相關之問題喔!")
 
 
 if __name__ == "__main__":
