@@ -1279,12 +1279,16 @@ class WaterGPTClient:
                 if address_keyword == "null":
                     address_keyword = None
 
+                if street_name == "null":
+                    street_name = None
+
                 # 如果 endDate 小於今天的日期就返回
                 if end_date and end_date < datetime.now().strftime("%Y-%m-%d"):
                     # 代表 end_date不是null
                     user_history.append({"role": "assistant", "content": "(回應停水內容)"})
                     return template_no_past_date, user_history
 
+                # 地區驗證
                 validate_location_status_result = validate_location_status(water_affected_counties, water_affected_towns)
                 print("地區驗證結果:", validate_location_status_result)
                 if validate_location_status_result['status'] == "location_error":
@@ -1295,12 +1299,13 @@ class WaterGPTClient:
                     return "輸入地區有誤，請重新輸入地區。", user_history
                 
                 # 路名驗證
-                verify_address_result_dict = verify_address(water_affected_counties, f"{water_affected_counties}{water_affected_towns}", street_name)
-                print("路名驗證結果:", verify_address_result_dict)
-                verify_address_result = verify_address_result_dict['status']
-                if verify_address_result == "error":
-                    user_history.append({"role": "assistant", "content": "輸入地址有誤，請重新輸入地區。"})
-                    return "輸入地址有誤，請重新輸入地區。", user_history
+                if street_name != None and water_affected_towns != None:
+                    verify_address_result_dict = verify_address(water_affected_counties, f"{water_affected_counties}{water_affected_towns}", street_name)
+                    print("路名驗證結果:", verify_address_result_dict)
+                    verify_address_result = verify_address_result_dict['status']
+                    if verify_address_result == "error":
+                        user_history.append({"role": "assistant", "content": "輸入地址有誤，請重新輸入地區。"})
+                        return "輸入地址有誤，請重新輸入地區。", user_history
 
                 response = requests.get(WATER_OUTAGE_URL, params={"affectedCounties": water_affected_counties, "affectedTowns": water_affected_towns, "query": "name", "startDate": start_date, "endDate": end_date, "addressKeyword": address_keyword})
                 
