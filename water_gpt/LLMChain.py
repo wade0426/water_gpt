@@ -12,7 +12,7 @@ WATER_LOCATION_URL = "http://localhost:8002/water-location-query"
 EMBEDDING_URL = "https://embedding.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
-address_csv_path = "../taiwan_road_list_2024.csv"
+address_csv_path = "./taiwan_road_list_2024.csv"
 
 df = None
 try:
