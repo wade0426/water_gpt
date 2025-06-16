@@ -1,10 +1,10 @@
 import requests
-from langchain import PromptTemplate, LLMChain
-import asyncio
 import json
+import logging
+import pandas as pd
+from langchain import PromptTemplate, LLMChain
 from langchain.llms.base import LLM
 from datetime import datetime
-import logging
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 WATER_OUTAGE_URL = "http://localhost:8002/water-outage-query"
@@ -12,6 +12,16 @@ WATER_LOCATION_URL = "http://localhost:8002/water-location-query"
 EMBEDDING_URL = "https://embedding.huannago.com/embedding"
 HEADERS = {"Content-Type": "application/json", "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36 Edg/136.0.0.0"}
 MODEL   = "gpt-3.5-turbo"
+address_csv_path = "../taiwan_road_list_2024.csv"
+
+df = None
+try:
+    # 讀檔
+    df = pd.read_csv(address_csv_path, usecols=['city', 'site_id', 'road'])
+    # 清理資料 移除所有字串欄位前後可能存在的空白字元
+    df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+except Exception as e:
+    print(f"讀取csv檔案發生錯誤：{e}")
 
 
 # 設定 logging 輸出到檔案
@@ -449,7 +459,7 @@ class LocationOutageLLM(ClassifierLLM):
 輸入："萬巒" → 檢查「萬巒鄉」唯一歸屬 → 屏東縣 → {{"Counties": "屏東縣", "Towns": "萬巒鄉", "addressKeyword": "null"}}
 輸入："404台中市北區三民路三段129號" → 地點：臺中市北區，地址：三民路三段 → {{"Counties": "臺中市", "Towns": "北區", "addressKeyword": "三民路三段"}}
 輸入："請問中正路會停水嗎?" → 無縣市資訊 → {{"Counties": "null", "Towns": "null", "addressKeyword": "null"}}
-輸入："台南市東區府前路二段停水" → 地點：臺南市東區，地址：府前路二段 → {{"Counties": "臺南市", "Towns": "東區", "addressKeyword": "府前路二段"}}
+輸入："台南市中西區府前路二段229號停水" → 地點：臺南市中西區，地址：府前路二段 → {{"Counties": "臺南市", "Towns": "中西區", "addressKeyword": "府前路二段"}}
 輸入："臺中市會不會停水" → 地點：臺中市 → {{"Counties": "臺中市", "Towns": "null", "addressKeyword": "null"}}
 輸入："新北板橋六天後會停水嗎?" → 地點：新北市板橋區 → {{"Counties": "新北市", "Towns": "板橋區", "addressKeyword": "null"}}"""
 
@@ -771,6 +781,7 @@ location_data = {
 }
 
 
+# 驗證縣市與鄉鎮市區是否有效
 def validate_location_status(city: str, district: str = None) -> dict:
     """
     驗證台灣的縣市與鄉鎮市區是否有效，並以字典格式回傳狀態。
@@ -823,6 +834,39 @@ def validate_location_status(city: str, district: str = None) -> dict:
                 "status": "error",
                 "message": f"驗證失敗：「{city}」底下查無「{district}」。"
             }
+
+
+# 驗證地址是否存在
+def verify_address(city, site_id, road):
+    """
+    從 CSV 檔案中讀取資料，並驗證輸入的縣市、鄉鎮市區和路名是否存在。
+
+    Args:
+        city (str): 要驗證的縣市名稱。
+        site_id (str): 要驗證的鄉鎮市區名稱。
+        road (str): 要驗證的路名。
+
+    Returns:
+        dict: 如果資料完全匹配則返回 "驗證成功"，否則返回 "驗證失敗"。
+    """
+    try:
+        # 建立篩選條件，檢查三個欄位是否同時符合輸入值
+        condition = (df['city'] == city) & (df['site_id'] == site_id) & (df['road'] == road)
+
+        # 檢查是否有任何一筆資料符合條件
+        if not df[condition].empty:
+            return {
+                "status": "success",
+                "message": f"驗證成功：「{city}」「{site_id}」「{road}」的組合正確。"
+            }
+        else:
+            return {
+                "status": "error",
+                "message": f"驗證失敗：「{city}」「{site_id}」「{road}」的組合不存在。"
+            }
+            
+    except Exception as e:
+        return f"發生錯誤：{e}"
 
 
 def generate_water_off_notification(no=None, start_date=None, end_date=None, start_time=None, end_time=None, 
@@ -1434,6 +1478,7 @@ async def get_embedding_data(text, top_k=5):
 
 
 if __name__ == "__main__":
+    print(verify_address("臺北市","臺北市士林區","力行街"))
     pass
 
 # WaterGPTClient 測試
