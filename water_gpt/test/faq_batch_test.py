@@ -9,7 +9,7 @@ uid = uuid.uuid4()
 # 初始化 WaterGPTClient
 water_gpt_client = WaterGPTClient()
 
-JSON_FILE_PATH = "../../water_data_content_v3.json"
+JSON_FILE_PATH = "../../water_data_content_v3-class.json"
 
 
 async def main():

@@ -5,6 +5,7 @@ import pandas as pd
 from langchain import PromptTemplate, LLMChain
 from langchain.llms.base import LLM
 from datetime import datetime
+import re
 
 API_URL = "http://4090p8000.huannago.com/v1/chat/completions"
 WATER_OUTAGE_URL = "http://localhost:8002/water-outage-query"
@@ -267,15 +268,16 @@ class RetrieveLLM(ClassifierLLM):
         docs = kwargs.get('docs', '')
         question = kwargs.get('question', '')
         
-        system_prompt = f"""你是一個文件片段選擇器，只回覆文件片段所屬的編號。
+        system_prompt = f"""你是一個文件片段選擇器，只輸出文件片段所屬的編號。
 下面是從本地知識庫檢索到的文件片段：
 ```
 {docs}
 ```
 
 請根據上述片段，選擇一個最能解答使用者疑問的文件片段：
-- 僅回覆解答文件片段所屬括號內的int整數編號
-- 絕對不要將標題、內容或符號(括號)一同輸出，以及其它多餘文字"""
+- 僅輸出解答文件片段所屬括號內的int整數編號
+- 絕對不要將標題、內容或括號一同輸出，以及其它多餘文字
+- 不得輸出不在片段中的編號"""
 
         payload = {
             "model": MODEL,
@@ -1186,12 +1188,12 @@ class WaterGPTClient:
         self.shared["last_docs"] = docs
 
         docs_title = "\n\n".join(
-            f"({i+1}) title:{d['title']}"#\n內容：{d['content']}"
+            f"**{i+1}** title:{d['title']}"#\n內容：{d['content']}"
             for i, d in enumerate(docs)
         )
 
         docs_content = "\n\n".join(
-            f"({i+1}) title:{d['title']}\ncontent：{d['content']}"
+            f"**{i+1}** title:{d['title']}\ncontent：{d['content']}"
             for i, d in enumerate(docs)
         )
 
@@ -1405,14 +1407,17 @@ class WaterGPTClient:
             # 使用時直接傳參數
             llm_retrieve = RetrieveLLM()
             result = llm_retrieve._call("", docs=docs_content, question=text)
-
-            #result = llm_retrieve_chain.predict(
-            #    question=text,
-            #    docs=docs_title
-            #).strip()
             print("檢索結果:", result)
-            #try:
-            result = docs[int(result)-1]['content'] 
+            # 使用正則表達式提取第一個連續的數字（支援多位數）
+            match = re.search(r'\d+', result)
+            if match:
+                idx = int(match.group()) - 1
+                if 0 <= idx < len(docs):
+                    result = docs[idx]['content']
+                else:
+                    result = "❌ 無法獲取正確的文件編號，請稍後再試。"
+            else:
+                result = "❌ 無法獲取正確的文件編號，請稍後再試。"
             #except:
             #    return "❌ 無法獲取正確的文件編號，請稍後再試。", history
             logging.info(result)
