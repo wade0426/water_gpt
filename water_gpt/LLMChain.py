@@ -383,7 +383,7 @@ class EmotionLLM(ClassifierLLM):  # 可繼承同樣底層
 
 class LocationOutageLLM(ClassifierLLM):
     def _call(self, prompt: str, stop=None) -> str:
-        system_prompt = """你是一個地點捕捉器，使用結構化驗證來判斷地點。
+        system_prompt = f"""你是一個地點捕捉器，使用結構化驗證來判斷地點。
 【指令識別】：
 - 當用戶輸入包含 "QUERY:" 前綴時，執行地點捕捉功能
 
