@@ -1,0 +1,22 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY ./water_gpt/embedding-api.py ./requirements.txt /app/
+
+# 升級 pip 並一次性安裝所有依賴
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# 創建必要目錄
+RUN mkdir -p /app/models /app/data /app/db
+
+# 設置環境變數
+ENV MODEL_PATH=/app/models
+ENV DATA_PATH=/app/data/water_data_content_v3-class.json
+ENV DB_DIR=/app/db
+
+EXPOSE 8003
+
+CMD ["python", "embedding-api.py"]
+
