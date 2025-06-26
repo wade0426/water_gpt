@@ -1,7 +1,24 @@
-Flask
+# PyTorch with CUDA support
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch
+torchvision
+torchaudio
+
+# Application dependencies
+fastapi==0.115.12
+Flask==3.1.1
 flask[async]
-requests
-aiohttp
-langchain
-flask-cors
-pandas
+flask_cors==6.0.0
+langchain==0.3.25
+langchain_community==0.3.24
+langchain_core==0.3.63
+langchain_huggingface==0.2.0
+langchain_openai==0.3.18
+opencc_python_reimplemented==0.1.7
+pydantic==2.11.5
+Requests==2.32.3
+scikit_learn==1.6.1
+uvicorn==0.34.2
+websockets==10.4
+einops
+chromadb
