@@ -3,11 +3,11 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 只複製 requirements.txt 先安裝依賴
-COPY requirements.txt /app/
+COPY embedding_requirements.txt /app/
 
 # 升級 pip 並安裝依賴
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r embedding_requirements.txt
 
 # 創建必要目錄
 RUN mkdir -p /app/models /app/data /app/db
